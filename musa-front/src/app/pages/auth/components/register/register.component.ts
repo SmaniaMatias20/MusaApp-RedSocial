@@ -112,6 +112,8 @@ export class RegisterComponent {
     this.errorMessage = '';
     this.successMessage = '';
 
+    // NO OLVIDAR EL ROL DEL POR DEFECTO USUARIO
+
     //   try {
 
     //     const { email, password, confirmPassword, firstName, lastName, age } = this.registerForm.value;
