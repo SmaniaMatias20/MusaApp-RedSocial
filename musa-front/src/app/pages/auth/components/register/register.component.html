@@ -124,6 +124,9 @@
             <div *ngIf="registerForm.get('password')?.hasError('maxlength')">
                 La contraseña no puede exceder los 15 caracteres.
             </div>
+            <div *ngIf="registerForm.get('password')?.hasError('pattern')">
+                La contraseña debe poseer al menos una letra mayúscula y un número.
+            </div>
         </div>
         <button type="button" class="absolute top-7 right-5 text-gray-400 hover:text-white cursor-pointer"
             (click)="togglePasswordVisibility()">

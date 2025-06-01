@@ -42,8 +42,13 @@
         <div *ngIf="loginForm.get('password')?.touched && loginForm.get('password')?.invalid"
             class="mt-1 text-sm text-red-400">
             <div *ngIf="loginForm.get('password')?.errors?.['required']">La contraseña es obligatoria.</div>
-            <div *ngIf="loginForm.get('password')?.errors?.['minlength']">Mínimo 8 caracteres.</div>
-            <div *ngIf="loginForm.get('password')?.errors?.['maxlength']">Máximo 15 caracteres.</div>
+            <div *ngIf="loginForm.get('password')?.errors?.['minlength']"> La contraseña debe tener al menos 8
+                caracteres.</div>
+            <div *ngIf="loginForm.get('password')?.errors?.['maxlength']"> La contraseña no puede exceder los 15
+                caracteres.</div>
+            <div *ngIf="loginForm.get('password')?.hasError('pattern')">
+                La contraseña debe poseer al menos una letra mayúscula y un número.
+            </div>
         </div>
     </div>
 
