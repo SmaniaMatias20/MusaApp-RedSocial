@@ -60,23 +60,52 @@
         </div>
     </div>
 
-    <!-- Edad -->
+    <!-- Nombre de usuario -->
     <div>
-        <label for="age" class="block text-sm font-medium text-gray-300">Edad</label>
-        <input type="number" id="age" formControlName="age" placeholder="Tu edad" required min="18" max="99"
+        <label for="username" class="block text-sm font-medium text-gray-300">Nombre de Usuario</label>
+        <input type="text" id="username" formControlName="username" placeholder="Tu usuario" required
             class="w-full px-4 py-2 border border-gray-600 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-green-400" />
-        <div *ngIf="registerForm.get('age')?.invalid && registerForm.get('age')?.touched" class="text-red-400 text-sm">
-            <div *ngIf="registerForm.get('age')?.hasError('required')">
-                La edad es obligatoria.
-            </div>
-            <div *ngIf="registerForm.get('age')?.hasError('min')">
-                La edad debe ser al menos 18 años.
-            </div>
-            <div *ngIf="registerForm.get('age')?.hasError('max')">
-                La edad no puede exceder los 99 años.
-            </div>
+        <div *ngIf="registerForm.get('username')?.invalid && registerForm.get('username')?.touched"
+            class="text-red-400 text-sm">
+            <div *ngIf="registerForm.get('username')?.hasError('required')">El nombre de usuario es obligatorio.</div>
+            <div *ngIf="registerForm.get('username')?.hasError('minlength')">Debe tener al menos 3 caracteres.</div>
+            <div *ngIf="registerForm.get('username')?.hasError('maxlength')">No puede exceder los 15 caracteres.</div>
         </div>
     </div>
+
+    <!-- Fecha de nacimiento -->
+    <div>
+        <label for="birthDate" class="block text-sm font-medium text-gray-300">Fecha de Nacimiento</label>
+        <input type="date" id="birthDate" formControlName="birthDate" required
+            class="w-full px-4 py-2 border border-gray-600 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-green-400" />
+        <div *ngIf="registerForm.get('birthDate')?.invalid && registerForm.get('birthDate')?.touched"
+            class="text-red-400 text-sm">
+            <div *ngIf="registerForm.get('birthDate')?.hasError('required')">La fecha de nacimiento es obligatoria.
+            </div>
+            <div *ngIf="registerForm.get('birthDate')?.hasError('underage')">Debes ser mayor de 18 años.</div>
+        </div>
+    </div>
+
+    <!-- Descripción breve -->
+    <div>
+        <label for="description" class="block text-sm font-medium text-gray-300">Descripción Breve</label>
+        <textarea id="description" formControlName="description"
+            placeholder="Cuéntanos un poco sobre ti (máx 250 caracteres)" rows="3"
+            class="w-full px-4 py-2 border border-gray-600 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-1 focus:ring-green-400"></textarea>
+        <div *ngIf="registerForm.get('description')?.invalid && registerForm.get('description')?.touched"
+            class="text-red-400 text-sm">
+            <div *ngIf="registerForm.get('description')?.hasError('maxlength')">La descripción no puede exceder los 250
+                caracteres.</div>
+        </div>
+    </div>
+
+    <!-- Imagen de perfil -->
+    <div>
+        <label for="profileImage" class="block text-sm font-medium text-gray-300">Imagen de Perfil</label>
+        <input type="file" id="profileImage" (change)="onFileSelected($event)" accept="image/*"
+            class="w-full text-white" />
+    </div>
+
 
     <!-- Contraseña -->
     <div class="relative">
