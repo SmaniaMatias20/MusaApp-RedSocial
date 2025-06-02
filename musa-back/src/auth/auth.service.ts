@@ -22,7 +22,6 @@ export class AuthService {
     constructor(@InjectModel('User') private userModel: Model<User>) { }
 
     async create(userData: User): Promise<User> {
-        // Hashear la contraseña antes de guardar
         const saltOrRounds = 10;
         const hashedPassword = await bcrypt.hash(userData.password, saltOrRounds);
 
@@ -40,6 +39,10 @@ export class AuthService {
 
     async findOneByEmail(email: string): Promise<User | null> {
         return this.userModel.findOne({ email }).exec();
+    }
+
+    async findOneByUsername(username: string): Promise<User | null> {
+        return this.userModel.findOne({ username }).exec();
     }
 }
 

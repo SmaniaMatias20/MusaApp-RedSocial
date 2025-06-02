@@ -15,11 +15,17 @@ export class AuthController {
 
     @Post()
     async register(@Body() createUserDto: CreateUserDto): Promise<User> {
-        const existing = await this.authService.findOneByEmail(createUserDto.email);
-        if (existing) {
+        const existingEmail = await this.authService.findOneByEmail(createUserDto.email);
+        const existingUsername = await this.authService.findOneByUsername(createUserDto.username);
+
+        if (existingEmail) {
             throw new BadRequestException('El email ya está registrado');
         }
-        console.log("hola");
+
+        if (existingUsername) {
+            throw new BadRequestException('El nombre de usuario ya está registrado');
+        }
+
         const user = await this.authService.create(createUserDto);
         return user;
     }
