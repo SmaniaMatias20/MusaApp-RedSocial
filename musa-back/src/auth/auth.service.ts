@@ -33,6 +33,30 @@ export class AuthService {
         return newUser.save();
     }
 
+    async login(usernameOrEmail: string, password: string): Promise<User | null> {
+        // Buscar por email o username
+        const user = await this.userModel.findOne({
+            $or: [{ email: usernameOrEmail }, { username: usernameOrEmail }]
+        }).exec();
+
+        if (!user) {
+            return null;
+        }
+
+        // Comparar contraseñas
+        const isPasswordValid = await bcrypt.compare(password, user.password);
+
+        if (!isPasswordValid) {
+            return null;
+        }
+
+        // Opcional: podés retornar el usuario sin la contraseña
+        //const { password: _, ...userWithoutPassword } = user.toObject();
+        //return userWithoutPassword;
+        return user;
+    }
+
+
     async findAll(): Promise<User[]> {
         return this.userModel.find().exec();
     }

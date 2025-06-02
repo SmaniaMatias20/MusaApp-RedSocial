@@ -28,11 +28,12 @@ export class AuthService {
 
   // Método para registrar usuario
   register(user: User): Observable<User> {
-    return this.http.post<User>(this.apiUrl, user);
+    return this.http.post<User>(this.apiUrl + '/register', user);
   }
 
-  // Método para obtener lista de usuarios
-  // getUsers(): Observable<User[]> {
-  //   return this.http.get<User[]>(this.apiUrl);
-  // }
+  // Método para login
+  login(usernameOrEmail: string, password: string): Observable<User> {
+    return this.http.post<User>(this.apiUrl + '/login', { usernameOrEmail, password });
+  }
+
 }
