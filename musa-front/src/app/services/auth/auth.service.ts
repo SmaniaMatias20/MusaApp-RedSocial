@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { environment } from '../../enviroments/enviroment';
+import { environment } from '../../../enviroments/enviroment';
 
 
 // Definís la interfaz User para tipar los datos
