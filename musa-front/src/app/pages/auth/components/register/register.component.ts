@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { NgIf } from '@angular/common';
+import { Router } from '@angular/router'; // 👈 Importá esto
 import { AuthService, User } from '../../../../services/auth/auth.service';
 
 function passwordMatchValidator(form: AbstractControl) {
@@ -36,6 +37,7 @@ export class RegisterComponent {
 
   constructor(
     private authService: AuthService,
+    private router: Router,
     private fb: FormBuilder
   ) {
     this.registerForm = this.fb.group({
@@ -87,6 +89,7 @@ export class RegisterComponent {
       const registeredUser = await this.authService.register(user).toPromise();
       this.successMessage = 'Usuario registrado correctamente';
       this.registerForm.reset();
+      this.router.navigate(['/home']);
     } catch (error: any) {
       console.error(error);
       this.errorMessage = error.error?.message || 'Error al registrar usuario';

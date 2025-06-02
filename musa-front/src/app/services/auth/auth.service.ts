@@ -22,7 +22,7 @@ export interface User {
 })
 export class AuthService {
 
-  private apiUrl = environment.apiUrl + '/users';
+  private apiUrl = environment.apiUrl + '/auth';
 
   constructor(private http: HttpClient) { }
 
@@ -32,7 +32,7 @@ export class AuthService {
   }
 
   // Método para obtener lista de usuarios
-  getUsers(): Observable<User[]> {
-    return this.http.get<User[]>(this.apiUrl);
-  }
+  // getUsers(): Observable<User[]> {
+  //   return this.http.get<User[]>(this.apiUrl);
+  // }
 }

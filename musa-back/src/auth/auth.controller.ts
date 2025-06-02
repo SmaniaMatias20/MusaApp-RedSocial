@@ -15,13 +15,11 @@ export class AuthController {
 
     @Post()
     async register(@Body() createUserDto: CreateUserDto): Promise<User> {
-        // Verificamos si el email ya existe
         const existing = await this.authService.findOneByEmail(createUserDto.email);
         if (existing) {
             throw new BadRequestException('El email ya está registrado');
         }
-
-        // Creamos el usuario
+        console.log("hola");
         const user = await this.authService.create(createUserDto);
         return user;
     }

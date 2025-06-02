@@ -1,6 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
+import * as bcrypt from 'bcrypt';
+
 
 // Interfaz de usuario
 export interface User {
@@ -20,7 +22,15 @@ export class AuthService {
     constructor(@InjectModel('User') private userModel: Model<User>) { }
 
     async create(userData: User): Promise<User> {
-        const newUser = new this.userModel(userData);
+        // Hashear la contraseña antes de guardar
+        const saltOrRounds = 10;
+        const hashedPassword = await bcrypt.hash(userData.password, saltOrRounds);
+
+        const newUser = new this.userModel({
+            ...userData,
+            password: hashedPassword
+        });
+
         return newUser.save();
     }
 
@@ -32,3 +42,4 @@ export class AuthService {
         return this.userModel.findOne({ email }).exec();
     }
 }
+
