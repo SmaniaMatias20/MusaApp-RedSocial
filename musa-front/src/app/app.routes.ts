@@ -11,6 +11,11 @@ export const routes: Routes = [
         loadComponent: () =>
             import('./pages/auth/auth.component').then((m) => m.AuthComponent),
     },
+    {
+        path: 'profile',
+        loadComponent: () =>
+            import('./pages/profile/profile.component').then((m) => m.ProfileComponent),
+    },
 
     { path: '', redirectTo: '/auth', pathMatch: 'full' },
     { path: '**', redirectTo: '/auth' }

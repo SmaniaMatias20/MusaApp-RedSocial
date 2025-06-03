@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { Router } from '@angular/router';
+import { RouterLink } from '@angular/router';
+import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-navbar',
+  imports: [RouterLink],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
@@ -13,7 +15,9 @@ export class NavbarComponent {
   lastName: string = localStorage.getItem('lastName') || '';
   isAdmin: boolean = localStorage.getItem('isAdmin') === 'true';
 
-  constructor(private router: Router) { }
+  constructor(
+    private authService: AuthService
+  ) { }
 
   toggleMenu() {
     this.menuOpen = !this.menuOpen;
@@ -26,10 +30,10 @@ export class NavbarComponent {
   }
 
   logout(): void {
-    localStorage.removeItem('username');
-    localStorage.removeItem('isAdmin');
-    this.router.navigate(['/auth']);
+    this.authService.logout();
   }
+
+
 }
 
 
