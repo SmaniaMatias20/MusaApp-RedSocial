@@ -51,16 +51,12 @@ export class LoginComponent {
     const { usernameOrEmail, password } = this.loginForm.value;
 
     try {
-      // Convertir Observable a Promise
       const user = await lastValueFrom(this.authService.login(usernameOrEmail, password));
 
-      // Si login es exitoso, podés guardar token, redirigir, etc.
-      // navegar al home
       this.router.navigate(['/home']);
       this.message = `Bienvenido, ${user.firstName}!`;
       this.isError = false;
 
-      // Aquí podrías agregar navegación o guardar el token si lo implementás
     } catch (error: any) {
       this.message = 'Credenciales inválidas o error en el servidor.';
       this.isError = true;

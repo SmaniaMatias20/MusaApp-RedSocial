@@ -1,5 +1,12 @@
 <div class="min-h-screen flex flex-col bg-gray-950 text-white">
-  <div class="flex-grow flex items-center justify-center p-4">
+  <div class="flex items-center justify-center p-4">
+    @if(showNavbar){
+    <app-navbar></app-navbar>
+    }
     <router-outlet></router-outlet>
+
+    @if(showAside){
+    <app-aside></app-aside>
+    }
   </div>
 </div>

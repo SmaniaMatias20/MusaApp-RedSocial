@@ -8,17 +8,17 @@
 
     <!-- Email -->
     <div class="">
-        <label for="usernameOrEmail" class="block mb-1 text-sm font-medium text-gray-300">Email</label>
+        <label for="usernameOrEmail" class="block mb-1 text-sm font-medium text-gray-300">Email o Usuario</label>
         <input type="usernameOrEmail" id="usernameOrEmail" formControlName="usernameOrEmail"
-            placeholder="Correo@ejemplo.com"
+            placeholder="Email o Usuario"
             class="w-full px-4 py-2 border border-gray-600 bg-gray-700 text-white rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-400"
             required />
 
         <!-- Validaciones -->
         <div *ngIf="loginForm.get('usernameOrEmail')?.touched && loginForm.get('usernameOrEmail')?.invalid"
             class="mt-1 text-sm text-red-400">
-            <div *ngIf="loginForm.get('usernameOrEmail')?.errors?.['required']">El correo es obligatorio.</div>
-            <div *ngIf="loginForm.get('usernameOrEmail')?.errors?.['email']">Correo inválido, debe contener &#64;.</div>
+            <div *ngIf="loginForm.get('usernameOrEmail')?.errors?.['required']">El correo o usuario es
+                obligatorio.</div>
         </div>
     </div>
 

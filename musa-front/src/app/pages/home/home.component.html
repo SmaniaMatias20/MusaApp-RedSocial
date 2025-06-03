@@ -1,1 +1,35 @@
-<p>home works!</p>
+<div class="flex min-h-screen bg-black text-white">
+    <!-- Feed principal -->
+    <main class="flex-1 max-w-2xl border-x border-gray-700">
+        <!-- Header -->
+        <div class="sticky top-0 z-10 bg-black bg-opacity-70 backdrop-blur border-b border-gray-700 px-4 py-3">
+            <h1 class="text-xl font-bold">Inicio</h1>
+        </div>
+
+        <!-- Publicar algo -->
+        <div class="p-4 border-b border-gray-700 flex gap-3">
+            <img src="https://i.pravatar.cc/40" alt="Perfil" class="w-10 h-10 rounded-full">
+            <textarea class="bg-transparent text-white w-full resize-none outline-none placeholder-gray-500" rows="2"
+                placeholder="¿Qué está pasando?"></textarea>
+        </div>
+
+        <!-- Lista de publicaciones simuladas -->
+        <div class="divide-y divide-gray-800">
+            <div class="p-4 flex gap-3">
+                <img src="https://i.pravatar.cc/40?u=1" class="w-10 h-10 rounded-full" />
+                <div>
+                    <p class="font-semibold">Juan Pérez <span class="text-gray-500 text-sm">juanperez</span></p>
+                    <p>Este es un tweet de ejemplo.</p>
+                </div>
+            </div>
+
+            <div class="p-4 flex gap-3">
+                <img src="https://i.pravatar.cc/40?u=2" class="w-10 h-10 rounded-full" />
+                <div>
+                    <p class="font-semibold">Ana Gómez <span class="text-gray-500 text-sm">anagomez</span></p>
+                    <p>Otro ejemplo de tweet. ¡Probando el layout!</p>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
