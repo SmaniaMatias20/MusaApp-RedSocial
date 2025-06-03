@@ -54,6 +54,8 @@ export class LoginComponent {
       const user = await lastValueFrom(this.authService.login(usernameOrEmail, password));
       if (user) {
         localStorage.setItem('username', user.username);
+        localStorage.setItem('firstName', user.firstName);
+        localStorage.setItem('lastName', user.lastName);
         localStorage.setItem('isAdmin', user.isAdmin.toString());
       }
       this.router.navigate(['/home']);

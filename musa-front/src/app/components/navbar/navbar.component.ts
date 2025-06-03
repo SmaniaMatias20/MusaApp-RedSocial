@@ -8,6 +8,10 @@ import { Router } from '@angular/router';
 })
 export class NavbarComponent {
   menuOpen = false;
+  username: string = localStorage.getItem('username') || '';
+  firstName: string = localStorage.getItem('firstName') || '';
+  lastName: string = localStorage.getItem('lastName') || '';
+  isAdmin: boolean = localStorage.getItem('isAdmin') === 'true';
 
   constructor(private router: Router) { }
 

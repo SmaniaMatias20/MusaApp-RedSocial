@@ -40,7 +40,7 @@ export class AuthService {
         return newUser.save();
     }
 
-    async login(usernameOrEmail: string, password: string): Promise<{ accessToken: string; username: string; isAdmin: boolean } | null> {
+    async login(usernameOrEmail: string, password: string): Promise<{ accessToken: string; username: string; isAdmin: boolean; firstName: string; lastName: string } | null> {
         const user = await this.userModel.findOne({
             $or: [{ email: usernameOrEmail }, { username: usernameOrEmail }]
         }).exec();
@@ -58,6 +58,8 @@ export class AuthService {
         const payload = {
             sub: user._id,
             username: user.username,
+            firstName: user.firstName,
+            lastName: user.lastName,
             email: user.email,
             isAdmin: user.isAdmin,
         };
@@ -67,7 +69,10 @@ export class AuthService {
         return {
             accessToken,
             username: user.username,
+            firstName: user.firstName,
+            lastName: user.lastName,
             isAdmin: user.isAdmin,
+
         };
     }
 

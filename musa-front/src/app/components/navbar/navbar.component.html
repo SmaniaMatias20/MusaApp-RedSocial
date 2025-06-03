@@ -36,10 +36,10 @@
     <!-- Perfil -->
     <div class="flex items-center justify-center sm:justify-start gap-3 mt-6 cursor-pointer hover:bg-gray-800 p-2 rounded-lg relative"
         (click)="toggleMenu()" tabindex="0" (blur)="closeMenu()">
-        <img src="https://i.pravatar.cc/40" alt="Perfil" class="rounded-full w-10 h-10">
+        <img src="assets/images/musa.png" alt="Perfil" class="rounded-full w-10 h-10">
         <div class="hidden sm:block leading-tight">
-            <p class="font-semibold text-sm">Juan Pérez</p>
-            <p class="text-gray-400 text-sm">juanperez</p>
+            <p class="font-semibold text-sm">{{firstName}} {{lastName}}</p>
+            <p class="text-gray-400 text-sm">{{username}}</p>
         </div>
 
         <!-- Menú desplegable -->
