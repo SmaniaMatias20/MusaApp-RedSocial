@@ -17,6 +17,7 @@ export interface User {
     description?: string;
     profileImage?: string;
     isAdmin: boolean;
+    accessToken: string;
 }
 
 @Injectable()

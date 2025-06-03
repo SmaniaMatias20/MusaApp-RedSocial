@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../enviroments/enviroment';
+import { firstValueFrom } from 'rxjs';
 import { Router } from '@angular/router';
 
 export interface User {
@@ -14,6 +15,7 @@ export interface User {
   description?: string;
   profileImage?: string;
   isAdmin: boolean;
+  accessToken: string;
 }
 
 @Injectable({
@@ -32,12 +34,33 @@ export class AuthService {
     return this.http.post<User>(this.apiUrl + '/register', user);
   }
 
-  login(usernameOrEmail: string, password: string): Observable<User> {
-    return this.http.post<User>(this.apiUrl + '/login', { usernameOrEmail, password });
+  // login(usernameOrEmail: string, password: string): Observable<User> {
+  //   return this.http.post<User>(this.apiUrl + '/login', { usernameOrEmail, password });
+  // }
+
+  async login(usernameOrEmail: string, password: string): Promise<User> {
+    try {
+      const response = this.http.post<User>(`${this.apiUrl}/login`, { usernameOrEmail, password });
+      const user = await firstValueFrom(response);
+
+      localStorage.setItem('username', user.username);
+      localStorage.setItem('firstName', user.firstName);
+      localStorage.setItem('lastName', user.lastName);
+      localStorage.setItem('accessToken', user.accessToken);
+      localStorage.setItem('isAdmin', user.isAdmin.toString());
+
+      await this.router.navigate(['/home']);
+
+      return user;
+
+    } catch (error) {
+      console.error('Error en AuthService.login:', error);
+      throw new Error('Credenciales inválidas o error en el servidor.');
+    }
   }
 
   logout(): void {
-    // localStorage.removeItem('token');
+    localStorage.removeItem('accessToken');
     localStorage.removeItem('username');
     localStorage.removeItem('firstName');
     localStorage.removeItem('lastName');

@@ -41,6 +41,7 @@ export class LoginComponent {
     this.isPasswordVisible = !this.isPasswordVisible;
   }
 
+  // login.component.ts
   async login(): Promise<void> {
     if (this.loginForm.invalid) {
       this.message = 'Completá todos los campos correctamente.';
@@ -51,20 +52,12 @@ export class LoginComponent {
     const { usernameOrEmail, password } = this.loginForm.value;
 
     try {
-      const user = await lastValueFrom(this.authService.login(usernameOrEmail, password));
-      if (user) {
-        localStorage.setItem('username', user.username);
-        localStorage.setItem('firstName', user.firstName);
-        localStorage.setItem('lastName', user.lastName);
-        localStorage.setItem('isAdmin', user.isAdmin.toString());
-      }
-      this.router.navigate(['/home']);
+      await this.authService.login(usernameOrEmail, password);
       this.isError = false;
-
     } catch (error: any) {
-      this.message = 'Credenciales inválidas o error en el servidor.';
+      this.message = error.message;
       this.isError = true;
-      console.error('Error en login():', error);
     }
   }
+
 }

@@ -82,6 +82,7 @@ export class RegisterComponent {
       birthDate: formValue.birthDate,
       description: formValue.description,
       profileImage: "",
+      accessToken: "",
       isAdmin: false
     };
 
