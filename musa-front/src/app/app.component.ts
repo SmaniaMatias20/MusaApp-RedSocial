@@ -22,7 +22,6 @@ export class AppComponent {
   ngOnInit(): void {
     // Primero, setear según la ruta actual
     const isAuthRoute = this.router.url.includes('/auth');
-    console.log(isAuthRoute);
     this.showNavbar = isAuthRoute;
     this.showAside = isAuthRoute;
     this.showFooter = isAuthRoute;

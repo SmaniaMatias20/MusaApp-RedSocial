@@ -24,7 +24,7 @@ export class LoginComponent {
     private authService: AuthService
   ) {
     this.loginForm = this.fb.group({
-      usernameOrEmail: ['', [Validators.required]],  // Puede ser username o email
+      usernameOrEmail: ['', [Validators.required]],
       password: [
         '',
         [
@@ -52,9 +52,11 @@ export class LoginComponent {
 
     try {
       const user = await lastValueFrom(this.authService.login(usernameOrEmail, password));
-
+      if (user) {
+        localStorage.setItem('username', user.username);
+        localStorage.setItem('isAdmin', user.isAdmin.toString());
+      }
       this.router.navigate(['/home']);
-      this.message = `Bienvenido, ${user.firstName}!`;
       this.isError = false;
 
     } catch (error: any) {
