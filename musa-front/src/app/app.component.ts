@@ -6,35 +6,35 @@ import { AsideComponent } from './components/aside/aside.component';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter } from 'rxjs';
 
-
 @Component({
   selector: 'app-root',
   imports: [RouterOutlet, NavbarComponent, AsideComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
   showNavbar: boolean = true;
   showAside: boolean = true;
+  showFooter: boolean = true;
 
-  /**
-   * Constructor de la clase AppComponent.
-   * @param {Router} router - El servicio Router de Angular, utilizado para gestionar la navegación y los eventos de navegación en la aplicación.
-   */
   constructor(private router: Router) { }
 
-  /**
-   * Método que se ejecuta al inicializar el componente.
-   * Nos suscribimos a los eventos de navegación para detectar cuando la navegación ha terminado.
-   * Dependiendo de la URL, decidimos si mostrar el Navbar y el Footer.
-   * @returns {void}
-   */
   ngOnInit(): void {
+    // Primero, setear según la ruta actual
+    const isAuthRoute = this.router.url.includes('/auth');
+    console.log(isAuthRoute);
+    this.showNavbar = isAuthRoute;
+    this.showAside = isAuthRoute;
+    this.showFooter = isAuthRoute;
+
+    // Luego, suscribirse a cambios futuros de navegación
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: NavigationEnd) => {
-      this.showNavbar = !event.url.includes('/auth');
-      this.showAside = !event.url.includes('/auth');
+      const isAuthRoute = !event.url.includes('/auth');
+      this.showNavbar = isAuthRoute;
+      this.showAside = isAuthRoute;
+      this.showFooter = isAuthRoute;
     });
   }
 }

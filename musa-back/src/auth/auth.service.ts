@@ -2,6 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
+import { JwtService } from '@nestjs/jwt';
+
 
 
 // Interfaz de usuario
@@ -19,7 +21,12 @@ export interface User {
 
 @Injectable()
 export class AuthService {
-    constructor(@InjectModel('User') private userModel: Model<User>) { }
+    constructor(
+        @InjectModel('User') private userModel: Model<User>,
+        private jwtService: JwtService
+    ) { }
+
+
 
     async create(userData: User): Promise<User> {
         const saltOrRounds = 10;
@@ -33,8 +40,7 @@ export class AuthService {
         return newUser.save();
     }
 
-    async login(usernameOrEmail: string, password: string): Promise<User | null> {
-        // Buscar por email o username
+    async login(usernameOrEmail: string, password: string): Promise<{ accessToken: string; username: string; isAdmin: boolean } | null> {
         const user = await this.userModel.findOne({
             $or: [{ email: usernameOrEmail }, { username: usernameOrEmail }]
         }).exec();
@@ -43,18 +49,28 @@ export class AuthService {
             return null;
         }
 
-        // Comparar contraseñas
         const isPasswordValid = await bcrypt.compare(password, user.password);
 
         if (!isPasswordValid) {
             return null;
         }
 
-        // Opcional: podés retornar el usuario sin la contraseña
-        //const { password: _, ...userWithoutPassword } = user.toObject();
-        //return userWithoutPassword;
-        return user;
+        const payload = {
+            sub: user._id,
+            username: user.username,
+            email: user.email,
+            isAdmin: user.isAdmin,
+        };
+
+        const accessToken = this.jwtService.sign(payload);
+
+        return {
+            accessToken,
+            username: user.username,
+            isAdmin: user.isAdmin,
+        };
     }
+
 
 
     async findAll(): Promise<User[]> {

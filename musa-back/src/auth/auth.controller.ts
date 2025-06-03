@@ -32,16 +32,30 @@ export class AuthController {
     }
 
     // Nuevo endpoint para login
+    // @Post('login')
+    // async login(
+    //     @Body() body: { usernameOrEmail: string; password: string }
+    // ): Promise<Omit<User, 'password'>> {
+    //     const user = await this.authService.login(body.usernameOrEmail, body.password);
+    //     if (!user) {
+    //         throw new UnauthorizedException('Credenciales inválidas');
+    //     }
+    //     return user;
+    // }
+
     @Post('login')
     async login(
         @Body() body: { usernameOrEmail: string; password: string }
-    ): Promise<Omit<User, 'password'>> {
-        const user = await this.authService.login(body.usernameOrEmail, body.password);
-        if (!user) {
+    ): Promise<{ accessToken: string }> {
+        const result = await this.authService.login(body.usernameOrEmail, body.password);
+
+        if (!result) {
             throw new UnauthorizedException('Credenciales inválidas');
         }
-        return user; // Retorna el usuario sin contraseña
+
+        return result;
     }
+
 
     @Get()
     async list(): Promise<User[]> {
