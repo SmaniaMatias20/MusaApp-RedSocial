@@ -14,17 +14,13 @@
 
             <div class="flex justify-end gap-4">
 
-                <div class="flex items-center gap-4 mt-3 text-blue-400 text-2xl">
+                <div class="flex items-center justify-center mt-5 gap-4 text-blue-400 text-2xl">
                     <!-- Íconos con labels accesibles -->
                     <label class="cursor-pointer">
                         <i class="material-icons hover:text-blue-500 text-white transition">image</i>
                         <input type="file" (change)="onImageSelected($event)" hidden multiple />
                     </label>
-                    <i
-                        class="material-icons hover:text-blue-500 text-white transition cursor-pointer">insert_emoticon</i>
-                    <i class="material-icons hover:text-blue-500 text-white transition cursor-pointer">location_on</i>
-                    <i class="material-icons hover:text-blue-500 text-white transition cursor-pointer">videocam</i>
-                    <i class="material-icons hover:text-blue-500 text-white transition cursor-pointer">poll</i>
+
                 </div>
                 <button
                     class="mt-4 bg-blue-600 hover:bg-blue-700 px-5 py-2 rounded-full font-medium disabled:opacity-50 transition"

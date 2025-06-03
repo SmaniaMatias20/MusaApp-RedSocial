@@ -1,0 +1,31 @@
+<div class="flex p-4 border-b border-gray-700 text-white">
+    <img [src]="user.profilePic" alt="profile" class="w-12 h-12 rounded-full mr-4" />
+
+    <div class="flex-1">
+        <div class="flex items-center gap-1 flex-wrap">
+            <span class="font-bold">{{ user.name }}</span>
+            <i *ngIf="user.verified" class="material-icons text-blue-500 text-sm">verified</i>
+            <span class="text-gray-400">{{ user.username }} · {{ user.time }}</span>
+        </div>
+
+        <p class="mt-1 text-sm">{{ content }}</p>
+
+        <div class="flex justify-between mt-3 max-w-md text-gray-400 text-sm">
+            <div class="flex items-center gap-1">
+                <i class="material-icons text-base">chat_bubble_outline</i>
+                <span>{{ stats.replies }}</span>
+            </div>
+
+            <div class="flex items-center gap-1">
+                <i class="material-icons text-base">favorite_border</i>
+                <span>{{ stats.likes }}</span>
+            </div>
+
+            <div class="flex items-center gap-1">
+                <i class="material-icons text-base">bar_chart</i>
+                <span>{{ stats.views }}</span>
+            </div>
+
+        </div>
+    </div>
+</div>
