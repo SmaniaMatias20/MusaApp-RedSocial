@@ -48,8 +48,4 @@ export class CreateUserDto {
 
     @IsBoolean()
     isAdmin: boolean;
-
-    @IsOptional()
-    @IsString()
-    accessToken: string;
 }
