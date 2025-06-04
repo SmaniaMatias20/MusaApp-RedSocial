@@ -6,7 +6,7 @@ import {
     BadRequestException,
     UnauthorizedException,
 } from '@nestjs/common';
-import { AuthService, User } from './auth.service';
+import { AuthService } from './auth.service';
 import { CreateUserDto } from './dto/create-user.dto';
 
 
@@ -15,7 +15,7 @@ export class AuthController {
     constructor(private readonly authService: AuthService) { }
 
     @Post('register')
-    async register(@Body() createUserDto: CreateUserDto): Promise<User> {
+    async register(@Body() createUserDto: CreateUserDto): Promise<CreateUserDto> {
         const existingEmail = await this.authService.findOneByEmail(createUserDto.email);
         const existingUsername = await this.authService.findOneByUsername(createUserDto.username);
 
@@ -46,7 +46,7 @@ export class AuthController {
 
 
     @Get()
-    async list(): Promise<User[]> {
+    async list(): Promise<CreateUserDto[]> {
         return this.authService.findAll();
     }
 }

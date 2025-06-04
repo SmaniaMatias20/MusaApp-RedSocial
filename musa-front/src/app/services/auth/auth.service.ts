@@ -6,19 +6,6 @@ import { firstValueFrom } from 'rxjs';
 import { Router } from '@angular/router';
 import { User } from '../../models/user.model';
 
-// export interface User {
-//   firstName: string;
-//   lastName: string;
-//   email: string;
-//   username: string;
-//   password: string;
-//   birthDate: string;
-//   description?: string;
-//   profileImage?: string;
-//   isAdmin: boolean;
-//   accessToken: string;
-// }
-
 @Injectable({
   providedIn: 'root'
 })

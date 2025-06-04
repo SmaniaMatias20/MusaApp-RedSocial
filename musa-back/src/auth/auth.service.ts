@@ -24,13 +24,13 @@ export interface User {
 @Injectable()
 export class AuthService {
     constructor(
-        @InjectModel('User') private userModel: Model<User>,
+        @InjectModel('User') private userModel: Model<CreateUserDto>,
         private jwtService: JwtService
     ) { }
 
 
 
-    async create(userData: CreateUserDto): Promise<User> {
+    async create(userData: CreateUserDto): Promise<CreateUserDto> {
         const saltOrRounds = 10;
         const hashedPassword = await bcrypt.hash(userData.password, saltOrRounds);
 
@@ -80,15 +80,15 @@ export class AuthService {
 
 
 
-    async findAll(): Promise<User[]> {
+    async findAll(): Promise<CreateUserDto[]> {
         return this.userModel.find().exec();
     }
 
-    async findOneByEmail(email: string): Promise<User | null> {
+    async findOneByEmail(email: string): Promise<CreateUserDto | null> {
         return this.userModel.findOne({ email }).exec();
     }
 
-    async findOneByUsername(username: string): Promise<User | null> {
+    async findOneByUsername(username: string): Promise<CreateUserDto | null> {
         return this.userModel.findOne({ username }).exec();
     }
 }
