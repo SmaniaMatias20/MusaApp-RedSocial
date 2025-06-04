@@ -19,12 +19,10 @@ export class AuthService {
   ) { }
 
   register(user: User): Observable<User> {
-    return this.http.post<User>(this.apiUrl + '/register', user);
+    const response = this.http.post<User>(this.apiUrl + '/register', user);
+    console.log(response);
+    return response;
   }
-
-  // login(usernameOrEmail: string, password: string): Observable<User> {
-  //   return this.http.post<User>(this.apiUrl + '/login', { usernameOrEmail, password });
-  // }
 
   async login(usernameOrEmail: string, password: string): Promise<User> {
     try {
