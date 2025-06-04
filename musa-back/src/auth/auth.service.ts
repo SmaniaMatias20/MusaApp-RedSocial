@@ -3,6 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
+import { CreateUserDto } from './dto/create-user.dto';
 
 
 
@@ -29,7 +30,7 @@ export class AuthService {
 
 
 
-    async create(userData: User): Promise<User> {
+    async create(userData: CreateUserDto): Promise<User> {
         const saltOrRounds = 10;
         const hashedPassword = await bcrypt.hash(userData.password, saltOrRounds);
 
