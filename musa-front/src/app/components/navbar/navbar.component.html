@@ -41,8 +41,8 @@
         (click)="toggleMenu()" tabindex="0" (blur)="closeMenu()">
         <img src="assets/images/musa.png" alt="Perfil" class="rounded-full w-10 h-10">
         <div class="hidden sm:block leading-tight">
-            <p class="font-semibold text-sm">{{firstName}} {{lastName}}</p>
-            <p class="text-gray-400 text-sm">{{username}}</p>
+            <p class="font-semibold text-sm">{{firstName()}} {{lastName()}}</p>
+            <p class="text-gray-400 text-sm">{{username()}}</p>
         </div>
 
         <!-- Menú desplegable -->

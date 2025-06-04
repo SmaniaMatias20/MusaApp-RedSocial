@@ -4,6 +4,7 @@ import { NgIf } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../../services/auth/auth.service';
 import { User } from '../../../../models/user.model';
+import { firstValueFrom } from 'rxjs';
 
 function passwordMatchValidator(form: AbstractControl) {
   const password = form.get('password')?.value;
@@ -88,15 +89,16 @@ export class RegisterComponent {
     };
 
     try {
-      const registeredUser = await this.authService.register(user).toPromise();
+      await firstValueFrom(this.authService.register(user));
       this.successMessage = 'Usuario registrado correctamente';
       this.registerForm.reset();
-      this.router.navigate(['/home']);
+      await this.authService.login(user.username, user.password);
     } catch (error: any) {
       console.error(error);
       this.errorMessage = error.error?.message || 'Error al registrar usuario';
     }
   }
+
 
   onFileSelected(event: any) {
     const file = event.target.files[0];

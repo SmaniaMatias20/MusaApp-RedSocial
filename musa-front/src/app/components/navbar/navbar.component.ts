@@ -1,23 +1,29 @@
-import { Component } from '@angular/core';
+import { Component, computed, Signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
+import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-navbar',
+  standalone: true,
   imports: [RouterLink],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
   menuOpen = false;
-  username: string = localStorage.getItem('username') || '';
-  firstName: string = localStorage.getItem('firstName') || '';
-  lastName: string = localStorage.getItem('lastName') || '';
-  isAdmin: boolean = localStorage.getItem('isAdmin') === 'true';
 
-  constructor(
-    private authService: AuthService
-  ) { }
+  userSignal!: Signal<User | null>;
+
+  username = computed(() => this.userSignal()?.username || '');
+  firstName = computed(() => this.userSignal()?.firstName || '');
+  lastName = computed(() => this.userSignal()?.lastName || '');
+  isAdmin = computed(() => this.userSignal()?.isAdmin || false);
+
+  constructor(private authService: AuthService) {
+    // Asignar el signal dentro del constructor para evitar errores de inyección
+    this.userSignal = this.authService.currentUser;
+  }
 
   toggleMenu() {
     this.menuOpen = !this.menuOpen;
@@ -32,8 +38,4 @@ export class NavbarComponent {
   logout(): void {
     this.authService.logout();
   }
-
-
 }
-
-
