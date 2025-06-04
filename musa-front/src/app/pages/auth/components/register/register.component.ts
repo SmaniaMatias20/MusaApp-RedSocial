@@ -2,7 +2,8 @@ import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { NgIf } from '@angular/common';
 import { Router } from '@angular/router';
-import { AuthService, User } from '../../../../services/auth/auth.service';
+import { AuthService } from '../../../../services/auth/auth.service';
+import { User } from '../../../../models/user.model';
 
 function passwordMatchValidator(form: AbstractControl) {
   const password = form.get('password')?.value;
