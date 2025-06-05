@@ -20,18 +20,24 @@ export class PostsController {
     ) { }
 
     @Post('create')
-    @UseInterceptors(FileInterceptor('image')) // 'image' debe coincidir con el nombre del campo file
+    @UseInterceptors(FileInterceptor('image'))
     async createPost(
         @UploadedFile() file: Express.Multer.File,
         @Body() createPostDto: CreatePostDto,
     ) {
-        const imageUploadResult = await this.cloudinaryService.uploadImageFromBuffer(file);
+        let image: string | undefined;
+
+        if (file) {
+            const imageUploadResult = await this.cloudinaryService.uploadImageFromBuffer(file);
+            image = imageUploadResult.secure_url;
+        }
 
         const newPost = await this.postsService.createPost({
             ...createPostDto,
-            imageUrl: imageUploadResult.secure_url,
+            image,
         });
 
         return newPost;
     }
+
 }

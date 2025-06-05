@@ -2,5 +2,7 @@
 export class CreatePostDto {
     username: string;
     content: string;
+    image?: string;
     date?: Date | string;
+
 }

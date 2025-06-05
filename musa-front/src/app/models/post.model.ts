@@ -6,7 +6,7 @@ export interface Comment {
 export interface Post {
     username: string;
     content: string;
-    imageUrl?: string;
+    image?: string;
     likes: string[]; // lista de usernames que dieron like
     comments: Comment[];
     date: Date | string;

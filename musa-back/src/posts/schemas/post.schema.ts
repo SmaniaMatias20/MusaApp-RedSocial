@@ -11,7 +11,7 @@ export class Post extends Document {
     content: string;
 
     @Prop()
-    imageUrl: string;
+    image?: string;
 
     @Prop({ type: [String], default: [] })
     likes: string[];

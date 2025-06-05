@@ -15,34 +15,6 @@ export class CloudinaryService {
         cloudinary.config(config);
     }
 
-    async uploadImageFromUrl(url: string, publicId: string) {
-        try {
-            const result = await cloudinary.uploader.upload(url, {
-                public_id: publicId,
-            });
-            return result;
-        } catch (error) {
-            console.error('Upload error:', error);
-            throw error;
-        }
-    }
-
-    generateOptimizedUrl(publicId: string): string {
-        return cloudinary.url(publicId, {
-            fetch_format: 'auto',
-            quality: 'auto',
-        });
-    }
-
-    generateAutoCropUrl(publicId: string): string {
-        return cloudinary.url(publicId, {
-            crop: 'auto',
-            gravity: 'auto',
-            width: 500,
-            height: 500,
-        });
-    }
-
     async uploadImageFromBuffer(file: Express.Multer.File): Promise<any> {
         return new Promise((resolve, reject) => {
             const uploadStream = cloudinary.uploader.upload_stream(

@@ -31,7 +31,6 @@ export class AppComponent {
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: NavigationEnd) => {
       this.showNavbarAndFooter = event.url.includes('/home') || event.url.includes('/profile');
-      console.log(this.showNavbarAndFooter);
     });
 
 

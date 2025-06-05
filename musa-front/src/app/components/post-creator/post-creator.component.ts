@@ -11,6 +11,7 @@ import { PostService } from '../../services/post/post.service';
 })
 export class PostCreatorComponent {
   tweetText: string = '';
+  username: string = localStorage.getItem('username') || '';
   imageFiles: File[] = [];
   imagePreviews: string[] = [];
 
@@ -40,15 +41,15 @@ export class PostCreatorComponent {
 
     const formData = new FormData();
     formData.append('content', this.tweetText);
+    formData.append('username', this.username);
 
     this.imageFiles.forEach((file, index) => {
-      formData.append('images', file, file.name);
+      formData.append('image', this.imageFiles[0], this.imageFiles[0].name);
     });
 
     try {
       const response = await this.postService.createPost(formData).toPromise();
-      console.log('Post creado:', response);
-      // Limpiar formulario
+
       this.tweetText = '';
       this.imageFiles = [];
       this.imagePreviews = [];

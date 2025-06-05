@@ -3,7 +3,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Post } from './schemas/post.schema';
 import { Model } from 'mongoose';
-import { CreatePostDto } from './dto/create-post.dto';
+//import { CreatePostDto } from './dto/create-post.dto';
 
 @Injectable()
 export class PostsService {
@@ -14,13 +14,14 @@ export class PostsService {
     async createPost(data: {
         username: string;
         content: string;
-        imageUrl?: string;
+        image?: string;
 
     }) {
+
         const newPost = new this.postModel({
             username: data.username,
             content: data.content,
-            imageUrl: data.imageUrl,
+            image: data.image,
             likes: [],
             comments: [],
             date: new Date(),
