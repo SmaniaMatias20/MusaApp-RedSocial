@@ -52,6 +52,9 @@ export class AuthService {
     localStorage.setItem('lastName', user.lastName);
     localStorage.setItem('accessToken', user.accessToken);
     localStorage.setItem('isAdmin', user.isAdmin.toString());
+    localStorage.setItem('profileImage', user.profileImage || '');
+    localStorage.setItem('description', user.description || '');
+    localStorage.setItem('birthDate', user.birthDate);
   }
 
   private getUserFromLocalStorage(): User | null {
@@ -63,6 +66,9 @@ export class AuthService {
       lastName: localStorage.getItem('lastName') || '',
       accessToken: localStorage.getItem('accessToken') || '',
       isAdmin: localStorage.getItem('isAdmin'),
+      profileImage: localStorage.getItem('profileImage') || '',
+      description: localStorage.getItem('description') || '',
+      birthDate: localStorage.getItem('birthDate') || '',
     } as User;
   }
 }

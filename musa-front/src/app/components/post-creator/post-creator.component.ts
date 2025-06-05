@@ -1,11 +1,14 @@
-import { Component } from '@angular/core';
+import { Component, computed, Signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgFor } from '@angular/common';
 import { PostService } from '../../services/post/post.service';
+import { AuthService } from '../../services/auth/auth.service';
+import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-post-creator',
   imports: [FormsModule, NgFor],
+  standalone: true,
   templateUrl: './post-creator.component.html',
   styleUrls: ['./post-creator.component.css']
 })
@@ -14,8 +17,12 @@ export class PostCreatorComponent {
   username: string = localStorage.getItem('username') || '';
   imageFiles: File[] = [];
   imagePreviews: string[] = [];
+  userSignal!: Signal<User | null>;
+  profileImage = computed(() => this.userSignal()?.profileImage || '');
 
-  constructor(private postService: PostService) { }
+  constructor(private postService: PostService, private authService: AuthService) {
+    this.userSignal = this.authService.currentUser;
+  }
 
   onImageSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
