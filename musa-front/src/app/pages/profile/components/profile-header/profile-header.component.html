@@ -4,8 +4,8 @@
         <img src="assets/images/musa.png" alt="Perfil" class="w-10 h-10 rounded-full">
 
         <div class="flex-1">
-            <h2 class="text-xl font-bold">Mati <span class="text-blue-500">✔️</span></h2>
-            <p class="text-gray-400">MES_virtual</p>
+            <h2 class="text-xl font-bold">{{firstName()}} {{lastName()}}<span class="text-blue-500">✔️</span></h2>
+            <p class="text-gray-400">{{username()}}</p>
         </div>
 
         <button class="bg-gray-800 hover:bg-gray-700 px-3 py-1 rounded text-sm">
@@ -13,13 +13,14 @@
         </button>
     </div>
 
-    <p class="mt-4 text-base">Hago software 🧑🏻‍💻</p>
+    <p class="mt-4 text-base">{{description()}}</p>
 
     <div class="mt-3 text-sm text-gray-400 space-y-1">
 
         <div class="flex items-center gap-2">
             <i class="material-icons text-base">cake</i>
-            <span>Fecha de nacimiento: 26 de enero de 1998</span>
+            <p>Fecha de nacimiento: {{ formattedBirthDate() }}</p>
+
         </div>
 
         <div class="flex items-center gap-2">

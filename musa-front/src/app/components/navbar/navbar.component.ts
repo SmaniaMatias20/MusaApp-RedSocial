@@ -24,7 +24,6 @@ export class NavbarComponent {
 
   constructor(private authService: AuthService) {
     this.userSignal = this.authService.currentUser;
-    console.log(this.userSignal());
   }
 
   toggleMenu() {
