@@ -46,6 +46,6 @@ export class CreateUserDto {
     @IsString()
     profileImage?: string;
 
-    @IsBoolean()
-    isAdmin: boolean;
+    @IsString()
+    isAdmin: string;
 }

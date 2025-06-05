@@ -5,6 +5,7 @@ import { environment } from '../../../enviroments/enviroment';
 import { firstValueFrom } from 'rxjs';
 import { Router } from '@angular/router';
 import { User } from '../../models/user.model';
+//import { Form } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +21,13 @@ export class AuthService {
     private router: Router
   ) { }
 
-  register(user: User) {
-    return this.http.post<User>(this.apiUrl + '/register', user);
+  // register(formData: User) {
+  //   return this.http.post<User>(this.apiUrl + '/register', formData);
+  // }
+
+  register(formData: FormData) {
+    console.log(formData);
+    return this.http.post<User>(this.apiUrl + '/register', formData);
   }
 
   async login(usernameOrEmail: string, password: string): Promise<User> {
@@ -63,7 +69,7 @@ export class AuthService {
       firstName: localStorage.getItem('firstName') || '',
       lastName: localStorage.getItem('lastName') || '',
       accessToken: localStorage.getItem('accessToken') || '',
-      isAdmin: localStorage.getItem('isAdmin') === 'true',
+      isAdmin: localStorage.getItem('isAdmin'),
     } as User;
   }
 }

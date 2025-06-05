@@ -30,7 +30,7 @@ export class User {
     profileImage?: string;
 
     @Prop({ default: false })
-    isAdmin: boolean;
+    isAdmin: string;
 }
 
 export const UserSchema = SchemaFactory.createForClass(User);

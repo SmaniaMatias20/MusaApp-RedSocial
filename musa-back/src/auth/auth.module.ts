@@ -5,10 +5,13 @@ import { AuthService } from './auth.service';
 import { JwtModule } from '@nestjs/jwt';
 import { JwtStrategy } from './jwt/jwt.strategy';
 import { User, UserSchema } from './schemas/user.schema';
+import { CloudinaryModule } from '../cloudinary/cloudinary.module';
+
 
 @Module({
   imports: [
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
+    CloudinaryModule,
     JwtModule.register({
       secret: process.env.JWT_SECRET || "musa-jwt",
       signOptions: { expiresIn: '1h' },

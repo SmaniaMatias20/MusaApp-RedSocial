@@ -7,6 +7,6 @@ export interface User {
     birthDate: Date | string;
     description?: string;
     profileImage?: string;
-    isAdmin: boolean;
+    isAdmin: string;
     accessToken: string;
 }

@@ -1,9 +1,7 @@
 import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
 import { NgIf } from '@angular/common';
-import { Router } from '@angular/router';
 import { AuthService } from '../../../../services/auth/auth.service';
-import { User } from '../../../../models/user.model';
 import { firstValueFrom } from 'rxjs';
 
 function passwordMatchValidator(form: AbstractControl) {
@@ -39,7 +37,6 @@ export class RegisterComponent {
 
   constructor(
     private authService: AuthService,
-    private router: Router,
     private fb: FormBuilder
   ) {
     this.registerForm = this.fb.group({
@@ -56,7 +53,8 @@ export class RegisterComponent {
       confirmPassword: ['', Validators.required],
       birthDate: ['', [Validators.required, birthDateValidator]],
       description: ['', [Validators.maxLength(250)]],
-      profileImage: [""]
+      profileImage: [null],
+      isAdmin: "false"
     }, { validators: passwordMatchValidator });
   }
 
@@ -68,6 +66,7 @@ export class RegisterComponent {
     this.errorMessage = '';
     this.successMessage = '';
 
+
     if (this.registerForm.invalid) {
       this.errorMessage = 'Por favor completa el formulario correctamente';
       return;
@@ -75,24 +74,24 @@ export class RegisterComponent {
 
     const formValue = this.registerForm.value;
 
-    const user: User = {
-      firstName: formValue.firstName,
-      lastName: formValue.lastName,
-      email: formValue.email,
-      username: formValue.username,
-      password: formValue.password,
-      birthDate: formValue.birthDate,
-      description: formValue.description,
-      profileImage: "",
-      accessToken: "",
-      isAdmin: false
-    };
+    const formData = new FormData();
+    formData.append('firstName', formValue.firstName);
+    formData.append('lastName', formValue.lastName);
+    formData.append('email', formValue.email);
+    formData.append('username', formValue.username);
+    formData.append('password', formValue.password);
+    formData.append('birthDate', formValue.birthDate);
+    formData.append('description', formValue.description || '');
+    formData.append('isAdmin', formValue.isAdmin);
+    if (formValue.profileImage) {
+      formData.append('profileImage', formValue.profileImage);
+    }
 
     try {
-      await firstValueFrom(this.authService.register(user));
+      await firstValueFrom(this.authService.register(formData));
       this.successMessage = 'Usuario registrado correctamente';
       this.registerForm.reset();
-      await this.authService.login(user.username, user.password);
+      await this.authService.login(formValue.username, formValue.password);
     } catch (error: any) {
       console.error(error);
       this.errorMessage = error.error?.message || 'Error al registrar usuario';
@@ -100,11 +99,13 @@ export class RegisterComponent {
   }
 
 
+
   onFileSelected(event: any) {
     const file = event.target.files[0];
     if (file) {
       this.registerForm.patchValue({ profileImage: file });
       this.registerForm.get('profileImage')?.updateValueAndValidity();
+
     }
   }
 }

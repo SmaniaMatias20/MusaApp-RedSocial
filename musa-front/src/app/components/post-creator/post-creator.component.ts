@@ -48,7 +48,7 @@ export class PostCreatorComponent {
     });
 
     try {
-      const response = await this.postService.createPost(formData).toPromise();
+      const response = await this.postService.createPost(formData);
 
       this.tweetText = '';
       this.imageFiles = [];
