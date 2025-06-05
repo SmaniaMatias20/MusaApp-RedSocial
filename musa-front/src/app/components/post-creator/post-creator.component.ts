@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgFor } from '@angular/common';
+import { PostService } from '../../services/post/post.service';
 
 @Component({
   selector: 'app-post-creator',
@@ -12,6 +13,8 @@ export class PostCreatorComponent {
   tweetText: string = '';
   imageFiles: File[] = [];
   imagePreviews: string[] = [];
+
+  constructor(private postService: PostService) { }
 
   onImageSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
@@ -29,16 +32,29 @@ export class PostCreatorComponent {
     });
   }
 
-  post(): void {
-    console.log('Tweet:', this.tweetText);
-    console.log('Images:', this.imageFiles);
+  async post(): Promise<void> {
+    if (!this.tweetText.trim()) {
+      alert('El contenido no puede estar vacío');
+      return;
+    }
 
-    // Acá enviarías el contenido a un backend (ej. via HttpClient)
-    // this.http.post('api/tweets', { text: this.tweetText, images: this.imageFiles });
+    const formData = new FormData();
+    formData.append('content', this.tweetText);
 
-    // Reiniciar valores
-    this.tweetText = '';
-    this.imageFiles = [];
-    this.imagePreviews = [];
+    this.imageFiles.forEach((file, index) => {
+      formData.append('images', file, file.name);
+    });
+
+    try {
+      const response = await this.postService.createPost(formData).toPromise();
+      console.log('Post creado:', response);
+      // Limpiar formulario
+      this.tweetText = '';
+      this.imageFiles = [];
+      this.imagePreviews = [];
+    } catch (error) {
+      console.error('Error creando post:', error);
+    }
   }
+
 }

@@ -26,8 +26,6 @@ export class AuthService {
         private jwtService: JwtService
     ) { }
 
-
-
     async create(userData: CreateUserDto): Promise<CreateUserDto> {
         const saltOrRounds = 10;
         const hashedPassword = await bcrypt.hash(userData.password, saltOrRounds);
