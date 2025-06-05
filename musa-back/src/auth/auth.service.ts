@@ -6,20 +6,18 @@ import { JwtService } from '@nestjs/jwt';
 import { CreateUserDto } from './dto/create-user.dto';
 
 
-
-// Interfaz de usuario
-export interface User {
-    firstName: string;
-    lastName: string;
-    email: string;
-    username: string;
-    password: string;
-    birthDate: Date | string;
-    description?: string;
-    profileImage?: string;
-    isAdmin: boolean;
-    accessToken: string;
-}
+// export interface User {
+//     firstName: string;
+//     lastName: string;
+//     email: string;
+//     username: string;
+//     password: string;
+//     birthDate: Date | string;
+//     description?: string;
+//     profileImage?: string;
+//     isAdmin: boolean;
+//     accessToken: string;
+// }
 
 @Injectable()
 export class AuthService {
@@ -77,8 +75,6 @@ export class AuthService {
 
         };
     }
-
-
 
     async findAll(): Promise<CreateUserDto[]> {
         return this.userModel.find().exec();
