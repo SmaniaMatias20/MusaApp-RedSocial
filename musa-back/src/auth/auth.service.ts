@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { CreateUserDto } from './dto/create-user.dto';
+import { profile } from 'console';
 
 
 @Injectable()
@@ -14,7 +15,6 @@ export class AuthService {
     ) { }
 
     async create(userData: CreateUserDto): Promise<CreateUserDto> {
-        console.log(userData);
         const saltOrRounds = 10;
         const hashedPassword = await bcrypt.hash(userData.password, saltOrRounds);
 
@@ -26,7 +26,7 @@ export class AuthService {
         return newUser.save();
     }
 
-    async login(usernameOrEmail: string, password: string): Promise<{ accessToken: string; username: string; isAdmin: string; firstName: string; lastName: string } | null> {
+    async login(usernameOrEmail: string, password: string): Promise<{ accessToken: string; username: string; isAdmin: string; firstName: string; lastName: string, birthDate: string; description: string, email: string, profileImage: string } | null> {
         const user = await this.userModel.findOne({
             $or: [{ email: usernameOrEmail }, { username: usernameOrEmail }]
         }).exec();
@@ -44,10 +44,7 @@ export class AuthService {
         const payload = {
             sub: user._id,
             username: user.username,
-            firstName: user.firstName,
-            lastName: user.lastName,
             email: user.email,
-            isAdmin: user.isAdmin,
         };
 
         const accessToken = this.jwtService.sign(payload);
@@ -55,10 +52,13 @@ export class AuthService {
         return {
             accessToken,
             username: user.username,
+            email: user.email,
             firstName: user.firstName,
             lastName: user.lastName,
             isAdmin: user.isAdmin,
-
+            birthDate: user.birthDate,
+            description: user.description || "",
+            profileImage: user.profileImage || "",
         };
     }
 

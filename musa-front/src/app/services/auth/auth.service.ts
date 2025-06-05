@@ -1,11 +1,9 @@
-
 import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../enviroments/enviroment';
 import { firstValueFrom } from 'rxjs';
 import { Router } from '@angular/router';
 import { User } from '../../models/user.model';
-//import { Form } from '@angular/forms';
 
 @Injectable({
   providedIn: 'root'
@@ -21,12 +19,7 @@ export class AuthService {
     private router: Router
   ) { }
 
-  // register(formData: User) {
-  //   return this.http.post<User>(this.apiUrl + '/register', formData);
-  // }
-
   register(formData: FormData) {
-    console.log(formData);
     return this.http.post<User>(this.apiUrl + '/register', formData);
   }
 
@@ -34,6 +27,8 @@ export class AuthService {
     try {
       const response = this.http.post<User>(`${this.apiUrl}/login`, { usernameOrEmail, password });
       const user = await firstValueFrom(response);
+
+      console.log(user);
 
       this.saveUserToLocalStorage(user);
       this.currentUser.set(user);

@@ -18,9 +18,13 @@ export class NavbarComponent {
   firstName = computed(() => this.userSignal()?.firstName || '');
   lastName = computed(() => this.userSignal()?.lastName || '');
   isAdmin = computed(() => this.userSignal()?.isAdmin || false);
+  profileImage = computed(() => this.userSignal()?.profileImage || '');
+
+
 
   constructor(private authService: AuthService) {
     this.userSignal = this.authService.currentUser;
+    console.log(this.userSignal());
   }
 
   toggleMenu() {
