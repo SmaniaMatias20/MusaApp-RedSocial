@@ -4,7 +4,10 @@
         <img src="{{ profileImage() }}" alt="Perfil" class="w-12 h-12 rounded-full object-cover">
 
         <div class="flex-1">
-            <h2 class="text-xl font-bold">{{firstName()}} {{lastName()}}<span class="text-blue-500">✔️</span></h2>
+            <h2 class="text-xl font-bold flex items-center gap-1">
+                {{firstName()}} {{lastName()}}
+                <i *ngIf="isAdmin()" class="material-icons text-blue-500 text-sm">verified</i>
+            </h2>
             <p class="text-gray-400">{{username()}}</p>
         </div>
 

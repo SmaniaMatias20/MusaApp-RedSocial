@@ -1,10 +1,12 @@
 import { Component, computed, Signal } from '@angular/core';
 import { AuthService } from '../../../../services/auth/auth.service';
 import { User } from '../../../../models/user.model';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-profile-header',
   standalone: true,
+  imports: [NgIf],
   templateUrl: './profile-header.component.html',
   styleUrl: './profile-header.component.css'
 })
@@ -14,7 +16,7 @@ export class ProfileHeaderComponent {
   username = computed(() => this.userSignal()?.username || '');
   firstName = computed(() => this.userSignal()?.firstName || '');
   lastName = computed(() => this.userSignal()?.lastName || '');
-  isAdmin = computed(() => this.userSignal()?.isAdmin || false);
+  isAdmin = computed(() => this.userSignal()?.isAdmin === 'true');
   profileImage = computed(() => this.userSignal()?.profileImage || '');
   description = computed(() => this.userSignal()?.description || '');
   formattedBirthDate = computed(() => {

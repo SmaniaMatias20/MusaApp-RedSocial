@@ -14,11 +14,11 @@ import { User } from '../../models/user.model';
 })
 export class PostCreatorComponent {
   tweetText: string = '';
-  username: string = localStorage.getItem('username') || '';
   imageFiles: File[] = [];
   imagePreviews: string[] = [];
   userSignal!: Signal<User | null>;
   profileImage = computed(() => this.userSignal()?.profileImage || '');
+  username = computed(() => this.userSignal()?.username || '');
 
   constructor(private postService: PostService, private authService: AuthService) {
     this.userSignal = this.authService.currentUser;
@@ -48,7 +48,7 @@ export class PostCreatorComponent {
 
     const formData = new FormData();
     formData.append('content', this.tweetText);
-    formData.append('username', this.username);
+    formData.append('username', this.username());
 
     this.imageFiles.forEach((file, index) => {
       formData.append('image', this.imageFiles[0], this.imageFiles[0].name);
