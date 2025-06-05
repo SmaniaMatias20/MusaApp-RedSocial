@@ -10,8 +10,6 @@ import { User } from '../../models/user.model';
 })
 export class AuthService {
   private apiUrl = environment.apiUrl + '/auth';
-
-  // Signal para el usuario actual
   currentUser = signal<User | null>(this.getUserFromLocalStorage());
 
   constructor(
