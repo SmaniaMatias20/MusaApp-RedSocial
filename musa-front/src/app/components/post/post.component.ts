@@ -10,13 +10,13 @@ import { NgIf } from '@angular/common';
 export class PostComponent {
   user = {
     name: 'emily',
-    username: '@https_memi',
+    username: '@Smania',
     time: '20h',
     verified: true,
     profilePic: 'assets/emily.jpg'
   };
 
-  content = `que bizarro cuando gente del secundario que no se hubiera juntado conmigo ni en pedo me empieza a responder historias jsksjskdjsjd`;
+  content = `Holaaaaaa`;
 
   stats = {
     replies: 5,

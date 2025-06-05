@@ -12,7 +12,6 @@ import { User } from '../../models/user.model';
 })
 export class NavbarComponent {
   menuOpen = false;
-
   userSignal!: Signal<User | null>;
 
   username = computed(() => this.userSignal()?.username || '');
@@ -21,7 +20,6 @@ export class NavbarComponent {
   isAdmin = computed(() => this.userSignal()?.isAdmin || false);
 
   constructor(private authService: AuthService) {
-    // Asignar el signal dentro del constructor para evitar errores de inyección
     this.userSignal = this.authService.currentUser;
   }
 
