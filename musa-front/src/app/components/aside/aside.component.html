@@ -15,27 +15,24 @@
     <!-- A quién seguir -->
     <div class="bg-gray-900 rounded-xl p-4 mb-2">
         <h2 class="font-bold text-xl mb-3">A quién seguir</h2>
-        <ul class="space-y-3 text-sm">
-            <li class="flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                    <img src="https://i.pravatar.cc/30" class="rounded-full w-8 h-8" />
-                    <div>
-                        <p class="font-medium">María G.</p>
-                        <p class="text-gray-400 text-xs">mariadev</p>
-                    </div>
+        <ul>
+            <li *ngFor="let user of userSignal | async"
+                class="flex items-center gap-3 p-2 hover:bg-gray-800 rounded cursor-pointer">
+                <!-- Imagen de perfil -->
+                <img *ngIf="user.profileImage" [src]="user.profileImage" alt="{{ user.username }}'s profile"
+                    class="w-10 h-10 rounded-full object-cover" />
+                <div class="flex flex-col">
+                    <!-- Nombre completo -->
+                    <span class="font-semibold text-white">
+                        {{ user.firstName }} {{ user.lastName }}
+                    </span>
+                    <!-- Username -->
+                    <span class="text-gray-400 text-sm">
+                        {{ user.username }}
+                    </span>
                 </div>
-                <button class="bg-blue-500 hover:bg-blue-600 text-white text-xs px-3 py-1 rounded-full">Seguir</button>
             </li>
-            <li class="flex items-center justify-between">
-                <div class="flex items-center gap-2">
-                    <img src="https://i.pravatar.cc/31" class="rounded-full w-8 h-8" />
-                    <div>
-                        <p class="font-medium">Luis T.</p>
-                        <p class="text-gray-400 text-xs">luist</p>
-                    </div>
-                </div>
-                <button class="bg-blue-500 hover:bg-blue-600 text-white text-xs px-3 py-1 rounded-full">Seguir</button>
-            </li>
+
         </ul>
     </div>
 

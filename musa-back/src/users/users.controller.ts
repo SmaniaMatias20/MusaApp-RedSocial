@@ -17,6 +17,13 @@ export class UsersController {
         return this.usersService.findAll();
     }
 
+    @Get(':username')
+    findAllByUsername(@Param('username') username: string) {
+        const response = this.usersService.findAllByUsername(username);
+        console.log(response);
+        return this.usersService.findAllByUsername(username);
+    }
+
     @Get(':id')
     findOne(@Param('id') id: string) {
         return this.usersService.findOne(id);

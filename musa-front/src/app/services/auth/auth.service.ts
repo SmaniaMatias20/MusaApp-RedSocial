@@ -31,7 +31,6 @@ export class AuthService {
       this.currentUser.set(user);
 
       await this.router.navigate(['/home']);
-      console.log(user);
       return user;
 
     } catch (error) {

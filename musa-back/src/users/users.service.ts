@@ -14,6 +14,15 @@ export class UsersService {
         return newUser.save();
     }
 
+    async findAllByUsername(username: string): Promise<User[]> {
+        return this.userModel
+            .find({ username: { $ne: username } })
+            .select('username firstName lastName profileImage')
+            .limit(3)
+            .exec();
+    }
+
+
     async findAll(): Promise<User[]> {
         return this.userModel.find().exec();
     }
