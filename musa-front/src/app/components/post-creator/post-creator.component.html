@@ -8,23 +8,20 @@
                 rows="3"></textarea>
 
             <div class="mt-4 flex flex-wrap gap-2">
-                <img *ngFor="let img of imagePreviews" [src]="img"
+                <img *ngIf="imagePreview" [src]="imagePreview"
                     class="w-24 h-24 object-cover rounded-lg border border-gray-700" />
             </div>
 
             <div class="flex justify-end gap-4">
 
-                <div class="flex items-center justify-center mt-5 gap-4 text-blue-400 text-2xl">
-                    <!-- Íconos con labels accesibles -->
-                    <label class="cursor-pointer">
-                        <i class="material-icons hover:text-blue-500 text-white transition">image</i>
-                        <input type="file" (change)="onImageSelected($event)" hidden multiple />
-                    </label>
+                <label class="cursor-pointer">
+                    <i class="material-icons hover:text-blue-500 text-white transition">image</i>
+                    <input type="file" (change)="onImageSelected($event)" hidden accept="image/*" />
+                </label>
 
-                </div>
                 <button
                     class="mt-4 bg-blue-600 hover:bg-blue-700 px-5 py-2 rounded-full font-medium disabled:opacity-50 transition"
-                    [disabled]="!tweetText && imageFiles.length === 0" (click)="post()">
+                    [disabled]="!tweetText && imageFile === null" (click)="post()">
                     Publicar
                 </button>
 
