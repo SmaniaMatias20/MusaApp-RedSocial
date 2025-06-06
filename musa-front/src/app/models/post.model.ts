@@ -7,7 +7,7 @@ export interface Post {
     username: string;
     content: string;
     image?: string;
-    likes: string[]; // lista de usernames que dieron like
+    likes: string[];
     comments: Comment[];
     date: Date | string;
     show: boolean;

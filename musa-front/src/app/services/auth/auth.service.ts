@@ -25,9 +25,6 @@ export class AuthService {
     try {
       const response = this.http.post<User>(`${this.apiUrl}/login`, { usernameOrEmail, password });
       const user = await firstValueFrom(response);
-
-      console.log(user);
-
       this.saveUserToLocalStorage(user);
       this.currentUser.set(user);
 
