@@ -53,10 +53,11 @@ export class RegisterComponent {
       confirmPassword: ['', Validators.required],
       birthDate: ['', [Validators.required, birthDateValidator]],
       description: ['', [Validators.maxLength(250)]],
-      profileImage: [null],
+      profileImage: ['https://res.cloudinary.com/dqqaf002m/image/upload/v1749215793/user_dykckk.jpg'],
       isAdmin: "false"
     }, { validators: passwordMatchValidator });
   }
+
 
   togglePasswordVisibility(): void {
     this.isPasswordVisible = !this.isPasswordVisible;
