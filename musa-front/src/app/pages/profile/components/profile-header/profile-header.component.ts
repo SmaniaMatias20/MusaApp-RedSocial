@@ -3,6 +3,7 @@ import { AuthService } from '../../../../services/auth/auth.service';
 import { User } from '../../../../models/user.model';
 import { NgIf } from '@angular/common';
 
+
 @Component({
   selector: 'app-profile-header',
   standalone: true,
@@ -12,6 +13,8 @@ import { NgIf } from '@angular/common';
 })
 export class ProfileHeaderComponent {
   userSignal!: Signal<User | null>;
+  followers: number;
+  following: number;
 
   username = computed(() => this.userSignal()?.username || '');
   firstName = computed(() => this.userSignal()?.firstName || '');
@@ -28,6 +31,8 @@ export class ProfileHeaderComponent {
 
   constructor(private authService: AuthService) {
     this.userSignal = this.authService.currentUser;
+    this.followers = this.authService.followers;
+    this.following = this.authService.following;
   }
 
   private formatDateToSpanish(isoDate: any): string {

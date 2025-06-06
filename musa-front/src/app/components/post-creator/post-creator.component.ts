@@ -25,7 +25,6 @@ export class PostCreatorComponent {
     this.userSignal = this.authService.currentUser;
   }
 
-
   onImageSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (!input.files || input.files.length === 0) return;
@@ -47,7 +46,6 @@ export class PostCreatorComponent {
 
   async post(): Promise<void> {
     if (!this.tweetText.trim()) {
-      alert('El contenido no puede estar vacío');
       return;
     }
 

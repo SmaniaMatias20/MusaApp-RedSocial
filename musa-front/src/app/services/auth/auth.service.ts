@@ -11,6 +11,8 @@ import { User } from '../../models/user.model';
 export class AuthService {
   private apiUrl = environment.apiUrl + '/auth';
   currentUser = signal<User | null>(this.getUserFromLocalStorage());
+  followers: number = Math.floor(Math.random() * (1000 - 100 + 1)) + 100;
+  following: number = Math.floor(Math.random() * (1000 - 100 + 1)) + 100;
 
   constructor(
     private http: HttpClient,
@@ -52,6 +54,8 @@ export class AuthService {
     localStorage.setItem('profileImage', user.profileImage || '');
     localStorage.setItem('description', user.description || '');
     localStorage.setItem('birthDate', user.birthDate);
+    localStorage.setItem('following', this.following.toString());
+    localStorage.setItem('followers', this.followers.toString());
   }
 
   private getUserFromLocalStorage(): User | null {
