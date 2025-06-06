@@ -34,6 +34,7 @@ export class RegisterComponent {
   errorMessage: string = '';
   successMessage: string = '';
   isPasswordVisible: boolean = false;
+  defaultImage = 'https://res.cloudinary.com/dqqaf002m/image/upload/v1749215793/user_dykckk.jpg';
 
   constructor(
     private authService: AuthService,
@@ -53,7 +54,7 @@ export class RegisterComponent {
       confirmPassword: ['', Validators.required],
       birthDate: ['', [Validators.required, birthDateValidator]],
       description: ['', [Validators.maxLength(250)]],
-      profileImage: ['https://res.cloudinary.com/dqqaf002m/image/upload/v1749215793/user_dykckk.jpg'],
+      profileImage: [this.defaultImage],
       isAdmin: "false"
     }, { validators: passwordMatchValidator });
   }
