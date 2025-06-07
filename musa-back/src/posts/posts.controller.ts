@@ -68,4 +68,9 @@ export class PostsController {
     findAllByUsername(@Query('username') username: string) {
         return this.postsService.findAllByUsername(username);
     }
+
+    @Get('/not')
+    findAllByNotUsername(@Query('username') username: string) {
+        return this.postsService.findAllByNotUsername(username);
+    }
 }

@@ -50,4 +50,17 @@ export class PostsService {
         }
     }
 
+    async findAllByNotUsername(username: string): Promise<Post[]> {
+        try {
+            const posts = await this.postModel
+                .find({ username: { $ne: username } })
+                .sort({ date: -1 }) // Ordena por fecha descendente
+                .exec();
+            return posts;
+        } catch (error) {
+            console.error('Error al obtener todos los posts:', error);
+            throw new InternalServerErrorException('Error al obtener todos los posts');
+        }
+    }
+
 }

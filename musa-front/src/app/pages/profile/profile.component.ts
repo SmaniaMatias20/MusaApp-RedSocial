@@ -46,7 +46,6 @@ export class ProfileComponent {
 
   ngOnInit(): void {
     this.postService.getPostsByUsername(this.username).subscribe((data) => {
-      console.log(data);
       this.posts = data.map(post => {
         post.date = this.formatTimeAgo(post.date);
         return post;

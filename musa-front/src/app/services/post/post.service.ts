@@ -25,4 +25,10 @@ export class PostService {
     });
   }
 
+  getPostByNotUsername(username: string): Observable<Post[]> {
+    return this.http.get<Post[]>(`${this.apiUrl}` + '/not', {
+      params: { username: username }
+    });
+  }
+
 }

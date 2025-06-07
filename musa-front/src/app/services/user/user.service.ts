@@ -14,8 +14,6 @@ export class UserService {
   constructor(private http: HttpClient) { }
 
   getUsersForAside(username: string): Observable<User[]> {
-    console.log(username);
-    console.log(typeof username);
     return this.http.get<User[]>(`${this.apiUrl}`, {
       params: { username: username }
     });
