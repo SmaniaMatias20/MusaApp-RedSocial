@@ -1,8 +1,10 @@
 import { Routes } from '@angular/router';
+import { AuthGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
     {
         path: 'home',
+        canActivate: [AuthGuard],
         loadComponent: () =>
             import('./pages/home/home.component').then((m) => m.HomeComponent),
     },
@@ -13,16 +15,19 @@ export const routes: Routes = [
     },
     {
         path: 'profile',
+        canActivate: [AuthGuard],
         loadComponent: () =>
             import('./pages/profile/profile.component').then((m) => m.ProfileComponent),
     },
     {
         path: 'dashboard-statistics',
+        canActivate: [AuthGuard],
         loadComponent: () =>
             import('./pages/dashboard-statistics/dashboard-statistics.component').then((m) => m.DashboardStatisticsComponent),
     },
     {
         path: 'dashboard-users',
+        canActivate: [AuthGuard],
         loadComponent: () =>
             import('./pages/dashboard-users/dashboard-users.component').then((m) => m.DashboardUsersComponent),
     },

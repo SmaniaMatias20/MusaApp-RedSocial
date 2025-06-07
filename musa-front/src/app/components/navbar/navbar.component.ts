@@ -1,29 +1,24 @@
-import { Component, computed, Signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
-import { User } from '../../models/user.model';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, NgIf],
   templateUrl: './navbar.component.html',
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent {
   menuOpen = false;
-  userSignal!: Signal<User | null>;
-
-  username = computed(() => this.userSignal()?.username || '');
-  firstName = computed(() => this.userSignal()?.firstName || '');
-  lastName = computed(() => this.userSignal()?.lastName || '');
-  isAdmin = computed(() => this.userSignal()?.isAdmin || false);
-  profileImage = computed(() => this.userSignal()?.profileImage || '');
-
-
+  username = localStorage.getItem('username') || '';
+  firstName = localStorage.getItem('firstName') || '';
+  lastName = localStorage.getItem('lastName') || '';
+  isAdmin = localStorage.getItem('isAdmin') === 'true';
+  profileImage = localStorage.getItem('profileImage') || '';
 
   constructor(private authService: AuthService) {
-    this.userSignal = this.authService.currentUser;
   }
 
   toggleMenu() {
