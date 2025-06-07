@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { NgIf } from '@angular/common';
 
 @Component({
@@ -8,20 +8,13 @@ import { NgIf } from '@angular/common';
   styleUrls: ['./post.component.css']
 })
 export class PostComponent {
-  user = {
-    name: 'emily',
-    username: '@Smania',
-    time: '20h',
-    verified: true,
-    profilePic: 'assets/emily.jpg'
-  };
+  @Input() post: any;
+  @Input() firstName!: string;
+  @Input() lastName!: string;
+  @Input() profileImage!: string;
 
-  content = `Holaaaaaa`;
-
-  stats = {
-    replies: 5,
-    retweets: 1,
-    likes: 93,
-    views: '4 mil'
-  };
+  constructor() {
+  }
 }
+
+

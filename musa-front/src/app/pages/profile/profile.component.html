@@ -1,16 +1,13 @@
 <div class="flex min-h-screen bg-black text-white sm:w-[600px]">
     <!-- Feed principal -->
     <main class="flex-1 max-w-2xl border-x border-gray-600">
-
         <app-profile-header></app-profile-header>
 
-        <!-- Lista de publicaciones simuladas -->
+        <!-- Lista de publicaciones -->
         <div class="divide-y divide-gray-800">
-            <app-post></app-post>
-            <app-post></app-post>
-            <app-post></app-post>
-            <app-post></app-post>
-            <app-post></app-post>
+            <app-post *ngFor="let post of posts" [post]="post" [firstName]="firstName" [lastName]="lastName"
+                [profileImage]="profileImage">
+            </app-post>
         </div>
     </main>
 </div>

@@ -18,4 +18,11 @@ export class PostService {
   createPost(formData: FormData): Observable<Post> {
     return this.http.post<Post>(this.apiUrl + '/create', formData);
   }
+
+  getPostsByUsername(username: string): Observable<Post[]> {
+    return this.http.get<Post[]>(`${this.apiUrl}`, {
+      params: { username: username }
+    });
+  }
+
 }

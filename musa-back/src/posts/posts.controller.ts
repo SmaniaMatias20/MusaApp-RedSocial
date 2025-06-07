@@ -6,6 +6,8 @@ import {
     Body,
     BadRequestException,
     InternalServerErrorException,
+    Query,
+    Get,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { PostsService } from './posts.service';
@@ -60,5 +62,10 @@ export class PostsController {
             }
             throw new InternalServerErrorException('Error interno al crear el post');
         }
+    }
+
+    @Get()
+    findAllByUsername(@Query('username') username: string) {
+        return this.postsService.findAllByUsername(username);
     }
 }
