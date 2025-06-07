@@ -7,9 +7,10 @@ async function bootstrap() {
 
   // ✅ Habilitar CORS para permitir peticiones desde Angular
   app.enableCors({
-    origin: 'http://localhost:4200', // Ajustá según el dominio de tu frontend
-    credentials: true
+    origin: ['http://localhost:4200', 'https://musa-frontend.onrender.com'],
+    credentials: true,
   });
+
 
   // ✅ Activar validación global (opcional, pero recomendado si usás DTOs)
   app.useGlobalPipes(new ValidationPipe());
