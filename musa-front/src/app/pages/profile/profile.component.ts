@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 import { ProfileHeaderComponent } from './components/profile-header/profile-header.component';
 import { PostComponent } from '../../components/post/post.component';
-import { NgFor } from '@angular/common';
+import { NgFor, NgIf } from '@angular/common';
 import { PostService } from '../../services/post/post.service';
 import { Post } from '../../models/post.model';
 
 @Component({
   selector: 'app-profile',
-  imports: [ProfileHeaderComponent, PostComponent, NgFor],
+  imports: [ProfileHeaderComponent, PostComponent, NgFor, NgIf],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
