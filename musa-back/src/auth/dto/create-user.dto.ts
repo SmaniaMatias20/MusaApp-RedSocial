@@ -48,4 +48,11 @@ export class CreateUserDto {
 
     @IsString()
     isAdmin: string;
+
+    @IsDateString()
+    createdAt: Date;
+
+    @IsOptional()
+    @IsBoolean()
+    show?: boolean;
 }

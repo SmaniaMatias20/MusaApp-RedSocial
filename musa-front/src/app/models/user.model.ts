@@ -9,4 +9,6 @@ export interface User {
     profileImage?: string;
     isAdmin: string;
     accessToken: string;
+    createdAt: Date | string;
+    show: boolean;
 }

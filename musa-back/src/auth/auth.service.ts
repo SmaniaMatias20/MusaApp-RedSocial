@@ -4,7 +4,6 @@ import { Model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { CreateUserDto } from './dto/create-user.dto';
-import { profile } from 'console';
 
 
 @Injectable()
@@ -20,13 +19,14 @@ export class AuthService {
 
         const newUser = new this.userModel({
             ...userData,
+            show: true,
             password: hashedPassword
         });
 
         return newUser.save();
     }
 
-    async login(usernameOrEmail: string, password: string): Promise<{ accessToken: string; username: string; isAdmin: string; firstName: string; lastName: string, birthDate: string; description: string, email: string, profileImage: string } | null> {
+    async login(usernameOrEmail: string, password: string): Promise<{ accessToken: string; username: string; isAdmin: string; firstName: string; lastName: string, birthDate: string; description: string, email: string, profileImage: string, createdAt: Date, show: boolean } | null> {
         const user = await this.userModel.findOne({
             $or: [{ email: usernameOrEmail }, { username: usernameOrEmail }]
         }).exec();
@@ -59,6 +59,8 @@ export class AuthService {
             birthDate: user.birthDate,
             description: user.description || "",
             profileImage: user.profileImage || "",
+            createdAt: user.createdAt,
+            show: user.show
         };
     }
 

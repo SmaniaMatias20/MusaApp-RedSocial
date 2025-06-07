@@ -55,7 +55,8 @@ export class RegisterComponent {
       birthDate: ['', [Validators.required, birthDateValidator]],
       description: ['', [Validators.maxLength(250)]],
       profileImage: [this.defaultImage],
-      isAdmin: "false"
+      isAdmin: "false",
+      createdAt: new Date().toISOString(),
     }, { validators: passwordMatchValidator });
   }
 
@@ -85,6 +86,8 @@ export class RegisterComponent {
     formData.append('birthDate', formValue.birthDate);
     formData.append('description', formValue.description || '');
     formData.append('isAdmin', formValue.isAdmin);
+    formData.append('createdAt', formValue.createdAt || '');
+    // formData.append('show', formValue.show);
     if (formValue.profileImage) {
       formData.append('profileImage', formValue.profileImage);
     }

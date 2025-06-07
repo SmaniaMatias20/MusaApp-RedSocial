@@ -56,6 +56,8 @@ export class AuthService {
     localStorage.setItem('birthDate', user.birthDate);
     localStorage.setItem('following', this.following.toString());
     localStorage.setItem('followers', this.followers.toString());
+    localStorage.setItem('createdAt', user.createdAt.toString());
+    localStorage.setItem('show', user.show.toString());
   }
 
   private getUserFromLocalStorage(): User | null {
@@ -70,6 +72,8 @@ export class AuthService {
       profileImage: localStorage.getItem('profileImage') || '',
       description: localStorage.getItem('description') || '',
       birthDate: localStorage.getItem('birthDate') || '',
+      createdAt: localStorage.getItem('createdAt') || '',
+      show: localStorage.getItem('show') === 'true',
     } as User;
   }
 }

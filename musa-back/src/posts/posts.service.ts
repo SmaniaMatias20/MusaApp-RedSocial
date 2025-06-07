@@ -56,6 +56,7 @@ export class PostsService {
                 .find({ username: { $ne: username } })
                 .sort({ date: -1 }) // Ordena por fecha descendente
                 .exec();
+
             return posts;
         } catch (error) {
             console.error('Error al obtener todos los posts:', error);
