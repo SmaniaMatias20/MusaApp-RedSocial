@@ -11,6 +11,9 @@
 
         <p class="mt-1 text-sm">{{ post.content }}</p>
 
+        <img *ngIf="post.image" [src]="post.image" class="w-full h-auto object-cover mt-2" alt="Imagen del post">
+
+
         <!-- Estadísticas simuladas -->
         <div class="flex justify-between mt-3 max-w-md text-gray-400 text-sm">
             <div class="flex items-center gap-1">

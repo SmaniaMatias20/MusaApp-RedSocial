@@ -9,6 +9,6 @@ export interface Post {
     image?: string;
     likes: string[];
     comments: Comment[];
-    date: Date | string;
+    date: string;
     show: boolean;
 }
