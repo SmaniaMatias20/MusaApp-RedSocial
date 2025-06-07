@@ -1,11 +1,8 @@
 <div class="flex h-screen overflow-y-auto bg-black text-white sm:w-[600px]">
-    <!-- Feed principal -->
     <main class="flex-1 max-w-2xl border-x border-gray-600 flex flex-col">
 
-        <!-- Header (NO fijo) -->
         <app-profile-header></app-profile-header>
 
-        <!-- Lista de publicaciones con scroll -->
         <div *ngIf="posts.length > 0" class="flex-1 overflow-y-auto divide-y divide-gray-800">
             <app-post *ngFor="let post of posts" [post]="post" [firstName]="firstName" [lastName]="lastName"
                 [profileImage]="profileImage"></app-post>

@@ -23,6 +23,22 @@
                     <span class="hidden sm:inline">Perfil</span>
                 </a>
             </li>
+            <li>
+                <a routerLink="/dashboard-statistics"
+                    class="hover:text-blue-400 flex items-center justify-center sm:justify-start gap-0 sm:gap-4"
+                    (click)="closeMenu()">
+                    <span class="material-icons text-white">assessment</span>
+                    <span class="hidden sm:inline">Estadísticas</span>
+                </a>
+            </li>
+            <li>
+                <a routerLink="/dashboard-users"
+                    class="hover:text-blue-400 flex items-center justify-center sm:justify-start gap-0 sm:gap-4"
+                    (click)="closeMenu()">
+                    <span class="material-icons text-white">people</span>
+                    <span class="hidden sm:inline">Usuarios</span>
+                </a>
+            </li>
         </ul>
 
     </div>
@@ -49,6 +65,7 @@
                         class="w-full text-left px-4 py-2 hover:bg-gray-700 cursor-pointer">Cerrar
                         sesión</button>
                 </li>
+
             </ul>
         </div>
         }

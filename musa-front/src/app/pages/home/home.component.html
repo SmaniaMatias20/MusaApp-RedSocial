@@ -2,9 +2,6 @@
     <main class="flex-1 max-w-2xl border-x border-gray-600 flex flex-col">
         <app-post-creator></app-post-creator>
 
-
-
-        <!-- Lista de publicaciones simuladas -->
         <div class="flex-1 overflow-y-auto divide-y divide-gray-800">
             <app-post *ngFor="let post of posts" [post]="post"></app-post>
         </div>
