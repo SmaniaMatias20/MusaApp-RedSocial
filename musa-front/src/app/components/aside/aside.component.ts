@@ -14,14 +14,10 @@ import { CommonModule } from '@angular/common';
 })
 export class AsideComponent {
   username = localStorage.getItem('username') || '';
-  userSignal!: Observable<User[]>; // Asegúrate que sea Observable de array
-
-
+  userSignal!: Observable<User[]>;
 
   constructor(private userService: UserService) {
-    console.log(this.username);
     this.userSignal = this.userService.getUsersForAside(this.username);
-    console.log(this.userSignal);
   }
 
 

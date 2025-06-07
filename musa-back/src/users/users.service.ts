@@ -16,11 +16,12 @@ export class UsersService {
 
     async findAllByUsername(username: string): Promise<User[]> {
         return this.userModel
-            .find({ username: { $ne: username } })
+            .find({ username: { $ne: username.trim() } })
             .select('username firstName lastName profileImage')
             .limit(3)
             .exec();
     }
+
 
 
     async findAll(): Promise<User[]> {
