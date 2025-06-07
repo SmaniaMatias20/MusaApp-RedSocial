@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
-import { AuthGuard } from './guards/auth.guard';
+import { AuthGuard } from './guards/auth/auth.guard';
+import { AdminGuard } from './guards/admin/admin.guard';
 
 export const routes: Routes = [
     {
@@ -21,13 +22,14 @@ export const routes: Routes = [
     },
     {
         path: 'dashboard-statistics',
-        canActivate: [AuthGuard],
+        canActivate: [AuthGuard, AdminGuard],
+
         loadComponent: () =>
             import('./pages/dashboard-statistics/dashboard-statistics.component').then((m) => m.DashboardStatisticsComponent),
     },
     {
         path: 'dashboard-users',
-        canActivate: [AuthGuard],
+        canActivate: [AuthGuard, AdminGuard],
         loadComponent: () =>
             import('./pages/dashboard-users/dashboard-users.component').then((m) => m.DashboardUsersComponent),
     },

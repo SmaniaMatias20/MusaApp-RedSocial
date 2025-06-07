@@ -4,19 +4,19 @@ import { CanActivate, Router } from '@angular/router';
 @Injectable({
   providedIn: 'root',
 })
-export class AuthGuard implements CanActivate {
+export class AdminGuard implements CanActivate {
 
   constructor(private router: Router) { }
 
   canActivate(): boolean {
-    const user = localStorage.getItem('username');
-    console.log(user);
+    const isAdmin = localStorage.getItem('isAdmin');
 
-    if (user) {
+    if (isAdmin === 'true') {
       return true;
     }
 
-    this.router.navigate(['/auth']);
+    // Si no es admin, redirigimos
+    this.router.navigate(['/home']);
     return false;
   }
 }
