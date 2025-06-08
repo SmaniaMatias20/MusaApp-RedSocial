@@ -22,6 +22,11 @@ export class ProfileHeaderComponent {
   isAdmin = computed(() => this.userSignal()?.isAdmin === 'true');
   profileImage = computed(() => this.userSignal()?.profileImage || '');
   description = computed(() => this.userSignal()?.description || '');
+  createdAt = computed(() => {
+    const isoDate = this.userSignal()?.createdAt;
+    if (!isoDate) return '';
+    return this.formatDateToSpanish(isoDate);
+  });
   formattedBirthDate = computed(() => {
     const isoDate = this.userSignal()?.birthDate;
     if (!isoDate) return '';
@@ -44,8 +49,5 @@ export class ProfileHeaderComponent {
     const monthName = months[parseInt(month, 10) - 1];
     return `${parseInt(day, 10)} de ${monthName} de ${year}`;
   }
-
-
-
 
 }

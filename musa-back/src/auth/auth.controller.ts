@@ -26,7 +26,6 @@ export class AuthController {
         @Body() createUserDto: CreateUserDto,
         @UploadedFile() file: Express.Multer.File,
     ): Promise<CreateUserDto> {
-        console.log(createUserDto);
         const existingEmail = await this.authService.findOneByEmail(createUserDto.email);
         const existingUsername = await this.authService.findOneByUsername(createUserDto.username);
 
