@@ -1,4 +1,4 @@
-import { Component, computed, Signal } from '@angular/core';
+import { Component, EventEmitter, Output, computed, Signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
 import { PostService } from '../../services/post/post.service';
@@ -13,10 +13,10 @@ import { User } from '../../models/user.model';
   styleUrls: ['./post-creator.component.css']
 })
 export class PostCreatorComponent {
+  @Output() postCreated = new EventEmitter<void>();
   tweetText: string = '';
   imageFile: File | null = null;
   imagePreview: string | null = null;
-
   username = localStorage.getItem('username') || '';
   userSignal!: Signal<User | null>;
   profileImage = computed(() => this.userSignal()?.profileImage || '');
@@ -62,6 +62,8 @@ export class PostCreatorComponent {
       this.tweetText = '';
       this.imageFile = null;
       this.imagePreview = null;
+
+      this.postCreated.emit();
     } catch (error) {
       console.error('Error creando post:', error);
     }
