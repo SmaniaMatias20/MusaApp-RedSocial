@@ -21,10 +21,16 @@
                 <span>0</span>
             </div>
 
-            <div class="flex items-center gap-1">
-                <i class="material-icons text-base">favorite_border</i>
+            <div class="flex items-center gap-1 cursor-pointer" (click)="likePost(post)">
+                <i class="material-icons text-base" [ngClass]="{
+                    'text-red-500': hasUserLiked(post),
+                    'text-gray-400': !hasUserLiked(post)
+                  }">
+                    favorite
+                </i>
                 <span>{{ post.likes?.length || 0 }}</span>
             </div>
+
 
             <div class="flex items-center gap-1">
                 <i class="material-icons text-base">bar_chart</i>

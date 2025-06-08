@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, computed, Signal } from '@angular/core';
+import { Component, EventEmitter, Output, Signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
 import { PostService } from '../../services/post/post.service';

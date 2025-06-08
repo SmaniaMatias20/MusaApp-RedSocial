@@ -1,6 +1,7 @@
 import { Injectable, InternalServerErrorException, BadRequestException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Post } from './schemas/post.schema';
+import { CreateLikeDto } from './dto/create-like.dto';
 import { Model } from 'mongoose';
 
 @Injectable()
@@ -70,5 +71,29 @@ export class PostsService {
             throw new InternalServerErrorException('Error al obtener todos los posts');
         }
     }
+
+    async likePost(postId: string, likeData: CreateLikeDto) {
+        try {
+            const post = await this.postModel.findById(postId);
+
+            if (!post) {
+                throw new BadRequestException('No se encontró el post');
+            }
+
+            // Evitar duplicados
+            if (post.likes.some(like => like.username === likeData.username)) {
+                throw new BadRequestException('El usuario ya ha dado like a este post');
+            }
+
+            post.likes.push(likeData);
+            await post.save();
+
+            return post;
+        } catch (error) {
+            console.error('Error al hacer like:', error);
+            throw new InternalServerErrorException('Error al hacer like');
+        }
+    }
+
 
 }

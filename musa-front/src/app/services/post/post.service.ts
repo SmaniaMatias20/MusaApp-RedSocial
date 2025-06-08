@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Post } from '../../models/post.model';
 import { environment } from '../../../environments/environment';
+import { User } from '../../models/user.model';
 
 
 
@@ -27,6 +28,15 @@ export class PostService {
 
   getPosts(): Observable<Post[]> {
     return this.http.get<Post[]>(`${this.apiUrl}` + '/all');
+  }
+
+  likePost(postId: string, user: User | null): Observable<Post> {
+    return this.http.post<Post>(`${this.apiUrl}/like/${postId}`, {
+      username: user?.username,
+      firstName: user?.firstName,
+      lastName: user?.lastName,
+      profileImage: user?.profileImage
+    });
   }
 
 }

@@ -1,6 +1,16 @@
 export interface Comment {
     username: string;
+    firstName: string;
+    lastName: string;
+    profileImage: string;
     content: string;
+}
+
+export interface Like {
+    username: string;
+    firstName: string;
+    lastName: string;
+    profileImage: string;
 }
 
 export interface Post {
@@ -10,7 +20,7 @@ export interface Post {
     username: string;
     content: string;
     image?: string;
-    likes: string[];
+    likes: Like[];
     comments: Comment[];
     date: string;
     show: boolean;

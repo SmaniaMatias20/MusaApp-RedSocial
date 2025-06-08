@@ -1,9 +1,15 @@
-import { Component, Input } from '@angular/core';
-import { NgIf } from '@angular/common';
+import { Component, Input, Signal } from '@angular/core';
+import { NgIf, NgClass } from '@angular/common';
+import { PostService } from '../../services/post/post.service';
+import { AuthService } from '../../services/auth/auth.service';
+import { User } from '../../models/user.model';
+import { firstValueFrom } from 'rxjs';
+
 
 @Component({
   selector: 'app-post',
-  imports: [NgIf],
+  standalone: true,
+  imports: [NgIf, NgClass],
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.css']
 })
@@ -13,8 +19,36 @@ export class PostComponent {
   @Input() lastName!: string;
   @Input() profileImage!: string;
 
-  constructor() {
+  userSignal!: Signal<User | null>;
+
+  constructor(
+    private postService: PostService,
+    private authService: AuthService
+  ) {
+    this.userSignal = this.authService.currentUser;
   }
+
+  async likePost(post: any): Promise<void> {
+    const user = this.userSignal();
+
+    if (!user) {
+      return;
+    }
+
+    try {
+      const response = await firstValueFrom(this.postService.likePost(post._id, user));
+      console.log('Like exitoso:', response);
+    } catch (error) {
+      console.error('Error al hacer like:', error);
+    }
+  }
+
+  hasUserLiked(post: any): boolean {
+    const user = this.userSignal();
+    if (!user || !post.likes) return false;
+    return post.likes.some((like: { username: string }) => like.username === user.username);
+  }
+
+
+
 }
-
-

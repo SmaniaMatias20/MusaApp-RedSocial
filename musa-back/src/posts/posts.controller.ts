@@ -7,12 +7,14 @@ import {
     BadRequestException,
     InternalServerErrorException,
     Query,
+    Param,
     Get,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { PostsService } from './posts.service';
 import { CloudinaryService } from '../cloudinary/cloudinary.service';
 import { CreatePostDto } from './dto/create-post.dto';
+import { CreateLikeDto } from './dto/create-like.dto';
 
 @Controller('posts')
 export class PostsController {
@@ -72,4 +74,13 @@ export class PostsController {
     findAll() {
         return this.postsService.findAll();
     }
+
+    @Post('like/:postId')
+    async likePost(
+        @Param('postId') postId: string,
+        @Body() createLikeDto: CreateLikeDto
+    ) {
+        return this.postsService.likePost(postId, createLikeDto);
+    }
+
 }
