@@ -1,8 +1,7 @@
 <div class="fixed inset-0 bg-black/40 backdrop-blur-sm flex items-center justify-center z-50">
     <div class="bg-zinc-900 text-white rounded-xl shadow-lg w-full max-w-md p-6">
 
-        <div class="flex justify-between items-center mb-4">
-            <h2 class="text-xl font-semibold">Interacciones del Post</h2>
+        <div class="flex justify-end items-center mb-2 ">
             <button class="text-white text-xl font-bold hover:text-red-400" (click)="close()">×</button>
         </div>
 
@@ -22,11 +21,22 @@
         </div>
 
         <div>
-            <!-- Likes tab -->
             <div *ngIf="activeTab === 'likes'">
                 <p *ngIf="likes.length === 0" class="text-gray-400">Nadie ha dado me gusta aún.</p>
-                <ul class="space-y-2">
-                    <li *ngFor="let user of likes" class="border-b border-gray-700 py-1">{{ user.username }}</li>
+                <ul class="space-y-3">
+                    <li *ngFor="let user of likes" class="border-b border-gray-700 pb-3 pt-1">
+                        <div class="flex gap-2">
+                            <!-- Imagen + nombre completo -->
+                            <img [src]="user.profileImage" alt="{{ user.firstName }} {{ user.lastName }}"
+                                class="rounded-full w-10 h-10 object-cover" />
+                            <div class="hidden sm:block leading-tight">
+                                <p class="font-semibold text-sm">{{user.firstName}} {{user.lastName}}</p>
+                                <p class="text-gray-400 text-sm">{{user.username}}</p>
+                            </div>
+
+                        </div>
+
+                    </li>
                 </ul>
             </div>
 
