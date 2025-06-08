@@ -45,7 +45,6 @@ export class PostsController {
                     throw new InternalServerErrorException('Error al subir la imagen');
                 }
             }
-
             // Crear post en la base de datos
             const newPost = await this.postsService.createPost({
                 ...createPostDto,

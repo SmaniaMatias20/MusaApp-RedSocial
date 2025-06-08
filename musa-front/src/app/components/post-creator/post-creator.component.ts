@@ -17,9 +17,12 @@ export class PostCreatorComponent {
   tweetText: string = '';
   imageFile: File | null = null;
   imagePreview: string | null = null;
-  username = localStorage.getItem('username') || '';
   userSignal!: Signal<User | null>;
-  profileImage = computed(() => this.userSignal()?.profileImage || '');
+  username = localStorage.getItem('username') || '';
+  firstName = localStorage.getItem('firstName') || '';
+  lastName = localStorage.getItem('lastName') || '';
+  profileImage = localStorage.getItem('profileImage') || '';
+
 
   constructor(private postService: PostService, private authService: AuthService) {
     this.userSignal = this.authService.currentUser;
@@ -52,6 +55,9 @@ export class PostCreatorComponent {
     const formData = new FormData();
     formData.append('content', this.tweetText);
     formData.append('username', this.username);
+    formData.append('profileImage', this.profileImage);
+    formData.append('firstName', this.firstName);
+    formData.append('lastName', this.lastName);
 
     if (this.imageFile) {
       formData.append('image', this.imageFile, this.imageFile.name);

@@ -3,6 +3,16 @@ import { Document } from 'mongoose';
 
 @Schema()
 export class Post extends Document {
+
+    @Prop()
+    firstName: string;
+
+    @Prop()
+    lastName: string;
+
+    @Prop()
+    profileImage: string;
+
     @Prop({ required: true })
     username: string;
 

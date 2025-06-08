@@ -4,6 +4,9 @@ export interface Comment {
 }
 
 export interface Post {
+    firstName: string;
+    lastName: string;
+    profileImage: string;
     username: string;
     content: string;
     image?: string;

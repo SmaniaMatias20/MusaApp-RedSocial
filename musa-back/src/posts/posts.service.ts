@@ -10,6 +10,9 @@ export class PostsService {
     ) { }
 
     async createPost(data: {
+        firstName: string;
+        lastName: string;
+        profileImage: string;
         username: string;
         content: string;
         image?: string;
@@ -20,6 +23,9 @@ export class PostsService {
             }
 
             const newPost = new this.postModel({
+                firstName: data.firstName,
+                lastName: data.lastName,
+                profileImage: data.profileImage,
                 username: data.username,
                 content: data.content,
                 image: data.image,
@@ -28,6 +34,7 @@ export class PostsService {
                 date: new Date(),
                 show: true,
             });
+
             return await newPost.save();
         } catch (error) {
             console.error('Error al crear el post:', error);
