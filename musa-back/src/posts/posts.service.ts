@@ -82,7 +82,9 @@ export class PostsService {
 
             // Evitar duplicados
             if (post.likes.some(like => like.username === likeData.username)) {
-                throw new BadRequestException('El usuario ya ha dado like a este post');
+                post.likes = post.likes.filter(like => like.username !== likeData.username);
+                await post.save();
+                return post;
             }
 
             post.likes.push(likeData);

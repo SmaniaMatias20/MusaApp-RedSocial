@@ -20,7 +20,7 @@ export class PostComponent {
   @Input() firstName!: string;
   @Input() lastName!: string;
   @Input() profileImage!: string;
-
+  loading = false;
   userSignal!: Signal<User | null>;
 
   constructor(
@@ -31,6 +31,7 @@ export class PostComponent {
   }
 
   async likePost(post: any): Promise<void> {
+    this.loading = true;
     const user = this.userSignal();
 
     if (!user) {
@@ -41,6 +42,7 @@ export class PostComponent {
       const response = await firstValueFrom(this.postService.likePost(post._id, user));
       console.log('Like exitoso:', response);
       this.postLiked.emit();
+      this.loading = false;
     } catch (error) {
       console.error('Error al hacer like:', error);
     }
