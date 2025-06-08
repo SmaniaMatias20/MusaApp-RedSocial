@@ -50,11 +50,11 @@ export class PostsService {
         }
     }
 
-    async findAllByNotUsername(username: string): Promise<Post[]> {
+    async findAll(): Promise<Post[]> {
         try {
             const posts = await this.postModel
-                .find({ username: { $ne: username } })
-                .sort({ date: -1 }) // Ordena por fecha descendente
+                .find()
+                .sort({ date: -1 })
                 .exec();
 
             return posts;

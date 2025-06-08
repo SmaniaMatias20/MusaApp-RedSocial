@@ -40,7 +40,7 @@ export class HomeComponent {
   }
 
   ngOnInit(): void {
-    this.postService.getPostByNotUsername(this.username).subscribe((data) => {
+    this.postService.getPosts().subscribe((data) => {
       this.posts = data.map(post => {
         post.date = this.formatTimeAgo(post.date);
         return post;
