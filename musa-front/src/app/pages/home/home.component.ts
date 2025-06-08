@@ -3,19 +3,30 @@ import { PostCreatorComponent } from '../../components/post-creator/post-creator
 import { PostComponent } from '../../components/post/post.component';
 import { PostService } from '../../services/post/post.service';
 import { NgIf, NgFor } from '@angular/common';
+import { PostInteractionsComponent } from '../../components/post-interactions/post-interactions.component';
 
 @Component({
   selector: 'app-home',
-  imports: [PostCreatorComponent, PostComponent, NgIf, NgFor],
+  imports: [PostCreatorComponent, PostComponent, NgIf, NgFor, PostInteractionsComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit, OnDestroy {
   posts: any[] = [];
   username = localStorage.getItem('username') || '';
+  selectedPost: any = null;
   private intervalId: any;
 
   constructor(private postService: PostService) { }
+
+
+  openPostInteractions(post: any): void {
+    this.selectedPost = post;
+  }
+
+  closePostInteractions(): void {
+    this.selectedPost = null;
+  }
 
   ngOnInit(): void {
     this.loadPosts();

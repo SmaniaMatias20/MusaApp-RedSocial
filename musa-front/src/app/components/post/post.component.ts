@@ -22,6 +22,12 @@ export class PostComponent {
   @Input() profileImage!: string;
   loading = false;
   userSignal!: Signal<User | null>;
+  @Output() interactionsRequested = new EventEmitter<void>();
+
+  onClick() {
+    this.interactionsRequested.emit();
+  }
+
 
   constructor(
     private postService: PostService,
