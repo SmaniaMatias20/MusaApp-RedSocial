@@ -1,9 +1,10 @@
-import { Component, Input, Signal } from '@angular/core';
+import { Component, Input, Output, Signal, EventEmitter } from '@angular/core';
 import { NgIf, NgClass } from '@angular/common';
 import { PostService } from '../../services/post/post.service';
 import { AuthService } from '../../services/auth/auth.service';
 import { User } from '../../models/user.model';
 import { firstValueFrom } from 'rxjs';
+
 
 
 @Component({
@@ -14,6 +15,7 @@ import { firstValueFrom } from 'rxjs';
   styleUrls: ['./post.component.css']
 })
 export class PostComponent {
+  @Output() postLiked = new EventEmitter<void>();
   @Input() post: any;
   @Input() firstName!: string;
   @Input() lastName!: string;
@@ -38,6 +40,7 @@ export class PostComponent {
     try {
       const response = await firstValueFrom(this.postService.likePost(post._id, user));
       console.log('Like exitoso:', response);
+      this.postLiked.emit();
     } catch (error) {
       console.error('Error al hacer like:', error);
     }
