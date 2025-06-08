@@ -4,21 +4,33 @@ import { PostComponent } from '../../components/post/post.component';
 import { NgFor, NgIf } from '@angular/common';
 import { PostService } from '../../services/post/post.service';
 import { Post } from '../../models/post.model';
+import { PostInteractionsComponent } from '../../components/post-interactions/post-interactions.component';
+
+
 
 @Component({
   selector: 'app-profile',
-  imports: [ProfileHeaderComponent, PostComponent, NgFor, NgIf],
+  imports: [ProfileHeaderComponent, PostComponent, NgFor, NgIf, PostInteractionsComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
 export class ProfileComponent {
   posts: Post[] = [];
+  selectedPost: any = null;
   username = localStorage.getItem('username') || '';
   firstName = localStorage.getItem('firstName') || '';
   lastName = localStorage.getItem('lastName') || '';
   profileImage = localStorage.getItem('profileImage') || '';
 
   constructor(private postService: PostService) {
+  }
+
+  openPostInteractions(post: any): void {
+    this.selectedPost = post;
+  }
+
+  closePostInteractions(): void {
+    this.selectedPost = null;
   }
 
   private formatTimeAgo(dateString: string): string {
@@ -43,14 +55,22 @@ export class ProfileComponent {
     });
   }
 
+  onPostLiked(): void {
+    this.loadPosts();
+  }
 
-  ngOnInit(): void {
+  private loadPosts(): void {
     this.postService.getPostsByUsername(this.username).subscribe((data) => {
       this.posts = data.map(post => {
         post.date = this.formatTimeAgo(post.date);
         return post;
       });
     });
+  }
+
+
+  ngOnInit(): void {
+    this.loadPosts();
 
   }
 
