@@ -55,13 +55,30 @@ export class PostComponent {
     }
   }
 
-  commentPost(post: any) {
+  commentPost() {
     this.showCommentCreator = true;
-    // guardar el comentario en el post
+  }
 
+  async onCommentCreated(commentText: string) {
+    this.showCommentCreator = false;  // ocultamos el formulario
 
-    // this.postCommented.emit();
-    // console.log('Comentando post:', post);
+    const user = this.userSignal();
+    if (!user) {
+      console.warn('No hay usuario logueado');
+      return;
+    }
+
+    try {
+      const updatedPost = await firstValueFrom(
+        this.postService.addComment(this.post._id, commentText, user)
+      );
+
+      this.post = updatedPost; // Actualizás el post con el nuevo comentario
+      this.postCommented.emit(); // Emitís evento para notificar si querés
+
+    } catch (error) {
+      console.error('Error al agregar comentario:', error);
+    }
   }
 
   hasUserLiked(post: any): boolean {

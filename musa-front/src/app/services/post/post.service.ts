@@ -39,4 +39,18 @@ export class PostService {
     });
   }
 
+  addComment(postId: string, content: string, user: User | null): Observable<Post> {
+    console.log('Agregando comentario:', content);
+    console.log('Usuario:', user);
+    console.log('PostId:', postId);
+    return this.http.post<Post>(`${this.apiUrl}/comments/${postId}`, {
+      comment: content,
+      username: user?.username,
+      firstName: user?.firstName,
+      lastName: user?.lastName,
+      profileImage: user?.profileImage
+    });
+  }
+
+
 }
