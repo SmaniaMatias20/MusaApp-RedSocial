@@ -44,8 +44,18 @@
             <div *ngIf="activeTab === 'comments'">
                 <p *ngIf="comments.length === 0" class="text-gray-400">No hay comentarios aún.</p>
                 <ul class="space-y-2">
-                    <li *ngFor="let item of comments" class="border-b border-gray-700 py-1">
-                        <strong>{{ item.username }}:</strong> {{ item.comment }}
+                    <li *ngFor="let item of comments" class="border-b border-gray-700 pb-3 pt-1">
+                        <div class="flex gap-2">
+                            <img [src]="item.profileImage" alt="{{ item.firstName }} {{ item.lastName }}"
+                                class="rounded-full w-10 h-10 object-cover" />
+                            <div class="hidden sm:block leading-tight">
+                                <p class="font-semibold text-sm">{{item.firstName}} {{item.lastName}}</p>
+                                <p class="text-gray-400 text-sm">{{item.username}}</p>
+                                <p class="text-gray-400 text-sm">{{item.date}}</p>
+                                <p class="text-gray-400 text-sm">{{item.content}}</p>
+                            </div>
+                        </div>
+
                     </li>
                 </ul>
             </div>

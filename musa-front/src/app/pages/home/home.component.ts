@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
 
   openPostInteractions(post: any): void {
+    console.log("post", post);
     this.selectedPost = post;
   }
 
@@ -59,6 +60,7 @@ export class HomeComponent implements OnInit, OnDestroy {
         post.date = this.formatTimeAgo(post.date);
         return post;
       });
+      console.log(this.posts);
     });
   }
 

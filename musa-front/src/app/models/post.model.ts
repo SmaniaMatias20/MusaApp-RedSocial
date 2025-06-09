@@ -4,6 +4,9 @@ export interface Comment {
     lastName: string;
     profileImage: string;
     content: string;
+    date: string;
+    edited: boolean;
+    show: boolean;
 }
 
 export interface Like {

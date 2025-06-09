@@ -33,7 +33,10 @@ export class Post extends Document {
             firstName: String,
             lastName: String,
             profileImage: String,
-            content: String
+            content: String,
+            edited: Boolean,
+            show: Boolean,
+            date: Date
         }],
         default: [],
     })
@@ -43,6 +46,9 @@ export class Post extends Document {
         lastName: string;
         profileImage: string;
         content: string;
+        edited: boolean;
+        show: boolean;
+        date: Date;
     }[];
 
     @Prop({ default: Date.now })
@@ -53,39 +59,3 @@ export class Post extends Document {
 }
 
 export const PostSchema = SchemaFactory.createForClass(Post);
-
-// export class Post extends Document {
-
-//     @Prop()
-//     firstName: string;
-
-//     @Prop()
-//     lastName: string;
-
-//     @Prop()
-//     profileImage: string;
-
-//     @Prop({ required: true })
-//     username: string;
-
-//     @Prop({ required: true })
-//     content: string;
-
-//     @Prop()
-//     image?: string;
-
-//     @Prop({ type: [String], default: [] })
-//     likes: string[];
-
-//     @Prop({
-//         type: [{ username: String, content: String }],
-//         default: [],
-//     })
-//     comments: { username: string; content: string }[];
-
-//     @Prop({ default: Date.now })
-//     date: Date;
-
-//     @Prop({ default: true })
-//     show: boolean;
-// }

@@ -9,7 +9,7 @@ import { NgIf, NgFor, NgClass } from '@angular/common';
 })
 export class PostInteractionsComponent {
   @Input() likes: { id: number, username: string, firstName: string, lastName: string, profileImage: string }[] = [];
-  @Input() comments: { id: number, username: string, comment: string }[] = [];
+  @Input() comments: { id: number, username: string, content: string, firstName: string, lastName: string, profileImage: string, date: string, edited: boolean, show: boolean }[] = [];
 
   @Output() onClose = new EventEmitter<void>();
 

@@ -1,7 +1,8 @@
-import { Injectable, InternalServerErrorException, BadRequestException } from '@nestjs/common';
+import { Injectable, InternalServerErrorException, BadRequestException, NotFoundException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Post } from './schemas/post.schema';
 import { CreateLikeDto } from './dto/create-like.dto';
+import { CreateCommentDto } from './dto/create-comment.dto';
 import { Model } from 'mongoose';
 
 @Injectable()
@@ -96,6 +97,27 @@ export class PostsService {
             throw new InternalServerErrorException('Error al hacer like');
         }
     }
+
+    async addComment(postId: string, commentDto: CreateCommentDto) {
+        const post = await this.postModel.findById(postId);
+
+        if (!post) {
+            throw new NotFoundException('Post no encontrado');
+        }
+
+        const comment = {
+            ...commentDto,
+            date: new Date(),
+            edited: false,
+            show: true,
+        };
+
+        post.comments.push(comment);
+
+        await post.save();
+        return post;
+    }
+
 
 
 }

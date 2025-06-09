@@ -15,6 +15,7 @@ import { PostsService } from './posts.service';
 import { CloudinaryService } from '../cloudinary/cloudinary.service';
 import { CreatePostDto } from './dto/create-post.dto';
 import { CreateLikeDto } from './dto/create-like.dto';
+import { CreateCommentDto } from './dto/create-comment.dto';
 
 @Controller('posts')
 export class PostsController {
@@ -82,5 +83,14 @@ export class PostsController {
     ) {
         return this.postsService.likePost(postId, createLikeDto);
     }
+
+    @Post('comments/:postId')
+    async addComment(
+        @Param('postId') postId: string,
+        @Body() createCommentDto: CreateCommentDto,
+    ) {
+        return this.postsService.addComment(postId, createCommentDto);
+    }
+
 
 }

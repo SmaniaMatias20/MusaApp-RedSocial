@@ -4,4 +4,7 @@ export class CreateCommentDto {
     lastName: string;
     profileImage: string;
     content: string;
+    date?: Date | string;
+    edited: boolean;
+    show: boolean;
 }
