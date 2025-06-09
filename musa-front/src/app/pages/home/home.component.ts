@@ -49,6 +49,10 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.loadPosts();
   }
 
+  onPostCommented(): void {
+    this.loadPosts();
+  }
+
   private loadPosts(): void {
     this.postService.getPosts().subscribe((data) => {
       this.posts = data.map(post => {

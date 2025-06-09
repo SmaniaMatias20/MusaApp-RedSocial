@@ -16,9 +16,9 @@
 
         <!-- Estadísticas simuladas -->
         <div class="flex justify-between mt-3 max-w-md text-gray-400 text-sm">
-            <div class="flex items-center gap-1">
+            <div class="flex items-center gap-1 cursor-pointer" (click)="commentPost(post)">
                 <i class="material-icons text-base">chat_bubble_outline</i>
-                <span>0</span>
+                <span>1</span>
             </div>
 
             <div class="flex items-center gap-1 cursor-pointer" (click)="!loading && likePost(post)">
@@ -37,5 +37,9 @@
                 <i class="material-icons text-base cursor-pointer">insights</i>
             </div>
         </div>
+
+        <app-comment-creator *ngIf="showCommentCreator" (commentCreated)="commentPost($event)"
+            (closeModal)="showCommentCreator = false"></app-comment-creator>
+
     </div>
 </div>
