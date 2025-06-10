@@ -9,6 +9,7 @@
         <!-- Formulario -->
         <form (submit)="submitComment()" class="flex flex-col gap-4 mt-6">
             <textarea [(ngModel)]="commentText" name="comment" rows="3" placeholder="Escribe tu comentario..."
+                maxlength="140"
                 class="w-full p-3 border border-gray-600 rounded-lg bg-zinc-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
 
             <button type="submit"

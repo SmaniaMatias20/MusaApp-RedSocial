@@ -47,20 +47,24 @@
                     <li *ngFor="let item of comments" class="border-b border-gray-700 pb-3 pt-1">
                         <div class="flex gap-2">
                             <img [src]="item.profileImage" alt="{{ item.firstName }} {{ item.lastName }}"
-                                class="rounded-full w-10 h-10 object-cover" />
+                                class="rounded-full w-10 h-10 object-cover object-center aspect-square" />
+
                             <div class="leading-tight">
-                                <p class="font-semibold text-sm">{{item.firstName}} {{item.lastName}} ·
+                                <p class="font-semibold text-sm">{{item.firstName}} {{item.lastName}} -
                                     <span class="text-gray-400">{{item.date}}</span>
                                 </p>
                                 <p class="text-gray-400 text-sm">{{item.username}}</p>
-                                <div class="border mt-2 border-gray-700 rounded-lg p-2">
-                                    <p class=" text-sm">{{item.content}}</p>
+                                <div
+                                    class="border mt-2 border-gray-700 rounded-lg p-2 max-h-40 overflow-x-auto break-words">
+                                    <p class="text-sm break-words break-all">{{ item.content }}</p>
+
                                 </div>
+
                             </div>
 
                         </div>
-                        <div>
-                        </div>
+
+
                     </li>
                 </ul>
             </div>
