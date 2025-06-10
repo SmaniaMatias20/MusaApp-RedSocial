@@ -30,6 +30,8 @@ export class AuthService {
       this.saveUserToLocalStorage(user);
       this.currentUser.set(user);
 
+      console.log('user', user);
+
       await this.router.navigate(['/home']);
       return user;
 
@@ -46,6 +48,7 @@ export class AuthService {
   }
 
   private saveUserToLocalStorage(user: User): void {
+    localStorage.setItem('id', user.id);
     localStorage.setItem('username', user.username);
     localStorage.setItem('firstName', user.firstName);
     localStorage.setItem('lastName', user.lastName);
@@ -65,6 +68,7 @@ export class AuthService {
     if (!username) return null;
     return {
       username,
+      id: localStorage.getItem('id'),
       firstName: localStorage.getItem('firstName') || '',
       lastName: localStorage.getItem('lastName') || '',
       accessToken: localStorage.getItem('accessToken') || '',

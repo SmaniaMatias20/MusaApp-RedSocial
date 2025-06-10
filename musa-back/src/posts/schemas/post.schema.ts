@@ -4,6 +4,7 @@ import { Document } from 'mongoose';
 
 @Schema()
 export class Post extends Document {
+    @Prop() idUser: string;
     @Prop() firstName: string;
     @Prop() lastName: string;
     @Prop() profileImage: string;
@@ -13,6 +14,7 @@ export class Post extends Document {
 
     @Prop({
         type: [{
+            idUser: String,
             username: String,
             firstName: String,
             lastName: String,
@@ -21,6 +23,7 @@ export class Post extends Document {
         default: [],
     })
     likes: {
+        idUser: string;
         username: string;
         firstName: string;
         lastName: string;
@@ -29,6 +32,7 @@ export class Post extends Document {
 
     @Prop({
         type: [{
+            idUser: String,
             username: String,
             firstName: String,
             lastName: String,
@@ -41,6 +45,7 @@ export class Post extends Document {
         default: [],
     })
     comments: {
+        idUser: string;
         username: string;
         firstName: string;
         lastName: string;

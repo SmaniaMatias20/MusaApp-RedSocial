@@ -18,6 +18,7 @@ export class PostCreatorComponent {
   imageFile: File | null = null;
   imagePreview: string | null = null;
   userSignal!: Signal<User | null>;
+  idUser = localStorage.getItem('id') || '';
   username = localStorage.getItem('username') || '';
   firstName = localStorage.getItem('firstName') || '';
   lastName = localStorage.getItem('lastName') || '';
@@ -58,6 +59,7 @@ export class PostCreatorComponent {
     formData.append('profileImage', this.profileImage);
     formData.append('firstName', this.firstName);
     formData.append('lastName', this.lastName);
+    formData.append('idUser', this.idUser);
 
     if (this.imageFile) {
       formData.append('image', this.imageFile, this.imageFile.name);

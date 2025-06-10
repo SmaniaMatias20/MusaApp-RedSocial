@@ -26,7 +26,7 @@ export class AuthService {
         return newUser.save();
     }
 
-    async login(usernameOrEmail: string, password: string): Promise<{ accessToken: string; username: string; isAdmin: string; firstName: string; lastName: string, birthDate: string; description: string, email: string, profileImage: string, createdAt: Date, show: boolean } | null> {
+    async login(usernameOrEmail: string, password: string): Promise<{ id: Object; accessToken: string; username: string; isAdmin: string; firstName: string; lastName: string, birthDate: string; description: string, email: string, profileImage: string, createdAt: Date, show: boolean } | null> {
         const user = await this.userModel.findOne({
             $or: [{ email: usernameOrEmail }, { username: usernameOrEmail }]
         }).exec();
@@ -51,6 +51,7 @@ export class AuthService {
 
         return {
             accessToken,
+            id: user._id,
             username: user.username,
             email: user.email,
             firstName: user.firstName,

@@ -12,6 +12,7 @@ export class PostsService {
     ) { }
 
     async createPost(data: {
+        idUser: string;
         firstName: string;
         lastName: string;
         profileImage: string;
@@ -25,6 +26,7 @@ export class PostsService {
             }
 
             const newPost = new this.postModel({
+                idUser: data.idUser,
                 firstName: data.firstName,
                 lastName: data.lastName,
                 profileImage: data.profileImage,
@@ -80,9 +82,7 @@ export class PostsService {
             if (!post) {
                 throw new BadRequestException('No se encontró el post');
             }
-
-            // Evitar duplicados
-            if (post.likes.some(like => like.username === likeData.username)) {
+            if (post.likes.some(like => like.idUser === likeData.idUser)) {
                 post.likes = post.likes.filter(like => like.username !== likeData.username);
                 await post.save();
                 return post;

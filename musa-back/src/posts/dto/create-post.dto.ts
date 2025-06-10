@@ -1,5 +1,6 @@
 // src/posts/dto/create-post.dto.ts
 export class CreatePostDto {
+    idUser: string;
     firstName: string;
     lastName: string;
     profileImage: string;
