@@ -44,6 +44,6 @@ export class PostInteractionsComponent {
   }
 
   close() {
-    this.onClose.emit(); // Permite al componente padre cerrar el popup
+    this.onClose.emit();
   }
 }

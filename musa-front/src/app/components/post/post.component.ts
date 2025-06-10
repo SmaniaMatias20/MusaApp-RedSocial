@@ -47,7 +47,6 @@ export class PostComponent {
 
     try {
       const response = await firstValueFrom(this.postService.likePost(post._id, user));
-      console.log('Like exitoso:', response);
       this.postLiked.emit();
       this.loading = false;
     } catch (error) {
