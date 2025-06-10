@@ -12,6 +12,11 @@
                 maxlength="140"
                 class="w-full p-3 border border-gray-600 rounded-lg bg-zinc-800 text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500"></textarea>
 
+            <p class="text-xs" [ngClass]="countCharacters(commentText) === 140 ? 'text-red-400' : 'text-gray-400'">
+                {{ countCharacters(commentText) }} / 140 caracteres
+            </p>
+
+
             <button type="submit"
                 class="self-end px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition">
                 Comentar

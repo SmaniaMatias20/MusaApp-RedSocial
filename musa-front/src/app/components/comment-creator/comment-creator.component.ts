@@ -1,9 +1,10 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-comment-creator',
-  imports: [FormsModule],
+  imports: [FormsModule, NgClass],
   templateUrl: './comment-creator.component.html',
   styleUrls: ['./comment-creator.component.css']
 })
@@ -19,6 +20,10 @@ export class CommentCreatorComponent {
       this.commentCreated.emit(trimmed);
       this.commentText = '';
     }
+  }
+
+  countCharacters(text: string): number {
+    return text.length;
   }
 
   close() {

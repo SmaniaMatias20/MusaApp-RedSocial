@@ -18,7 +18,7 @@
         <div class="flex justify-between mt-3 max-w-md text-gray-400 text-sm">
             <div class="flex items-center gap-1 cursor-pointer" (click)="commentPost()">
                 <i class="material-icons text-base">chat_bubble_outline</i>
-                <span>1</span>
+                <span>{{ post.comments?.length || 0 }}</span>
             </div>
 
             <div class="flex items-center gap-1 cursor-pointer" (click)="!loading && likePost(post)">
