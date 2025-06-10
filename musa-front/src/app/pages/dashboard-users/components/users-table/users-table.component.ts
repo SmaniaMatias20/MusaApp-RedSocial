@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { NgFor } from '@angular/common';
+import { User } from '../../../../models/user.model';
+
 
 @Component({
   selector: 'app-users-table',
@@ -8,31 +10,12 @@ import { NgFor } from '@angular/common';
   styleUrls: ['./users-table.component.css']
 })
 export class UsersTableComponent {
-  users = [
-    {
-      username: 'admin123',
-      firstName: 'Carlos',
-      lastName: 'Pérez',
-      email: 'carlos@example.com',
-      isActive: true,
-    },
-    {
-      username: 'user456',
-      firstName: 'María',
-      lastName: 'Gómez',
-      email: 'maria@example.com',
-      isActive: false,
-    },
-    {
-      username: 'juanito',
-      firstName: 'Juan',
-      lastName: 'Lopez',
-      email: 'juan@example.com',
-      isActive: true,
-    },
-  ];
+  @Input() users: User[] = [];
 
-  toggleStatus(user: any) {
-    user.isActive = !user.isActive;
+  constructor() { }
+
+  toggleStatus(user: User) {
+    user.show = !user.show;
   }
+
 }

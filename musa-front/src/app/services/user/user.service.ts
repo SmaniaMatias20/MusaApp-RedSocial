@@ -19,4 +19,8 @@ export class UserService {
     });
   }
 
+  getAllUsers(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.apiUrl}` + '/all');
+  }
+
 }

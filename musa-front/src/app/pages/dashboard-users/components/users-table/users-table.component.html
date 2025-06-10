@@ -2,37 +2,39 @@
 <div class="dark-table p-4 rounded w-full hidden sm:block">
     <h2 class="text-xl font-bold mb-4 text-white">Listado de Usuarios</h2>
 
-    <table class="min-w-full bg-gray-800 rounded-xl shadow text-white">
+    <table class="min-w-full bg-gray-800 rounded-xl shadow text-white table-fixed">
         <thead class="bg-gray-700">
             <tr>
-                <th class="py-2 px-4">Username</th>
-                <th class="py-2 px-4 ">Nombre</th>
-                <th class="py-2 px-4 ">Apellido</th>
-                <th class="py-2 px-4 ">Email</th>
-                <th class="py-2 px-4 ">Estado</th>
-                <th class="py-2 px-4">Acciones</th>
+                <th class="py-2 px-4 w-[200px]">Username</th>
+                <th class="py-2 px-4 w-[200px]">Nombre</th>
+                <th class="py-2 px-4 w-[200px]">Apellido</th>
+                <th class="py-2 px-4 w-[200px]">Email</th>
+                <th class="py-2 px-4 w-[200px]">Estado</th>
+                <th class="py-2 px-4 w-[200px]">Acciones</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let user of users" class="hover:bg-gray-700">
-                <td class="py-2 px-4 ">{{ user.username }}</td>
-                <td class="py-2 px-4 ">{{ user.firstName }}</td>
-                <td class="py-2 px-4 ">{{ user.lastName }}</td>
-                <td class="py-2 px-4 ">{{ user.email }}</td>
-                <td class="py-2 px-4 ">
-                    <span [class.text-green-400]="user.isActive" [class.text-red-400]="!user.isActive">
-                        {{ user.isActive ? 'Activo' : 'Inactivo' }}
+                <td class="py-2 px-4 w-[200px] truncate">{{ user.username }}</td>
+                <td class="py-2 px-4 w-[200px] truncate">{{ user.firstName }}</td>
+                <td class="py-2 px-4 w-[200px] truncate">{{ user.lastName }}</td>
+                <td class="py-2 px-4 w-[200px] truncate">{{ user.email }}</td>
+                <td class="py-2 px-4 w-[200px] truncate">
+                    <span [class.text-green-400]="user.show" [class.text-red-400]="!user.show">
+                        {{ user.show ? 'Activo' : 'Inactivo' }}
                     </span>
                 </td>
-                <td class="py-2 px-4">
+                <td class="py-2 px-4 w-[200px]">
                     <button (click)="toggleStatus(user)"
-                        class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition">
-                        {{ user.isActive ? 'Dar de baja' : 'Dar de alta' }}
+                        class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition w-full">
+                        {{ user.show ? 'Dar de baja' : 'Dar de alta' }}
                     </button>
                 </td>
             </tr>
         </tbody>
     </table>
+
+
 </div>
 
 <!-- 🟩 Cards (visible solo en xs - antes de sm) -->
@@ -46,13 +48,13 @@
         <p><strong>Email:</strong> {{ user.email }}</p>
         <p>
             <strong>Estado:</strong>
-            <span [class.text-green-400]="user.isActive" [class.text-red-400]="!user.isActive">
-                {{ user.isActive ? 'Activo' : 'Inactivo' }}
+            <span [class.text-green-400]="user.show" [class.text-red-400]="!user.show">
+                {{ user.show ? 'Activo' : 'Inactivo' }}
             </span>
         </p>
         <button (click)="toggleStatus(user)"
             class="mt-2 bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition">
-            {{ user.isActive ? 'Dar de baja' : 'Dar de alta' }}
+            {{ user.show ? 'Dar de baja' : 'Dar de alta' }}
         </button>
     </div>
 </div>
