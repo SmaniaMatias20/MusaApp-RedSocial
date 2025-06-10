@@ -20,6 +20,7 @@ export class AuthService {
   ) { }
 
   register(formData: FormData) {
+
     return this.http.post<User>(this.apiUrl + '/register', formData);
   }
 
@@ -29,9 +30,6 @@ export class AuthService {
       const user = await firstValueFrom(response);
       this.saveUserToLocalStorage(user);
       this.currentUser.set(user);
-
-      console.log('user', user);
-
       await this.router.navigate(['/home']);
       return user;
 

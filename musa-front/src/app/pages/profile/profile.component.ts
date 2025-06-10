@@ -61,7 +61,6 @@ export class ProfileComponent {
   }
 
   private loadPosts(): void {
-    console.log("IdUser", this.idUser);
     this.postService.getPostsById(this.idUser).subscribe((data) => {
       this.posts = data.map(post => {
         post.date = this.formatTimeAgo(post.date);

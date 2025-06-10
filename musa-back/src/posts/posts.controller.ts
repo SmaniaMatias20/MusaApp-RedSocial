@@ -68,7 +68,6 @@ export class PostsController {
 
     @Get('/all')
     findAll() {
-        console.log("Entra aca");
         return this.postsService.findAll();
     }
 

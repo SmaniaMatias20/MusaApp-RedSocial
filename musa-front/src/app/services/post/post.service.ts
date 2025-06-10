@@ -26,7 +26,6 @@ export class PostService {
 
 
   getPosts(): Observable<Post[]> {
-    console.log("Entra aca", this.apiUrl);
     return this.http.get<Post[]>(`${this.apiUrl}` + '/all');
   }
 

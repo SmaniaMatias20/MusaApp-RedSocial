@@ -90,7 +90,6 @@ export class PostsService {
 
     async likePost(postId: string, likeData: CreateLikeDto) {
         try {
-            console.log('likeData', likeData);
             const post = await this.postModel.findById(postId);
 
             if (!post) {
