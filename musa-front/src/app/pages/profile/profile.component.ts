@@ -17,6 +17,7 @@ import { PostInteractionsComponent } from '../../components/post-interactions/po
 export class ProfileComponent {
   posts: Post[] = [];
   selectedPost: any = null;
+  idUser = localStorage.getItem('id') || '';
   username = localStorage.getItem('username') || '';
   firstName = localStorage.getItem('firstName') || '';
   lastName = localStorage.getItem('lastName') || '';
@@ -60,7 +61,8 @@ export class ProfileComponent {
   }
 
   private loadPosts(): void {
-    this.postService.getPostsByUsername(this.username).subscribe((data) => {
+    console.log("IdUser", this.idUser);
+    this.postService.getPostsById(this.idUser).subscribe((data) => {
       this.posts = data.map(post => {
         post.date = this.formatTimeAgo(post.date);
         return post;

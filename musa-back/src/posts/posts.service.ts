@@ -48,10 +48,23 @@ export class PostsService {
         }
     }
 
-    async findAllByUsername(username: string): Promise<Post[]> {
+    // async findAllByUsername(username: string): Promise<Post[]> {
+    //     try {
+    //         const posts = await this.postModel
+    //             .find({ username: username })
+    //             .sort({ date: -1 }) // Ordena por fecha descendente
+    //             .exec();
+    //         return posts;
+    //     } catch (error) {
+    //         console.error('Error al obtener todos los posts:', error);
+    //         throw new InternalServerErrorException('Error al obtener todos los posts');
+    //     }
+    // }
+
+    async findAllById(id: string): Promise<Post[]> {
         try {
             const posts = await this.postModel
-                .find({ username: username })
+                .find({ idUser: id })
                 .sort({ date: -1 }) // Ordena por fecha descendente
                 .exec();
             return posts;
@@ -77,13 +90,14 @@ export class PostsService {
 
     async likePost(postId: string, likeData: CreateLikeDto) {
         try {
+            console.log('likeData', likeData);
             const post = await this.postModel.findById(postId);
 
             if (!post) {
                 throw new BadRequestException('No se encontró el post');
             }
             if (post.likes.some(like => like.idUser === likeData.idUser)) {
-                post.likes = post.likes.filter(like => like.username !== likeData.username);
+                post.likes = post.likes.filter(like => like.idUser !== likeData.idUser);
                 await post.save();
                 return post;
             }

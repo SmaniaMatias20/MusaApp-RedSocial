@@ -20,25 +20,19 @@ export class PostService {
     return this.http.post<Post>(this.apiUrl + '/create', formData);
   }
 
-  getPostsByUsername(username: string): Observable<Post[]> {
-    return this.http.get<Post[]>(`${this.apiUrl}`, {
-      params: { username: username }
-    });
+  getPostsById(id: string): Observable<Post[]> {
+    return this.http.get<Post[]>(`${this.apiUrl}/${id}`);
   }
 
-  getPostsById(id: string): Observable<Post[]> {
-    return this.http.get<Post[]>(`${this.apiUrl}`, {
-      params: { id: id }
-    });
-  }
 
   getPosts(): Observable<Post[]> {
+    console.log("Entra aca", this.apiUrl);
     return this.http.get<Post[]>(`${this.apiUrl}` + '/all');
   }
 
   likePost(postId: string, user: User | null): Observable<Post> {
     return this.http.post<Post>(`${this.apiUrl}/like/${postId}`, {
-      id: user?.id,
+      idUser: user?.id,
       username: user?.username,
       firstName: user?.firstName,
       lastName: user?.lastName,
@@ -49,7 +43,7 @@ export class PostService {
   addComment(postId: string, content: string, user: User | null): Observable<Post> {
     return this.http.post<Post>(`${this.apiUrl}/comments/${postId}`, {
       content: content,
-      id: user?.id,
+      idUser: user?.id,
       username: user?.username,
       firstName: user?.firstName,
       lastName: user?.lastName,

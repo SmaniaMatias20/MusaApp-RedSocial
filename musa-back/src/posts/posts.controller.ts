@@ -66,15 +66,18 @@ export class PostsController {
         }
     }
 
-    @Get()
-    findAllByUsername(@Query('username') username: string) {
-        return this.postsService.findAllByUsername(username);
-    }
-
     @Get('/all')
     findAll() {
+        console.log("Entra aca");
         return this.postsService.findAll();
     }
+
+
+    @Get(':id')
+    findById(@Param('id') id: string) {
+        return this.postsService.findAllById(id);
+    }
+
 
     @Post('like/:postId')
     async likePost(

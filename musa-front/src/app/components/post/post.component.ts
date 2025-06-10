@@ -40,6 +40,7 @@ export class PostComponent {
   async likePost(post: any): Promise<void> {
     this.loading = true;
     const user = this.userSignal();
+    console.log('user', user);
 
     if (!user) {
       return;
