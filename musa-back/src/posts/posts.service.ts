@@ -48,10 +48,11 @@ export class PostsService {
         }
     }
 
-    async findAllById(id: string): Promise<Post[]> {
+    async findAllById(id: string, isAdmin: string): Promise<Post[]> {
+        const filter = isAdmin === 'true' ? { idUser: id } : { idUser: id, show: true };
         try {
             const posts = await this.postModel
-                .find({ idUser: id, show: true })
+                .find(filter)
                 .sort({ date: -1 })
                 .exec();
             return posts;

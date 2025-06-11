@@ -20,8 +20,10 @@ export class PostService {
     return this.http.post<Post>(this.apiUrl + '/create', formData);
   }
 
-  getPostsById(id: string): Observable<Post[]> {
-    return this.http.get<Post[]>(`${this.apiUrl}/${id}`);
+  getPostsById(id: string, isAdmin: string): Observable<Post[]> {
+    return this.http.get<Post[]>(`${this.apiUrl}/${id}`, {
+      params: { isAdmin }
+    });
   }
 
 

@@ -58,7 +58,6 @@ export class PostsController {
 
         } catch (error) {
             console.error('Error en el controlador createPost:', error);
-            // Rethrow si ya es una excepción conocida de NestJS
             if (error instanceof BadRequestException || error instanceof InternalServerErrorException) {
                 throw error;
             }
@@ -68,16 +67,12 @@ export class PostsController {
 
     @Get('/all')
     findAll(@Query('isAdmin') isAdmin: string) {
-        console.log(isAdmin); // Debería mostrar "true" o "false" u otro valor que hayas enviado
         return this.postsService.findAll(isAdmin);
     }
 
-
-
     @Get(':id')
-    findById(@Param('id') id: string) {
-        // Necesito recibir el usuario para saber si es admin
-        return this.postsService.findAllById(id);
+    findById(@Param('id') id: string, @Query('isAdmin') isAdmin: string) {
+        return this.postsService.findAllById(id, isAdmin);
     }
 
 

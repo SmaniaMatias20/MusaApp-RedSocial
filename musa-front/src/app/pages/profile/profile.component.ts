@@ -22,6 +22,7 @@ export class ProfileComponent {
   firstName = localStorage.getItem('firstName') || '';
   lastName = localStorage.getItem('lastName') || '';
   profileImage = localStorage.getItem('profileImage') || '';
+  isAdmin = localStorage.getItem('isAdmin') || '';
 
   constructor(private postService: PostService) {
   }
@@ -61,7 +62,7 @@ export class ProfileComponent {
   }
 
   private loadPosts(): void {
-    this.postService.getPostsById(this.idUser).subscribe((data) => {
+    this.postService.getPostsById(this.idUser, this.isAdmin).subscribe((data) => {
       this.posts = data.map(post => {
         post.date = this.formatTimeAgo(post.date);
         return post;
