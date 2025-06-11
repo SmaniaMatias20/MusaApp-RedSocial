@@ -68,12 +68,14 @@ export class PostsController {
 
     @Get('/all')
     findAll() {
+        // Necesito recibir el usuario para saber si es admin
         return this.postsService.findAll();
     }
 
 
     @Get(':id')
     findById(@Param('id') id: string) {
+        // Necesito recibir el usuario para saber si es admin
         return this.postsService.findAllById(id);
     }
 

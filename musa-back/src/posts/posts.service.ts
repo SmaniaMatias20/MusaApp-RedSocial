@@ -49,6 +49,8 @@ export class PostsService {
     }
 
     async findAllById(id: string): Promise<Post[]> {
+        // si el usuario es admin no hace falta filtrar por show
+        // si no es admin, se filtra por show
         try {
             const posts = await this.postModel
                 .find({ idUser: id, show: true })
@@ -62,6 +64,8 @@ export class PostsService {
     }
 
     async findAll(): Promise<Post[]> {
+        // si el usuario es admin no hace falta filtrar por show
+        // si no es admin, se filtra por show
         try {
             const posts = await this.postModel
                 .find({ show: true })
