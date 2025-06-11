@@ -67,10 +67,11 @@ export class PostsController {
     }
 
     @Get('/all')
-    findAll() {
-        // Necesito recibir el usuario para saber si es admin
-        return this.postsService.findAll();
+    findAll(@Query('isAdmin') isAdmin: string) {
+        console.log(isAdmin); // Debería mostrar "true" o "false" u otro valor que hayas enviado
+        return this.postsService.findAll(isAdmin);
     }
+
 
 
     @Get(':id')

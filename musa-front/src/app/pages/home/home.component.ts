@@ -14,6 +14,7 @@ import { PostInteractionsComponent } from '../../components/post-interactions/po
 export class HomeComponent implements OnInit, OnDestroy {
   posts: any[] = [];
   username = localStorage.getItem('username') || '';
+  isAdmin = localStorage.getItem('isAdmin') || '';
   selectedPost: any = null;
   private intervalId: any;
 
@@ -53,7 +54,7 @@ export class HomeComponent implements OnInit, OnDestroy {
   }
 
   private loadPosts(): void {
-    this.postService.getPosts().subscribe((data) => {
+    this.postService.getPosts(this.isAdmin).subscribe((data) => {
       this.posts = data.map(post => {
         post.date = this.formatTimeAgo(post.date);
         return post;

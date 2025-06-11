@@ -25,9 +25,13 @@ export class PostService {
   }
 
 
-  getPosts(): Observable<Post[]> {
-    return this.http.get<Post[]>(`${this.apiUrl}` + '/all');
+  getPosts(isAdmin: string): Observable<Post[]> {
+    console.log(isAdmin);
+    return this.http.get<Post[]>(`${this.apiUrl}/all`, {
+      params: { isAdmin }
+    });
   }
+
 
   likePost(postId: string, user: User | null): Observable<Post> {
     return this.http.post<Post>(`${this.apiUrl}/like/${postId}`, {
