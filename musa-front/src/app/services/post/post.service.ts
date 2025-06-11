@@ -34,7 +34,6 @@ export class PostService {
     });
   }
 
-
   likePost(postId: string, user: User | null): Observable<Post> {
     return this.http.post<Post>(`${this.apiUrl}/like/${postId}`, {
       idUser: user?.id,
@@ -56,5 +55,8 @@ export class PostService {
     });
   }
 
+  showPost(postId: string): Observable<Post> {
+    return this.http.get<Post>(`${this.apiUrl}/show/${postId}`);
+  }
 
 }

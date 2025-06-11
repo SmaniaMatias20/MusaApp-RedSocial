@@ -16,18 +16,16 @@ import { CommentCreatorComponent } from '../comment-creator/comment-creator.comp
 export class PostComponent {
   @Output() postLiked = new EventEmitter<void>();
   @Output() postCommented = new EventEmitter<void>();
+  @Output() interactionsRequested = new EventEmitter<void>();
+  @Output() showPost = new EventEmitter<void>();
   @Input() post: any;
   @Input() firstName!: string;
   @Input() lastName!: string;
   @Input() profileImage!: string;
   loading = false;
   userSignal!: Signal<User | null>;
-  @Output() interactionsRequested = new EventEmitter<void>();
   showCommentCreator = false;
 
-  onClick() {
-    this.interactionsRequested.emit();
-  }
 
 
   constructor(
@@ -35,6 +33,10 @@ export class PostComponent {
     private authService: AuthService
   ) {
     this.userSignal = this.authService.currentUser;
+  }
+
+  onClick() {
+    this.interactionsRequested.emit();
   }
 
   async likePost(post: any): Promise<void> {
@@ -59,7 +61,7 @@ export class PostComponent {
   }
 
   async onCommentCreated(commentText: string) {
-    this.showCommentCreator = false;  // ocultamos el formulario
+    this.showCommentCreator = false;
 
     const user = this.userSignal();
     if (!user) {
@@ -83,7 +85,7 @@ export class PostComponent {
   hasUserLiked(post: any): boolean {
     const user = this.userSignal();
     if (!user || !post.likes) return false;
-    return post.likes.some((like: { username: string }) => like.username === user.username);
+    return post.likes.some((like: { idUser: string }) => like.idUser === user.id);
   }
 
   hidePostIfVerified(post: any): void {
