@@ -5,7 +5,7 @@
         <div class="flex items-center gap-1 flex-wrap">
             <span class="font-bold">{{ firstName || post.firstName }} {{ lastName || post.lastName }}</span>
             <!-- opcional: verificado -->
-            <i *ngIf="post.show" class="material-icons text-blue-500 text-sm">verified</i>
+            <!-- <i *ngIf="userSignal()?.isAdmin" class="material-icons text-blue-500 text-sm">verified</i> -->
             <span class="text-gray-400">{{ post.username }} · {{ post.date }}</span>
         </div>
 
@@ -39,10 +39,11 @@
 
 
             <div class="flex items-center gap-1" (click)="hidePostIfVerified(post)">
-                <i *ngIf="post.show" class="material-icons text-base cursor-pointer">visibility_off</i>
-                <i *ngIf="!post.show" class="material-icons text-base cursor-pointer">visibility</i>
+                <i *ngIf="!post.show && userSignal()?.isAdmin === 'true'"
+                    class="material-icons text-base cursor-pointer">visibility_off</i>
+                <i *ngIf="post.show && userSignal()?.isAdmin === 'true'"
+                    class="material-icons text-base cursor-pointer">visibility</i>
             </div>
-
 
         </div>
 
