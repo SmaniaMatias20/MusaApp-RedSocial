@@ -5,18 +5,20 @@ import { NgFor, NgIf } from '@angular/common';
 import { PostService } from '../../services/post/post.service';
 import { Post } from '../../models/post.model';
 import { PostInteractionsComponent } from '../../components/post-interactions/post-interactions.component';
-
+import { SpinnerComponent } from '../../components/spinner/spinner.component';
+import { firstValueFrom } from 'rxjs';
 
 
 @Component({
   selector: 'app-profile',
-  imports: [ProfileHeaderComponent, PostComponent, NgFor, NgIf, PostInteractionsComponent],
+  imports: [ProfileHeaderComponent, PostComponent, NgFor, NgIf, PostInteractionsComponent, SpinnerComponent],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.css'
 })
 export class ProfileComponent {
   posts: Post[] = [];
   selectedPost: any = null;
+  loading = false;
   idUser = localStorage.getItem('id') || '';
   username = localStorage.getItem('username') || '';
   firstName = localStorage.getItem('firstName') || '';
@@ -69,14 +71,21 @@ export class ProfileComponent {
     this.loadPosts();
   }
 
-  private loadPosts(): void {
-    this.postService.getPostsById(this.idUser, this.isAdmin).subscribe((data) => {
+  private async loadPosts(): Promise<void> {
+    this.loading = true;
+    try {
+      const data = await firstValueFrom(this.postService.getPostsById(this.idUser, this.isAdmin));
       this.posts = data.map(post => {
         post.date = this.formatTimeAgo(post.date);
         return post;
       });
-    });
+    } catch (error) {
+      console.error('Error al cargar posts:', error);
+    } finally {
+      this.loading = false;
+    }
   }
+
 
 
   ngOnInit(): void {

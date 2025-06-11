@@ -60,7 +60,6 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.loadPosts();
   }
 
-
   private async loadPosts(): Promise<void> {
     this.loading = true;
     try {
@@ -75,7 +74,6 @@ export class HomeComponent implements OnInit, OnDestroy {
       this.loading = false;
     }
   }
-
 
   private formatTimeAgo(dateString: string): string {
     const date = new Date(dateString);

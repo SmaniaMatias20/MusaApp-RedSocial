@@ -3,7 +3,6 @@
 
         <app-post-creator (postCreated)="onPostCreated()"></app-post-creator>
 
-        <!-- Spinner visible solo mientras loading es true -->
         <app-spinner *ngIf="loading"></app-spinner>
 
         <div class="flex-1 overflow-y-auto divide-y divide-gray-800">
@@ -16,7 +15,6 @@
             (onClose)="closePostInteractions()">
         </app-post-interactions>
 
-        <!-- Mensaje solo si no hay posts y no está cargando -->
         <div *ngIf="posts.length === 0 && !loading" class="flex-1 flex items-center justify-center">
             <p class="text-gray-400 text-lg">No hay publicaciones aún</p>
         </div>

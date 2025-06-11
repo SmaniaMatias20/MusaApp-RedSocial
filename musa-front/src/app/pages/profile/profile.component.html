@@ -3,6 +3,8 @@
 
         <app-profile-header></app-profile-header>
 
+        <app-spinner *ngIf="loading"></app-spinner>
+
         <div class="flex-1 overflow-y-auto divide-y divide-gray-800">
             <app-post *ngFor="let post of posts" [post]="post" (postLiked)="onPostLiked()"
                 (postCommented)="onPostCommented()" (interactionsRequested)="openPostInteractions(post)"
