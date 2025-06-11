@@ -42,8 +42,6 @@ export class PostsService {
             return await newPost.save();
         } catch (error) {
             console.error('Error al crear el post:', error);
-
-            // Puedes personalizar más los errores si lo deseas
             throw new InternalServerErrorException('No se pudo crear el post');
         }
     }
@@ -122,6 +120,14 @@ export class PostsService {
         return post;
     }
 
-
+    async showPost(postId: string, show: boolean) {
+        const post = await this.postModel.findById(postId);
+        if (!post) {
+            throw new NotFoundException('Post no encontrado');
+        }
+        post.show = show;
+        await post.save();
+        return post;
+    }
 
 }

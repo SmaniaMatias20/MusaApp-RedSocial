@@ -5,7 +5,8 @@
 
         <div class="flex-1 overflow-y-auto divide-y divide-gray-800">
             <app-post *ngFor="let post of posts" [post]="post" (postLiked)="onPostLiked()"
-                (interactionsRequested)="openPostInteractions(post)"></app-post>
+                (postCommented)="onPostCommented()" (interactionsRequested)="openPostInteractions(post)"
+                (showPost)="onShowPost()"></app-post>
         </div>
 
         <app-post-interactions *ngIf="selectedPost" [likes]="selectedPost.likes" [comments]="selectedPost.comments"

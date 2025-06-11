@@ -61,6 +61,14 @@ export class ProfileComponent {
     this.loadPosts();
   }
 
+  onPostCommented(): void {
+    this.loadPosts();
+  }
+
+  onShowPost(): void {
+    this.loadPosts();
+  }
+
   private loadPosts(): void {
     this.postService.getPostsById(this.idUser, this.isAdmin).subscribe((data) => {
       this.posts = data.map(post => {

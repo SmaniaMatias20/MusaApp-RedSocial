@@ -39,10 +39,11 @@
 
 
             <div *ngIf="userSignal()?.isAdmin === 'true'" class="flex items-center gap-1"
-                (click)="hidePostIfVerified(post)">
+                (click)="togglePostVisibility(post)">
                 <i *ngIf="!post.show" class="material-icons text-base cursor-pointer">visibility_off</i>
                 <i *ngIf="post.show" class="material-icons text-base cursor-pointer">visibility</i>
             </div>
+
 
         </div>
 

@@ -28,7 +28,6 @@ export class PostService {
 
 
   getPosts(isAdmin: string): Observable<Post[]> {
-    console.log(isAdmin);
     return this.http.get<Post[]>(`${this.apiUrl}/all`, {
       params: { isAdmin }
     });
@@ -55,8 +54,10 @@ export class PostService {
     });
   }
 
-  showPost(postId: string): Observable<Post> {
-    return this.http.get<Post>(`${this.apiUrl}/show/${postId}`);
+  toggleShow(post: Post): Observable<Post> {
+    return this.http.put<Post>(`${this.apiUrl}/show/${post._id}`, {
+      show: !post.show
+    });
   }
 
 }

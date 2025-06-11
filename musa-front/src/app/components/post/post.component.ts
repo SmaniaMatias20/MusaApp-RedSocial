@@ -26,8 +26,6 @@ export class PostComponent {
   userSignal!: Signal<User | null>;
   showCommentCreator = false;
 
-
-
   constructor(
     private postService: PostService,
     private authService: AuthService
@@ -88,13 +86,14 @@ export class PostComponent {
     return post.likes.some((like: { idUser: string }) => like.idUser === user.id);
   }
 
-  hidePostIfVerified(post: any): void {
-    if (post.verified) {
-      post.show = false;
+
+  async togglePostVisibility(post: any): Promise<void> {
+    try {
+      const updatedPost = await firstValueFrom(this.postService.toggleShow(post));
+      this.showPost.emit();
+    } catch (error) {
+      console.error('Error al cambiar la visibilidad del post:', error);
     }
   }
-
-
-
 
 }

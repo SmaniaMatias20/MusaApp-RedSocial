@@ -1,6 +1,7 @@
 import {
     Controller,
     Post,
+    Put,
     UploadedFile,
     UseInterceptors,
     Body,
@@ -91,6 +92,15 @@ export class PostsController {
     ) {
         return this.postsService.addComment(postId, createCommentDto);
     }
+
+    @Put('show/:postId')
+    async showPost(
+        @Param('postId') postId: string,
+        @Body('show') show: boolean
+    ) {
+        return this.postsService.showPost(postId, show);
+    }
+
 
 
 }
