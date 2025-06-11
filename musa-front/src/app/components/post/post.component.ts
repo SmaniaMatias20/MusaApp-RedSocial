@@ -72,8 +72,8 @@ export class PostComponent {
         this.postService.addComment(this.post._id, commentText, user)
       );
 
-      this.post = updatedPost; // Actualizás el post con el nuevo comentario
-      this.postCommented.emit(); // Emitís evento para notificar si querés
+      this.post = updatedPost;
+      this.postCommented.emit();
 
     } catch (error) {
       console.error('Error al agregar comentario:', error);
@@ -85,6 +85,13 @@ export class PostComponent {
     if (!user || !post.likes) return false;
     return post.likes.some((like: { username: string }) => like.username === user.username);
   }
+
+  hidePostIfVerified(post: any): void {
+    if (post.verified) {
+      post.show = false;
+    }
+  }
+
 
 
 
