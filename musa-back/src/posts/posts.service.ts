@@ -48,24 +48,11 @@ export class PostsService {
         }
     }
 
-    // async findAllByUsername(username: string): Promise<Post[]> {
-    //     try {
-    //         const posts = await this.postModel
-    //             .find({ username: username })
-    //             .sort({ date: -1 }) // Ordena por fecha descendente
-    //             .exec();
-    //         return posts;
-    //     } catch (error) {
-    //         console.error('Error al obtener todos los posts:', error);
-    //         throw new InternalServerErrorException('Error al obtener todos los posts');
-    //     }
-    // }
-
     async findAllById(id: string): Promise<Post[]> {
         try {
             const posts = await this.postModel
-                .find({ idUser: id })
-                .sort({ date: -1 }) // Ordena por fecha descendente
+                .find({ idUser: id, show: true })
+                .sort({ date: -1 })
                 .exec();
             return posts;
         } catch (error) {
@@ -77,7 +64,7 @@ export class PostsService {
     async findAll(): Promise<Post[]> {
         try {
             const posts = await this.postModel
-                .find()
+                .find({ show: true })
                 .sort({ date: -1 })
                 .exec();
 
