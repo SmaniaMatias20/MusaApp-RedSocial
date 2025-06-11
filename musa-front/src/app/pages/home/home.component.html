@@ -1,21 +1,25 @@
 <div class="flex h-screen overflow-y-auto bg-black text-white sm:w-[600px]">
     <main class="flex-1 max-w-2xl border-x border-gray-600 flex flex-col">
+
         <app-post-creator (postCreated)="onPostCreated()"></app-post-creator>
+
+        <!-- Spinner visible solo mientras loading es true -->
+        <app-spinner *ngIf="loading"></app-spinner>
 
         <div class="flex-1 overflow-y-auto divide-y divide-gray-800">
             <app-post *ngFor="let post of posts" [post]="post" (postLiked)="onPostLiked()"
                 (postCommented)="onPostCommented()" (interactionsRequested)="openPostInteractions(post)"
-                (showPost)="onShowPost()">
-            </app-post>
+                (showPost)="onShowPost()"></app-post>
         </div>
 
         <app-post-interactions *ngIf="selectedPost" [likes]="selectedPost.likes" [comments]="selectedPost.comments"
             (onClose)="closePostInteractions()">
         </app-post-interactions>
 
-
-        <div *ngIf="posts.length === 0" class="flex-1 flex items-center justify-center">
+        <!-- Mensaje solo si no hay posts y no está cargando -->
+        <div *ngIf="posts.length === 0 && !loading" class="flex-1 flex items-center justify-center">
             <p class="text-gray-400 text-lg">No hay publicaciones aún</p>
         </div>
+
     </main>
 </div>

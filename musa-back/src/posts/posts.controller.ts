@@ -101,6 +101,4 @@ export class PostsController {
         return this.postsService.showPost(postId, show);
     }
 
-
-
 }

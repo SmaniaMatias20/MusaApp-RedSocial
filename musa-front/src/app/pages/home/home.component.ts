@@ -4,15 +4,18 @@ import { PostComponent } from '../../components/post/post.component';
 import { PostService } from '../../services/post/post.service';
 import { NgIf, NgFor } from '@angular/common';
 import { PostInteractionsComponent } from '../../components/post-interactions/post-interactions.component';
+import { SpinnerComponent } from '../../components/spinner/spinner.component';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-home',
-  imports: [PostCreatorComponent, PostComponent, NgIf, NgFor, PostInteractionsComponent],
+  imports: [PostCreatorComponent, PostComponent, NgIf, NgFor, PostInteractionsComponent, SpinnerComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit, OnDestroy {
   posts: any[] = [];
+  loading = false;
   username = localStorage.getItem('username') || '';
   isAdmin = localStorage.getItem('isAdmin') || '';
   selectedPost: any = null;
@@ -57,14 +60,22 @@ export class HomeComponent implements OnInit, OnDestroy {
     this.loadPosts();
   }
 
-  private loadPosts(): void {
-    this.postService.getPosts(this.isAdmin).subscribe((data) => {
+
+  private async loadPosts(): Promise<void> {
+    this.loading = true;
+    try {
+      const data = await firstValueFrom(this.postService.getPosts(this.isAdmin));
       this.posts = data.map(post => {
         post.date = this.formatTimeAgo(post.date);
         return post;
       });
-    });
+    } catch (error) {
+      console.error('Error al cargar posts:', error);
+    } finally {
+      this.loading = false;
+    }
   }
+
 
   private formatTimeAgo(dateString: string): string {
     const date = new Date(dateString);
