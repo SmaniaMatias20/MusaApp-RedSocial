@@ -25,4 +25,11 @@ export class DashboardUsersComponent {
 
   }
 
+  handleToggleVisibility(user: any) {
+    user.show = !user.show;
+    this.userService.updateVisibility(user._id, user.show).subscribe();
+  }
+
+
+
 }

@@ -35,4 +35,11 @@ export class UsersService {
         const result = await this.userModel.findByIdAndDelete(id).exec();
         if (!result) throw new NotFoundException('Usuario no encontrado para eliminar');
     }
+
+    async updateVisibility(id: string, show: boolean): Promise<User> {
+        const user = await this.userModel.findById(id).exec();
+        if (!user) throw new NotFoundException('Usuario no encontrado para actualizar');
+        user.show = show;
+        return user.save();
+    }
 }

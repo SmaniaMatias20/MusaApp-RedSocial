@@ -1,6 +1,9 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output } from '@angular/core';
 import { NgFor } from '@angular/common';
 import { User } from '../../../../models/user.model';
+import { EventEmitter } from '@angular/core';
+
+
 
 
 @Component({
@@ -12,10 +15,12 @@ import { User } from '../../../../models/user.model';
 export class UsersTableComponent {
   @Input() users: User[] = [];
 
+  @Output() toggleUserStatus = new EventEmitter<any>();
+
   constructor() { }
 
-  toggleStatus(user: User) {
-    user.show = !user.show;
+  onToggle(user: any) {
+    this.toggleUserStatus.emit(user);
   }
 
 }

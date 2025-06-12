@@ -5,16 +5,16 @@
     <table class="min-w-full bg-gray-800 rounded-xl shadow text-white table-fixed">
         <thead class="bg-gray-700">
             <tr>
-                <th class="py-2 px-4 w-[200px]">Username</th>
-                <th class="py-2 px-4 w-[200px]">Nombre</th>
-                <th class="py-2 px-4 w-[200px]">Apellido</th>
-                <th class="py-2 px-4 w-[200px]">Email</th>
-                <th class="py-2 px-4 w-[200px]">Estado</th>
-                <th class="py-2 px-4 w-[200px]">Acciones</th>
+                <th class="py-2 px-4 w-[200px] text-center">Username</th>
+                <th class="py-2 px-4 w-[200px] text-center">Nombre</th>
+                <th class="py-2 px-4 w-[200px] text-center">Apellido</th>
+                <th class="py-2 px-4 w-[200px] text-center">Email</th>
+                <th class="py-2 px-4 w-[200px] text-center">Estado</th>
+                <th class="py-2 px-4 w-[200px] text-center">Visibilidad</th>
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let user of users" class="hover:bg-gray-700">
+            <tr *ngFor="let user of users" class="hover:bg-gray-700 text-center">
                 <td class="py-2 px-4 w-[200px] truncate">{{ user.username }}</td>
                 <td class="py-2 px-4 w-[200px] truncate">{{ user.firstName }}</td>
                 <td class="py-2 px-4 w-[200px] truncate">{{ user.lastName }}</td>
@@ -25,14 +25,20 @@
                     </span>
                 </td>
                 <td class="py-2 px-4 w-[200px]">
-                    <button (click)="toggleStatus(user)"
-                        class="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition w-full">
-                        {{ user.show ? 'Dar de baja' : 'Dar de alta' }}
-                    </button>
+                    <div class="flex justify-center items-center">
+                        <button (click)="onToggle(user)"
+                            class="text-white p-2 rounded-full hover:bg-blue-700 transition">
+                            <span class="material-icons">
+                                {{ user.show ? 'visibility' : 'visibility_off' }}
+                            </span>
+                        </button>
+
+                    </div>
                 </td>
             </tr>
         </tbody>
     </table>
+
 
 
 </div>
@@ -52,9 +58,12 @@
                 {{ user.show ? 'Activo' : 'Inactivo' }}
             </span>
         </p>
-        <button (click)="toggleStatus(user)"
-            class="mt-2 bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-700 transition">
-            {{ user.show ? 'Dar de baja' : 'Dar de alta' }}
+        <!-- Botón con ícono de ojo -->
+        <button (click)="onToggle(user)" class="text-white p-2 rounded-full hover:bg-blue-700 transition">
+            <span class="material-icons">
+                {{ user.show ? 'visibility' : 'visibility_off' }}
+            </span>
         </button>
+
     </div>
 </div>

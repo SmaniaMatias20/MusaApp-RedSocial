@@ -1,4 +1,4 @@
-import { Controller, Get, Param, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Param, Delete, Query, Put, Body } from '@nestjs/common';
 import { UsersService } from './users.service';
 
 @Controller('users')
@@ -24,4 +24,10 @@ export class UsersController {
     remove(@Param('id') id: string) {
         return this.usersService.remove(id);
     }
+
+    @Put('updateVisibility/:id')
+    updateVisibility(@Param('id') id: string, @Body('show') show: boolean) {
+        return this.usersService.updateVisibility(id, show);
+    }
+
 }
