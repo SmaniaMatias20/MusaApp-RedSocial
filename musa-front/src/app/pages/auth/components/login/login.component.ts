@@ -40,7 +40,6 @@ export class LoginComponent {
     this.isPasswordVisible = !this.isPasswordVisible;
   }
 
-  // login.component.ts
   async login(): Promise<void> {
     if (this.loginForm.invalid) {
       this.message = 'Completá todos los campos correctamente.';
@@ -54,7 +53,7 @@ export class LoginComponent {
       await this.authService.login(usernameOrEmail, password);
       this.isError = false;
     } catch (error: any) {
-      this.message = error.message;
+      this.message = error;
       this.isError = true;
     }
   }

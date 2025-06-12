@@ -30,6 +30,4 @@ export class DashboardUsersComponent {
     this.userService.updateVisibility(user._id, user.show).subscribe();
   }
 
-
-
 }

@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { CreateUserDto } from './dto/create-user.dto';
+import { NotFoundException, ForbiddenException, UnauthorizedException } from '@nestjs/common';
 
 
 @Injectable()
@@ -26,19 +27,26 @@ export class AuthService {
         return newUser.save();
     }
 
-    async login(usernameOrEmail: string, password: string): Promise<{ id: Object; accessToken: string; username: string; isAdmin: string; firstName: string; lastName: string, birthDate: string; description: string, email: string, profileImage: string, createdAt: Date, show: boolean } | null> {
+    async login(usernameOrEmail: string, password: string): Promise<{ id: Object; accessToken: string; username: string; isAdmin: string; firstName: string; lastName: string, birthDate: string; description: string, email: string, profileImage: string, createdAt: Date, show: boolean }> {
         const user = await this.userModel.findOne({
             $or: [{ email: usernameOrEmail }, { username: usernameOrEmail }]
         }).exec();
 
+        console.log("user", user);
         if (!user) {
-            return null;
+            throw new NotFoundException('El usuario no existe');
+        }
+
+        console.log("user2", user);
+        if (!user.show) {
+            throw new ForbiddenException('El usuario existe pero no está disponible');
         }
 
         const isPasswordValid = await bcrypt.compare(password, user.password);
 
+        console.log("user3", user);
         if (!isPasswordValid) {
-            return null;
+            throw new UnauthorizedException('La contraseña no es correcta');
         }
 
         const payload = {

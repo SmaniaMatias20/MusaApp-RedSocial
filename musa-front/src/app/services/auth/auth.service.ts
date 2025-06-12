@@ -33,9 +33,10 @@ export class AuthService {
       await this.router.navigate(['/home']);
       return user;
 
-    } catch (error) {
-      console.error('Error en AuthService.login:', error);
-      throw new Error('Credenciales inválidas o error en el servidor.');
+    } catch (error: any) {
+      const errorMessage = error?.error?.message || 'Ocurrió un error inesperado';
+      console.error('Error en AuthService.login:', errorMessage);
+      throw errorMessage;
     }
   }
 

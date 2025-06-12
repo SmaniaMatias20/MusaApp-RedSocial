@@ -50,14 +50,9 @@ export class AuthController {
     async login(
         @Body() body: { usernameOrEmail: string; password: string }
     ): Promise<{ accessToken: string }> {
-        const result = await this.authService.login(body.usernameOrEmail, body.password);
-
-        if (!result) {
-            throw new UnauthorizedException('Credenciales inválidas');
-        }
-
-        return result;
+        return await this.authService.login(body.usernameOrEmail, body.password);
     }
+
 
 
     @Get()
