@@ -69,8 +69,8 @@ export class RegisterComponent {
     this.errorMessage = '';
     this.successMessage = '';
 
-
     if (this.registerForm.invalid) {
+      this.markAllFieldsAsTouched(this.registerForm);
       this.errorMessage = 'Por favor completa el formulario correctamente';
       return;
     }
@@ -110,4 +110,14 @@ export class RegisterComponent {
 
     }
   }
+
+  private markAllFieldsAsTouched(formGroup: FormGroup) {
+    Object.values(formGroup.controls).forEach(control => {
+      control.markAsTouched();
+      if ((control as any).controls) {
+        this.markAllFieldsAsTouched(control as FormGroup);
+      }
+    });
+  }
+
 }

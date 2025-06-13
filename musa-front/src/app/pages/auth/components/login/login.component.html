@@ -1,4 +1,4 @@
-<form [formGroup]="loginForm"
+<form [formGroup]="loginForm" (ngSubmit)="login()"
     class="flex flex-col justify-center space-y-6 p-6 sm:p-8 rounded-xl bg-transparent shadow-lg w-full md:w-4/5 border border-white text-left">
 
     <h2 class="text-center text-white mb-6">
@@ -52,7 +52,7 @@
     </div>
 
     <!-- Botón de enviar -->
-    <button (click)="login()"
+    <button type="submit"
         class="w-full py-2 mt-6 text-white bg-transparent border-2 border-white rounded-lg hover:bg-white hover:text-gray-900 transition focus:outline-none focus:ring-2 focus:ring-white cursor-pointer">
         Iniciar sesión
     </button>

@@ -12,6 +12,7 @@ import { SpinnerComponent } from '../../../../components/spinner/spinner.compone
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
+  errorMessage: string = '';
   loginForm: FormGroup;
   message: string = '';
   isError: boolean = false;
@@ -41,16 +42,19 @@ export class LoginComponent {
   }
 
   async login(): Promise<void> {
-    this.loading = true;
+    this.errorMessage = '';
+
     if (this.loginForm.invalid) {
-      this.message = 'Completá todos los campos correctamente.';
-      this.isError = true;
+      this.markAllFieldsAsTouched(this.loginForm);
+      this.errorMessage = 'Por favor completa el formulario correctamente';
       return;
     }
+
 
     const { usernameOrEmail, password } = this.loginForm.value;
 
     try {
+      this.loading = true;
       await this.authService.login(usernameOrEmail, password);
       this.isError = false;
       this.loading = false;
@@ -59,6 +63,15 @@ export class LoginComponent {
       this.message = error;
       this.isError = true;
     }
+  }
+
+  private markAllFieldsAsTouched(formGroup: FormGroup) {
+    Object.values(formGroup.controls).forEach(control => {
+      control.markAsTouched();
+      if ((control as any).controls) {
+        this.markAllFieldsAsTouched(control as FormGroup);
+      }
+    });
   }
 
 }
