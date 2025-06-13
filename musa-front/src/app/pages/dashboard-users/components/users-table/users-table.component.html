@@ -5,7 +5,7 @@
     <table class="min-w-full bg-gray-800 rounded-xl shadow text-white table-fixed">
         <thead class="bg-gray-700">
             <tr>
-                <th class="py-2 px-4 w-[200px] text-center">Username</th>
+                <th class="py-2 px-4 w-[200px] text-center">Usuario</th>
                 <th class="py-2 px-4 w-[200px] text-center">Nombre</th>
                 <th class="py-2 px-4 w-[200px] text-center">Apellido</th>
                 <th class="py-2 px-4 w-[200px] text-center">Email</th>
@@ -26,8 +26,7 @@
                 </td>
                 <td class="py-2 px-4 w-[200px]">
                     <div class="flex justify-center items-center">
-                        <button (click)="onToggle(user)"
-                            class="text-white p-2 rounded-full hover:bg-blue-700 transition">
+                        <button (click)="onToggle(user)" class="text-white p-2 rounded-full transition cursor-pointer">
                             <span class="material-icons">
                                 {{ user.show ? 'visibility' : 'visibility_off' }}
                             </span>
@@ -48,7 +47,7 @@
     <h2 class="text-xl font-bold mb-4 text-white">Listado de Usuarios</h2>
 
     <div *ngFor="let user of users" class="bg-gray-800 text-white border border-gray-600 rounded p-4 mb-4 shadow">
-        <p><strong>Username:</strong> {{ user.username }}</p>
+        <p><strong>Usuario:</strong> {{ user.username }}</p>
         <p><strong>Nombre:</strong> {{ user.firstName }}</p>
         <p><strong>Apellido:</strong> {{ user.lastName }}</p>
         <p><strong>Email:</strong> {{ user.email }}</p>
@@ -59,7 +58,7 @@
             </span>
         </p>
         <!-- Botón con ícono de ojo -->
-        <button (click)="onToggle(user)" class="text-white p-2 rounded-full hover:bg-blue-700 transition">
+        <button (click)="onToggle(user)" class="text-white p-2 rounded-full transition cursor-pointer">
             <span class="material-icons">
                 {{ user.show ? 'visibility' : 'visibility_off' }}
             </span>

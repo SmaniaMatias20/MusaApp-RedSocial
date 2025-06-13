@@ -3,7 +3,6 @@
 
         <app-profile-header></app-profile-header>
 
-        <app-spinner *ngIf="loading"></app-spinner>
 
         <div class="flex-1 overflow-y-auto divide-y divide-gray-800">
             <app-post *ngFor="let post of posts" [post]="post" (postLiked)="onPostLiked()"
@@ -20,5 +19,6 @@
             <p class="text-gray-400 text-lg">El usuario no tiene publicaciones aún</p>
         </div>
 
+        <app-spinner *ngIf="loading"></app-spinner>
     </main>
 </div>
