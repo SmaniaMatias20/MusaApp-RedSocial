@@ -3,6 +3,7 @@ import { AuthService } from '../../../../services/auth/auth.service';
 import { User } from '../../../../models/user.model';
 import { NgIf } from '@angular/common';
 import { EditProfileComponent } from '../edit-profile/edit-profile.component';
+import { formatDateToSpanish } from '../../../../utils/utils';
 
 
 @Component({
@@ -27,29 +28,18 @@ export class ProfileHeaderComponent {
   createdAt = computed(() => {
     const isoDate = this.userSignal()?.createdAt;
     if (!isoDate) return '';
-    return this.formatDateToSpanish(isoDate);
+    return formatDateToSpanish(isoDate);
   });
   formattedBirthDate = computed(() => {
     const isoDate = this.userSignal()?.birthDate;
     if (!isoDate) return '';
-    return this.formatDateToSpanish(isoDate);
+    return formatDateToSpanish(isoDate);
   });
-
 
   constructor(private authService: AuthService) {
     this.userSignal = this.authService.currentUser;
     this.followers = this.authService.followers;
     this.following = this.authService.following;
-  }
-
-  private formatDateToSpanish(isoDate: any): string {
-    const months = [
-      'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
-      'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
-    ];
-    const [year, month, day] = isoDate.split('-');
-    const monthName = months[parseInt(month, 10) - 1];
-    return `${parseInt(day, 10)} de ${monthName} de ${year}`;
   }
 
   toggleEditProfile() {

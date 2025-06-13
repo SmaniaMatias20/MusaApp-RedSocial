@@ -4,8 +4,6 @@
     <div class="flex-1">
         <div class="flex items-center gap-1 flex-wrap">
             <span class="font-bold">{{ firstName || post.firstName }} {{ lastName || post.lastName }}</span>
-            <!-- opcional: verificado -->
-            <!-- <i *ngIf="userSignal()?.isAdmin" class="material-icons text-blue-500 text-sm">verified</i> -->
             <span class="text-gray-400">{{ post.username }} · {{ post.date }}</span>
         </div>
 
@@ -13,8 +11,6 @@
 
         <img *ngIf="post.image" [src]="post.image" class="w-full h-auto object-cover mt-2" alt="Imagen del post">
 
-
-        <!-- Estadísticas simuladas -->
         <div class="flex justify-between mt-3 max-w-md text-gray-400 text-sm">
             <div class="flex items-center gap-1 cursor-pointer" (click)="commentPost()">
                 <i class="material-icons text-base">chat_bubble_outline</i>
@@ -31,20 +27,15 @@
                 <span>{{ post.likes?.length || 0 }}</span>
             </div>
 
-
-
             <div class="flex items-center gap-1" (click)="onClick()">
                 <i class="material-icons text-base cursor-pointer">insights</i>
             </div>
-
 
             <div *ngIf="userSignal()?.isAdmin === 'true'" class="flex items-center gap-1"
                 (click)="togglePostVisibility(post)">
                 <i *ngIf="!post.show" class="material-icons text-base cursor-pointer">visibility_off</i>
                 <i *ngIf="post.show" class="material-icons text-base cursor-pointer">visibility</i>
             </div>
-
-
         </div>
 
         <app-comment-creator *ngIf="showCommentCreator" (commentCreated)="onCommentCreated($event)"
