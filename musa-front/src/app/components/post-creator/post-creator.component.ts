@@ -81,5 +81,11 @@ export class PostCreatorComponent {
     return text.length;
   }
 
+  removeImage() {
+    this.imagePreview = null;
+    this.imageFile = null;
+  }
+
+
 
 }
