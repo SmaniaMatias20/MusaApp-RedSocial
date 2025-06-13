@@ -3,7 +3,7 @@
         <img src="{{ profileImage }}" class="w-12 h-12 rounded-full object-cover" alt="Avatar" />
 
         <div class="flex-1">
-            <textarea [(ngModel)]="tweetText" placeholder="¿Qué está pasando?"
+            <textarea [(ngModel)]="tweetText" placeholder="¿Qué está pasando?" maxlength="140"
                 class="bg-transparent w-full text-white resize-none outline-none text-base placeholder-gray-400"
                 rows="3"></textarea>
 
@@ -13,6 +13,9 @@
             </div>
 
             <div class="flex items-center justify-end gap-2">
+                <p class="text-xs" [ngClass]="countCharacters(tweetText) === 140 ? 'text-red-400' : 'text-gray-400'">
+                    {{ countCharacters(tweetText) }} / 140 caracteres
+                </p>
 
                 <label class="cursor-pointer mt-2">
                     <i class="material-icons hover:text-blue-500 text-white transition">image</i>

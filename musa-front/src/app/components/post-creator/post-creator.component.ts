@@ -1,13 +1,13 @@
 import { Component, EventEmitter, Output, Signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { NgIf } from '@angular/common';
+import { NgIf, NgClass } from '@angular/common';
 import { PostService } from '../../services/post/post.service';
 import { AuthService } from '../../services/auth/auth.service';
 import { User } from '../../models/user.model';
 
 @Component({
   selector: 'app-post-creator',
-  imports: [FormsModule, NgIf],
+  imports: [FormsModule, NgIf, NgClass],
   standalone: true,
   templateUrl: './post-creator.component.html',
   styleUrls: ['./post-creator.component.css']
@@ -75,6 +75,10 @@ export class PostCreatorComponent {
     } catch (error) {
       console.error('Error creando post:', error);
     }
+  }
+
+  countCharacters(text: string): number {
+    return text.length;
   }
 
 
