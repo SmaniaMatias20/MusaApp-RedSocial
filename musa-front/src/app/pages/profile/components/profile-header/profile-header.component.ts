@@ -2,12 +2,13 @@ import { Component, computed, Signal } from '@angular/core';
 import { AuthService } from '../../../../services/auth/auth.service';
 import { User } from '../../../../models/user.model';
 import { NgIf } from '@angular/common';
+import { EditProfileComponent } from '../edit-profile/edit-profile.component';
 
 
 @Component({
   selector: 'app-profile-header',
   standalone: true,
-  imports: [NgIf],
+  imports: [NgIf, EditProfileComponent],
   templateUrl: './profile-header.component.html',
   styleUrl: './profile-header.component.css'
 })
@@ -15,6 +16,7 @@ export class ProfileHeaderComponent {
   userSignal!: Signal<User | null>;
   followers: number;
   following: number;
+  isEditing = false;
 
   username = computed(() => this.userSignal()?.username || '');
   firstName = computed(() => this.userSignal()?.firstName || '');
@@ -50,4 +52,7 @@ export class ProfileHeaderComponent {
     return `${parseInt(day, 10)} de ${monthName} de ${year}`;
   }
 
+  toggleEditProfile() {
+    this.isEditing = !this.isEditing;
+  }
 }

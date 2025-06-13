@@ -1,0 +1,37 @@
+<div class="max-w-xl mx-auto bg-black p-6 rounded-xl shadow text-white">
+
+    <div class="flex justify-center mb-4 relative">
+        <img *ngIf="imagePreview" [src]="imagePreview"
+            class="w-24 h-24 rounded-full object-cover border border-gray-600" />
+        <button *ngIf="imagePreview" (click)="removeImage()"
+            class="absolute top-0 right-[35%] bg-white text-black rounded-full p-1 text-xs hover:bg-red-600 hover:text-white">
+            ✕
+        </button>
+    </div>
+
+    <label class="block mb-2 cursor-pointer text-blue-400 hover:text-blue-500 transition">
+        Cambiar imagen
+        <input type="file" accept="image/*" hidden (change)="onImageSelected($event)" />
+    </label>
+
+    <div class="space-y-4">
+        <input [(ngModel)]="user.firstName" placeholder="Nombre"
+            class="w-full bg-gray-900 border border-gray-700 p-2 rounded text-white placeholder-gray-400" />
+        <input [(ngModel)]="user.lastName" placeholder="Apellido"
+            class="w-full bg-gray-900 border border-gray-700 p-2 rounded text-white placeholder-gray-400" />
+        <input [(ngModel)]="user.email" placeholder="Email" type="email"
+            class="w-full bg-gray-900 border border-gray-700 p-2 rounded text-white placeholder-gray-400" />
+        <input [(ngModel)]="user.username" placeholder="Usuario"
+            class="w-full bg-gray-900 border border-gray-700 p-2 rounded text-white placeholder-gray-400" />
+        <input [(ngModel)]="user.password" placeholder="Contraseña" type="password"
+            class="w-full bg-gray-900 border border-gray-700 p-2 rounded text-white placeholder-gray-400" />
+        <input [(ngModel)]="user.birthDate" placeholder="Fecha de nacimiento" type="date"
+            class="w-full bg-gray-900 border border-gray-700 p-2 rounded text-white placeholder-gray-400" />
+        <textarea [(ngModel)]="user.description" placeholder="Descripción"
+            class="w-full bg-gray-900 border border-gray-700 p-2 rounded text-white placeholder-gray-400 resize-none"></textarea>
+    </div>
+
+    <button (click)="saveChanges()" class="mt-6 bg-blue-600 text-white px-5 py-2 rounded hover:bg-blue-700 transition">
+        Guardar cambios
+    </button>
+</div>
