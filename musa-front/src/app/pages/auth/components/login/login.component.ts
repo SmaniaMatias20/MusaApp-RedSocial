@@ -2,13 +2,12 @@ import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NgClass, NgIf } from '@angular/common';
 import { AuthService } from '../../../../services/auth/auth.service';
-import { lastValueFrom } from 'rxjs';
-import { Router } from '@angular/router';
+import { SpinnerComponent } from '../../../../components/spinner/spinner.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, NgIf, NgClass],
+  imports: [ReactiveFormsModule, NgIf, NgClass, SpinnerComponent],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
@@ -17,6 +16,7 @@ export class LoginComponent {
   message: string = '';
   isError: boolean = false;
   isPasswordVisible: boolean = false;
+  loading: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -41,6 +41,7 @@ export class LoginComponent {
   }
 
   async login(): Promise<void> {
+    this.loading = true;
     if (this.loginForm.invalid) {
       this.message = 'Completá todos los campos correctamente.';
       this.isError = true;
@@ -52,6 +53,8 @@ export class LoginComponent {
     try {
       await this.authService.login(usernameOrEmail, password);
       this.isError = false;
+      this.loading = false;
+      this.message = 'Sesión iniciada con éxito.';
     } catch (error: any) {
       this.message = error;
       this.isError = true;

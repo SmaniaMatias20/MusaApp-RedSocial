@@ -32,7 +32,6 @@ export class AuthService {
       this.currentUser.set(user);
       await this.router.navigate(['/home']);
       return user;
-
     } catch (error: any) {
       const errorMessage = error?.error?.message || 'Ocurrió un error inesperado';
       console.error('Error en AuthService.login:', errorMessage);

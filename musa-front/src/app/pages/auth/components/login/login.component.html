@@ -57,6 +57,9 @@
         Iniciar sesión
     </button>
 
+    <!-- Spinner -->
+    <app-spinner *ngIf="loading" class="mt-4"></app-spinner>
+
     <!-- Mensaje de error o éxito -->
     <div *ngIf="message" [ngClass]="isError ? 'bg-red-500' : 'bg-green-500'"
         class="mt-4 text-center text-white px-4 py-2 rounded-md">
