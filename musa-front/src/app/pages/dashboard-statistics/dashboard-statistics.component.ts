@@ -37,6 +37,7 @@ export type ChartOptions = {
   ]
 })
 export class DashboardStatisticsComponent {
+  selectedTab: number = 1;
   chartOptions = {
     chart: { type: 'line' },
     series: [{ name: 'Ventas', data: [10, 20, 30] }],
