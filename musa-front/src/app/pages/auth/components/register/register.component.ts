@@ -87,7 +87,6 @@ export class RegisterComponent {
     formData.append('description', formValue.description || '');
     formData.append('isAdmin', formValue.isAdmin);
     formData.append('createdAt', formValue.createdAt || '');
-    // formData.append('show', formValue.show);
     if (formValue.profileImage) {
       formData.append('profileImage', formValue.profileImage);
     }
@@ -99,11 +98,9 @@ export class RegisterComponent {
       await this.authService.login(formValue.username, formValue.password);
     } catch (error: any) {
       console.error(error);
-      this.errorMessage = error.error?.message || 'Error al registrar usuario';
+      this.errorMessage = error || 'Error al registrar usuario';
     }
   }
-
-
 
   onFileSelected(event: any) {
     const file = event.target.files[0];
