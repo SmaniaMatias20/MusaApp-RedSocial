@@ -47,13 +47,13 @@ export class EditProfileComponent implements OnInit {
   removeImage() {
     this.imagePreview = null;
     this.imageFile = null;
-    this.user.profileImage = ''; // o null según tu backend
+    this.user.profileImage = '';
   }
 
   saveChanges() {
     const formData = new FormData();
     Object.entries(this.user).forEach(([key, value]) => {
-      if (key !== 'profileImage') {
+      if (key !== 'profileImage' && key !== 'id') {
         formData.append(key, value ?? '');
       }
     });
@@ -62,8 +62,8 @@ export class EditProfileComponent implements OnInit {
       formData.append('profileImage', this.imageFile);
     }
 
-    // this.userService.updateUser(this.idUser, formData).subscribe(() => {
-    //   alert('Perfil actualizado correctamente');
-    // });
+    this.userService.updateUser(this.idUser, formData).subscribe(() => {
+      alert('Perfil actualizado correctamente');
+    });
   }
 }

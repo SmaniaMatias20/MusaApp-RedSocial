@@ -13,17 +13,23 @@ export class UserService {
 
   constructor(private http: HttpClient) { }
 
+  getAllUsers(): Observable<User[]> {
+    return this.http.get<User[]>(`${this.apiUrl}` + '/all');
+  }
+
+  updateUser(id: string, formData: FormData): Observable<User> {
+    console.log("id", id);
+    console.log("formData", formData);
+    return this.http.put<User>(`${this.apiUrl}/update/${id}`, formData);
+  }
+
   getUsersForAside(username: string): Observable<User[]> {
     return this.http.get<User[]>(`${this.apiUrl}`, {
       params: { username: username }
     });
   }
 
-  getAllUsers(): Observable<User[]> {
-    return this.http.get<User[]>(`${this.apiUrl}` + '/all');
-  }
-
-  updateVisibility(id: number, show: boolean): Observable<User> {
+  updateVisibility(id: string, show: boolean): Observable<User> {
     return this.http.put<User>(`${this.apiUrl}/updateVisibility/${id}`, { show: show });
   }
 
