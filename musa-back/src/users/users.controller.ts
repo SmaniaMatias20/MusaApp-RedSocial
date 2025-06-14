@@ -1,4 +1,5 @@
-import { Controller, Get, Param, Delete, Query, Put, Body } from '@nestjs/common';
+import { Controller, Get, Param, Delete, Query, Put, Body, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { UsersService } from './users.service';
 
 @Controller('users')
@@ -28,6 +29,19 @@ export class UsersController {
     @Put('updateVisibility/:id')
     updateVisibility(@Param('id') id: string, @Body('show') show: boolean) {
         return this.usersService.updateVisibility(id, show);
+    }
+
+    @Put('update/:id')
+    @UseInterceptors(FileInterceptor('profileImage'))
+    async update(
+        @Param('id') id: string,
+        @UploadedFile() file: Express.Multer.File,
+        @Body() body: any,
+    ) {
+        if (file) {
+            body.profileImage = file.filename; // o la forma que guardes la imagen
+        }
+        return this.usersService.update(id, body);
     }
 
 }

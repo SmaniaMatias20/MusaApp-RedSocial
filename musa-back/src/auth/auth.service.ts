@@ -32,19 +32,16 @@ export class AuthService {
             $or: [{ email: usernameOrEmail }, { username: usernameOrEmail }]
         }).exec();
 
-        console.log("user", user);
         if (!user) {
             throw new NotFoundException('El usuario no existe');
         }
 
-        console.log("user2", user);
         if (!user.show) {
             throw new ForbiddenException('El usuario existe pero no está disponible');
         }
 
         const isPasswordValid = await bcrypt.compare(password, user.password);
 
-        console.log("user3", user);
         if (!isPasswordValid) {
             throw new UnauthorizedException('La contraseña no es correcta');
         }

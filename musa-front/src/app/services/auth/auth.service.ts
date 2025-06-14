@@ -20,7 +20,6 @@ export class AuthService {
   ) { }
 
   register(formData: FormData) {
-
     return this.http.post<User>(this.apiUrl + '/register', formData);
   }
 
@@ -69,6 +68,7 @@ export class AuthService {
       id: localStorage.getItem('id'),
       firstName: localStorage.getItem('firstName') || '',
       lastName: localStorage.getItem('lastName') || '',
+      email: localStorage.getItem('email') || '',
       accessToken: localStorage.getItem('accessToken') || '',
       isAdmin: localStorage.getItem('isAdmin'),
       profileImage: localStorage.getItem('profileImage') || '',

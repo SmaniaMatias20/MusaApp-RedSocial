@@ -28,7 +28,7 @@ export class EditProfileComponent implements OnInit {
       this.user = { ...user };
       this.imagePreview = user.profileImage || null;
     } else {
-      alert('No se encontró el usuario en localStorage');
+      console.error('No se encontró el usuario en localStorage');
     }
   }
 
@@ -53,7 +53,7 @@ export class EditProfileComponent implements OnInit {
   saveChanges() {
     const formData = new FormData();
     Object.entries(this.user).forEach(([key, value]) => {
-      if (key !== 'profileImage' && key !== 'id') {
+      if (key !== 'profileImage' && key !== 'id' && key !== 'accessToken' && key !== 'createdAt' && key !== 'show' && value !== null && value !== '') {
         formData.append(key, value ?? '');
       }
     });
@@ -63,7 +63,7 @@ export class EditProfileComponent implements OnInit {
     }
 
     this.userService.updateUser(this.idUser, formData).subscribe(() => {
-      alert('Perfil actualizado correctamente');
+      // alert('Perfil actualizado correctamente');
     });
   }
 }

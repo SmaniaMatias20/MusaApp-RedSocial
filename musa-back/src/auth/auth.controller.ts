@@ -6,7 +6,6 @@ import {
     UploadedFile,
     UseInterceptors,
     BadRequestException,
-    UnauthorizedException,
 } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { AuthService } from './auth.service';

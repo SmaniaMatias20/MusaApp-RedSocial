@@ -1,8 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User, UserDocument } from './schemas/user.schema';
 import { CreateUserDto } from './dto/create-user.dto';
+// import { CloudinaryService } from '../cloudinary/cloudinary.service';
 
 @Injectable()
 export class UsersService {
@@ -42,4 +43,39 @@ export class UsersService {
         user.show = show;
         return user.save();
     }
+
+    async update(id: string, user: any, file?: Express.Multer.File): Promise<User> {
+        // Validar email duplicado (excepto el actual)
+        const existingEmail = await this.userModel.findOne({
+            email: user.email,
+            _id: { $ne: id }
+        });
+        if (existingEmail) {
+            throw new BadRequestException('El correo electrónico ya está en uso por otro usuario');
+        }
+
+        // Validar username duplicado (excepto el actual)
+        const existingUsername = await this.userModel.findOne({
+            username: user.username,
+            _id: { $ne: id }
+        });
+        if (existingUsername) {
+            throw new BadRequestException('El nombre de usuario ya está en uso por otro usuario');
+        }
+
+        // Si hay archivo, subirlo a Cloudinary y asignar URL a user.profileImage
+        // if (file) {
+        //     const imageUploadResult = await this.cloudinaryService.uploadImageFromBuffer(file);
+        //     user.profileImage = imageUploadResult.secure_url;
+        // }
+
+        const updatedUser = await this.userModel.findByIdAndUpdate(id, user, { new: true }).exec();
+
+        if (!updatedUser) {
+            throw new NotFoundException('Usuario no encontrado para actualizar');
+        }
+
+        return updatedUser;
+    }
+
 }
