@@ -16,14 +16,33 @@
     <!-- Tabla de usuarios -->
     <div class="flex flex-col flex-1 items-center justify-center">
         <app-users-table [users]="users" (toggleUserStatus)="handleToggleVisibility($event)"></app-users-table>
-        <!-- Botón para agregar usuario -->
         <div class="flex justify-center items-center w-full p-4 bg-black/80 text-white">
-            <button class="flex items-center gap-2 text-white hover:text-blue-400 transition">
+            <button (click)="openCreateUserModal()"
+                class="flex items-center gap-2 text-white hover:text-blue-400 transition">
                 <span class="material-icons text-3xl">add</span>
                 <span class="ml-2 text-lg">Crear Usuario</span>
             </button>
         </div>
+
     </div>
+
+
+    <!-- Modal -->
+    <div *ngIf="isCreateUserModalOpen"
+        class="fixed inset-0 bg-black/60 backdrop-blur-sm flex justify-center items-center z-50">
+        <div class="bg-black p-6 rounded-xl w-full max-w-xl shadow-lg relative">
+
+            <!-- Botón para cerrar -->
+            <button (click)="closeCreateUserModal()" class="absolute top-2 right-2 text-white hover:text-red-400">
+                <span class="material-icons">close</span>
+            </button>
+
+            <!-- Componente Crear Usuario -->
+            <app-create-user (userCreated)="closeCreateUserModal()"></app-create-user>
+
+        </div>
+    </div>
+
 
 
 </div>

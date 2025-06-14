@@ -1,17 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { birthDateValidator, passwordMatchValidator } from '../../../../utils/utils';
 import { UserService } from '../../../../services/user/user.service';
 import { lastValueFrom } from 'rxjs';
+import { EventEmitter, Output } from '@angular/core';
+import { NgIf } from '@angular/common';
 
 @Component({
   selector: 'app-create-user',
   templateUrl: './create-user.component.html',
   styleUrls: ['./create-user.component.css'],
   standalone: true,
-  imports: [] // Agregá ReactiveFormsModule en el módulo que lo importa
+  imports: [ReactiveFormsModule, FormsModule, NgIf]
 })
 export class CreateUserComponent implements OnInit {
+  @Output() userCreated = new EventEmitter<void>();
   registerForm!: FormGroup;
   defaultImage = 'https://res.cloudinary.com/dqqaf002m/image/upload/v1749215793/user_dykckk.jpg';
   errorMessage: string = '';
@@ -63,6 +66,7 @@ export class CreateUserComponent implements OnInit {
       this.successMessage = 'Usuario creado correctamente.';
       this.registerForm.reset();
       this.errorMessage = ''; // limpiar mensaje de error si existía
+      setTimeout(() => this.userCreated.emit(), 2000);
     } catch (error: any) {
       console.error('Error al crear el usuario:', error);
       this.errorMessage = error?.error?.message || 'Error al crear el usuario.';
