@@ -17,6 +17,8 @@ export class AuthService {
     async create(userData: CreateUserDto): Promise<CreateUserDto> {
         const saltOrRounds = 10;
         const hashedPassword = await bcrypt.hash(userData.password, saltOrRounds);
+        userData.email = userData.email.toLocaleLowerCase();
+        userData.username = userData.username.toLocaleLowerCase();
 
         const newUser = new this.userModel({
             ...userData,
@@ -29,7 +31,7 @@ export class AuthService {
 
     async login(usernameOrEmail: string, password: string): Promise<{ id: Object; accessToken: string; username: string; isAdmin: string; firstName: string; lastName: string, birthDate: string; description: string, email: string, profileImage: string, createdAt: Date, show: boolean }> {
         const user = await this.userModel.findOne({
-            $or: [{ email: usernameOrEmail }, { username: usernameOrEmail }]
+            $or: [{ email: usernameOrEmail.toLocaleLowerCase() }, { username: usernameOrEmail.toLocaleLowerCase() }]
         }).exec();
 
         if (!user) {
