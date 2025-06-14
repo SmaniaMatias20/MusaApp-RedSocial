@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { User } from '../../../../models/user.model';
 import { UserService } from '../../../../services/user/user.service';
 import { AuthService } from '../../../../services/auth/auth.service';
+import { lastValueFrom } from 'rxjs';
+import { EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgIf } from '@angular/common';
 
@@ -12,6 +14,9 @@ import { NgIf } from '@angular/common';
   styleUrls: ['./edit-profile.component.css']
 })
 export class EditProfileComponent implements OnInit {
+  successMessage: string = '';
+  errorMessage: string = '';
+  @Output() updatedUser = new EventEmitter<void>();
   user: User = {} as User;
   imagePreview: string | null = null;
   imageFile: File | null = null;
@@ -50,10 +55,18 @@ export class EditProfileComponent implements OnInit {
     this.user.profileImage = '';
   }
 
-  saveChanges() {
+  async saveChanges() {
     const formData = new FormData();
     Object.entries(this.user).forEach(([key, value]) => {
-      if (key !== 'profileImage' && key !== 'id' && key !== 'accessToken' && key !== 'createdAt' && key !== 'show' && value !== null && value !== '') {
+      if (
+        key !== 'profileImage' &&
+        key !== 'id' &&
+        key !== 'accessToken' &&
+        key !== 'createdAt' &&
+        key !== 'show' &&
+        value !== null &&
+        value !== ''
+      ) {
         formData.append(key, value ?? '');
       }
     });
@@ -62,8 +75,15 @@ export class EditProfileComponent implements OnInit {
       formData.append('profileImage', this.imageFile);
     }
 
-    this.userService.updateUser(this.idUser, formData).subscribe(() => {
-      // alert('Perfil actualizado correctamente');
-    });
+    try {
+      await lastValueFrom(this.userService.updateUser(this.idUser, formData));
+      this.successMessage = 'Perfil actualizado correctamente';
+      setTimeout(() => {
+        this.updatedUser.emit();
+      }, 2000);
+    } catch (error) {
+      console.error('Error al actualizar el perfil:', error);
+      this.errorMessage = 'Ocurrió un error al guardar los cambios. Intente nuevamente.';
+    }
   }
 }

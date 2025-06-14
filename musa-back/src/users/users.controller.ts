@@ -38,10 +38,8 @@ export class UsersController {
         @UploadedFile() file: Express.Multer.File,
         @Body() body: any,
     ) {
-        if (file) {
-            body.profileImage = file.filename; // o la forma que guardes la imagen
-        }
-        return this.usersService.update(id, body);
+
+        return this.usersService.update(id, body, file);
     }
 
 }

@@ -32,7 +32,6 @@ export class ProfileComponent {
 
   ngOnInit(): void {
     this.loadPosts();
-
   }
 
   openPostInteractions(post: any): void {
