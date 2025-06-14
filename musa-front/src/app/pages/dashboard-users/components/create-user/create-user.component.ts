@@ -43,8 +43,6 @@ export class CreateUserComponent implements OnInit {
     }, { validators: passwordMatchValidator });
   }
 
-
-
   async onSubmit() {
     if (this.registerForm.invalid) {
       this.errorMessage = 'Por favor completa los campos correctamente.';
