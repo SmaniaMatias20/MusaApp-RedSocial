@@ -1,8 +1,9 @@
-import { Component } from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators, AbstractControl } from '@angular/forms';
-import { NgIf } from '@angular/common';
+import { Component } from '@angular/core';
 import { AuthService } from '../../../../services/auth/auth.service';
+import { NgIf } from '@angular/common';
 import { firstValueFrom } from 'rxjs';
+import { SpinnerComponent } from '../../../../components/spinner/spinner.component';
 
 function passwordMatchValidator(form: AbstractControl) {
   const password = form.get('password')?.value;
@@ -25,11 +26,12 @@ function birthDateValidator(control: AbstractControl) {
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [ReactiveFormsModule, NgIf],
+  imports: [ReactiveFormsModule, NgIf, SpinnerComponent],
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent {
+  loading: boolean = false;
   registerForm: FormGroup;
   errorMessage: string = '';
   successMessage: string = '';
@@ -92,13 +94,16 @@ export class RegisterComponent {
     }
 
     try {
+      this.loading = true;
       await firstValueFrom(this.authService.register(formData));
       this.successMessage = 'Usuario registrado correctamente';
       this.registerForm.reset();
       await this.authService.login(formValue.username, formValue.password);
+      this.loading = false;
     } catch (error: any) {
       console.error(error);
-      this.errorMessage = error || 'Error al registrar usuario';
+      this.errorMessage = error.error.message || 'Error al registrar usuario';
+      this.loading = false;
     }
   }
 

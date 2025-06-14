@@ -62,6 +62,7 @@ export class LoginComponent {
     } catch (error: any) {
       this.message = error;
       this.isError = true;
+      this.loading = false;
     }
   }
 
