@@ -1,3 +1,6 @@
+import { AbstractControl } from '@angular/forms';
+
+
 export function formatDateToSpanish(isoDate: any): string {
     const months = [
         'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
@@ -28,4 +31,22 @@ export function formatTimeAgo(dateString: string): string {
         month: 'short',
         year: 'numeric',
     });
+}
+
+export function passwordMatchValidator(form: AbstractControl) {
+    const password = form.get('password')?.value;
+    const confirmPassword = form.get('confirmPassword')?.value;
+    return password === confirmPassword ? null : { passwordMismatch: true };
+}
+
+export function birthDateValidator(control: AbstractControl) {
+    if (!control.value) return null;
+    const birthDate = new Date(control.value);
+    const today = new Date();
+    let age = today.getFullYear() - birthDate.getFullYear();
+    const monthDiff = today.getMonth() - birthDate.getMonth();
+    if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    return age >= 18 ? null : { underage: true };
 }

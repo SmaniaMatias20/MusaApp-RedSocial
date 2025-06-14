@@ -1,0 +1,79 @@
+<div class="max-w-xl mx-auto bg-black p-6 rounded-xl shadow text-white">
+    <h2 class="text-lg font-semibold mb-4">Crear Usuario</h2>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="space-y-4">
+
+        <div>
+            <label class="block text-sm text-gray-300">Nombre *</label>
+            <input type="text" formControlName="firstName" placeholder="Nombre"
+                class="w-full p-2 bg-gray-800 border border-gray-600 rounded text-white" />
+            <div *ngIf="registerForm.get('firstName')?.invalid && registerForm.get('firstName')?.touched"
+                class="text-red-400 text-sm">
+                El nombre debe tener entre 3 y 15 caracteres.
+            </div>
+        </div>
+
+        <div>
+            <label class="block text-sm text-gray-300">Apellido *</label>
+            <input type="text" formControlName="lastName" placeholder="Apellido"
+                class="w-full p-2 bg-gray-800 border border-gray-600 rounded text-white" />
+        </div>
+
+        <div>
+            <label class="block text-sm text-gray-300">Email *</label>
+            <input type="email" formControlName="email" placeholder="Correo@ejemplo.com"
+                class="w-full p-2 bg-gray-800 border border-gray-600 rounded text-white" />
+            <div *ngIf="registerForm.get('email')?.hasError('email') && registerForm.get('email')?.touched"
+                class="text-red-400 text-sm">
+                Correo inválido.
+            </div>
+        </div>
+
+        <div>
+            <label class="block text-sm text-gray-300">Usuario *</label>
+            <input type="text" formControlName="username" placeholder="Usuario"
+                class="w-full p-2 bg-gray-800 border border-gray-600 rounded text-white" />
+        </div>
+
+        <div>
+            <label class="block text-sm text-gray-300">Contraseña *</label>
+            <input type="password" formControlName="password" placeholder="Contraseña"
+                class="w-full p-2 bg-gray-800 border border-gray-600 rounded text-white" />
+            <div *ngIf="registerForm.get('password')?.hasError('pattern') && registerForm.get('password')?.touched"
+                class="text-red-400 text-sm">
+                Debe tener al menos una mayúscula y un número.
+            </div>
+        </div>
+
+        <div>
+            <label class="block text-sm text-gray-300">Confirmar contraseña *</label>
+            <input type="password" formControlName="confirmPassword" placeholder="Confirmar contraseña"
+                class="w-full p-2 bg-gray-800 border border-gray-600 rounded text-white" />
+            <div *ngIf="registerForm.hasError('passwordMismatch') && registerForm.get('confirmPassword')?.touched"
+                class="text-red-400 text-sm">
+                Las contraseñas no coinciden.
+            </div>
+        </div>
+
+        <div>
+            <label class="block text-sm text-gray-300">Fecha de nacimiento *</label>
+            <input type="date" formControlName="birthDate"
+                class="w-full p-2 bg-gray-800 border border-gray-600 rounded text-white" />
+        </div>
+
+        <div>
+            <label class="block text-sm text-gray-300">Descripción</label>
+            <textarea formControlName="description" rows="3"
+                class="w-full p-2 bg-gray-800 border border-gray-600 rounded text-white resize-none"
+                placeholder="Sobre ti..."></textarea>
+        </div>
+
+        <div class="text-center mt-4">
+            <p class="text-green-400 text-sm" *ngIf="successMessage">{{ successMessage }}</p>
+            <p class="text-red-400 text-sm" *ngIf="errorMessage">{{ errorMessage }}</p>
+            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded mt-2">
+                Crear Usuario
+            </button>
+        </div>
+    </form>
+</div>

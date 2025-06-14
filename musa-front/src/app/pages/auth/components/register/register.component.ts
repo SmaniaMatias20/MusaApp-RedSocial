@@ -4,24 +4,25 @@ import { AuthService } from '../../../../services/auth/auth.service';
 import { NgIf } from '@angular/common';
 import { firstValueFrom } from 'rxjs';
 import { SpinnerComponent } from '../../../../components/spinner/spinner.component';
+import { passwordMatchValidator, birthDateValidator } from '../../../../utils/utils';
 
-function passwordMatchValidator(form: AbstractControl) {
-  const password = form.get('password')?.value;
-  const confirmPassword = form.get('confirmPassword')?.value;
-  return password === confirmPassword ? null : { passwordMismatch: true };
-}
+// function passwordMatchValidator(form: AbstractControl) {
+//   const password = form.get('password')?.value;
+//   const confirmPassword = form.get('confirmPassword')?.value;
+//   return password === confirmPassword ? null : { passwordMismatch: true };
+// }
 
-function birthDateValidator(control: AbstractControl) {
-  if (!control.value) return null;
-  const birthDate = new Date(control.value);
-  const today = new Date();
-  let age = today.getFullYear() - birthDate.getFullYear();
-  const monthDiff = today.getMonth() - birthDate.getMonth();
-  if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
-    age--;
-  }
-  return age >= 18 ? null : { underage: true };
-}
+// function birthDateValidator(control: AbstractControl) {
+//   if (!control.value) return null;
+//   const birthDate = new Date(control.value);
+//   const today = new Date();
+//   let age = today.getFullYear() - birthDate.getFullYear();
+//   const monthDiff = today.getMonth() - birthDate.getMonth();
+//   if (monthDiff < 0 || (monthDiff === 0 && today.getDate() < birthDate.getDate())) {
+//     age--;
+//   }
+//   return age >= 18 ? null : { underage: true };
+// }
 
 @Component({
   selector: 'app-register',
