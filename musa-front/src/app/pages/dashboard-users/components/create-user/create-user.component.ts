@@ -52,27 +52,23 @@ export class CreateUserComponent implements OnInit {
       return;
     }
 
-    const formData = new FormData();
     const values = this.registerForm.value;
 
-    Object.entries(values).forEach(([key, value]) => {
-      if (value !== null && value !== '' && key !== 'confirmPassword') {
-        formData.append(key, String(value));
-      }
-    });
+    // Removemos el campo que no se debe enviar
+    const { confirmPassword, ...userData } = values;
 
     try {
-      console.log('formData', formData);
-      // await lastValueFrom(this.userService.createUser(formData));
+      await lastValueFrom(this.userService.createUser(userData));
       this.successMessage = 'Usuario creado correctamente.';
       this.registerForm.reset();
-      this.errorMessage = ''; // limpiar mensaje de error si existía
+      this.errorMessage = '';
       setTimeout(() => this.userCreated.emit(), 2000);
     } catch (error: any) {
       console.error('Error al crear el usuario:', error);
       this.errorMessage = error?.error?.message || 'Error al crear el usuario.';
-      this.successMessage = ''; // limpiar mensaje de éxito si existía
+      this.successMessage = '';
     }
   }
+
 
 }

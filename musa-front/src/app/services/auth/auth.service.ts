@@ -85,7 +85,6 @@ export class AuthService {
   }
 
   updateUserSession(formData: FormData) {
-    console.log('formData', formData);
     const user = this.getUserFromLocalStorage();
     if (!user) return;
 

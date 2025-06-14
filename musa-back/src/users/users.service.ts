@@ -11,9 +11,18 @@ export class UsersService {
     constructor(@InjectModel(User.name) private userModel: Model<UserDocument>, private cloudinaryService: CloudinaryService) { }
 
     async create(createUserDto: CreateUserDto): Promise<User> {
-        const newUser = new this.userModel(createUserDto);
+        // Hashear la contraseña antes de guardar
+        const saltRounds = 10;
+        const hashedPassword = await bcrypt.hash(createUserDto.password, saltRounds);
+
+        const newUser = new this.userModel({
+            ...createUserDto,
+            password: hashedPassword, // Reemplaza la contraseña original
+        });
+
         return newUser.save();
     }
+
 
     async findAllByUsername(username: string): Promise<User[]> {
         return this.userModel

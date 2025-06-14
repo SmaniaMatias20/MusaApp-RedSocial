@@ -1,10 +1,17 @@
-import { Controller, Get, Param, Delete, Query, Put, Body, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Controller, Get, Param, Delete, Query, Put, Body, UploadedFile, UseInterceptors, Post } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { UsersService } from './users.service';
+import { CreateUserDto } from './dto/create-user.dto';
 
 @Controller('users')
 export class UsersController {
     constructor(private readonly usersService: UsersService) { }
+
+    @Post('create')
+    async create(@Body() createUserDto: CreateUserDto) {
+        console.log('createUserDto', createUserDto);
+        return this.usersService.create(createUserDto);
+    }
 
     @Get()
     findAllByUsername(@Query('username') username: string) {
