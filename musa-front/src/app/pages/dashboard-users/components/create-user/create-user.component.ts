@@ -15,6 +15,7 @@ import { NgIf } from '@angular/common';
 })
 export class CreateUserComponent implements OnInit {
   @Output() userCreated = new EventEmitter<void>();
+  isPasswordVisible: boolean = false;
   registerForm!: FormGroup;
   defaultImage = 'https://res.cloudinary.com/dqqaf002m/image/upload/v1749215793/user_dykckk.jpg';
   errorMessage: string = '';
@@ -68,6 +69,10 @@ export class CreateUserComponent implements OnInit {
       this.errorMessage = error?.error?.message || 'Error al crear el usuario.';
       this.successMessage = '';
     }
+  }
+
+  togglePasswordVisibility(): void {
+    this.isPasswordVisible = !this.isPasswordVisible;
   }
 
 

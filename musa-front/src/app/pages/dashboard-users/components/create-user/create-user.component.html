@@ -54,9 +54,9 @@
         </div>
 
         <!-- Contraseña -->
-        <div>
+        <div class="relative">
             <label class="block text-sm text-gray-300">Contraseña *</label>
-            <input type="password" formControlName="password" placeholder="Contraseña"
+            <input formControlName="password" placeholder="Contraseña" [type]="isPasswordVisible ? 'text' : 'password'"
                 class="w-full p-2 bg-gray-800 border border-gray-600 rounded text-white" />
             <div *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid"
                 class="text-red-400 text-sm">
@@ -67,17 +67,30 @@
                     Debe contener al menos una mayúscula y un número.
                 </div>
             </div>
+            <button type="button" class="absolute top-7 right-3 text-gray-400 hover:text-white cursor-pointer"
+                (click)="togglePasswordVisibility()">
+                <span class="material-icons">
+                    {{ isPasswordVisible ? 'visibility' : 'visibility_off' }}
+                </span>
+            </button>
         </div>
 
         <!-- Confirmar Contraseña -->
-        <div>
+        <div class="relative">
             <label class="block text-sm text-gray-300">Confirmar contraseña *</label>
-            <input type="password" formControlName="confirmPassword" placeholder="Confirmar contraseña"
+            <input formControlName="confirmPassword" placeholder="Confirmar contraseña"
+                [type]="isPasswordVisible ? 'text' : 'password'"
                 class="w-full p-2 bg-gray-800 border border-gray-600 rounded text-white" />
             <div *ngIf="registerForm.get('confirmPassword')?.touched && registerForm.hasError('passwordMismatch')"
                 class="text-red-400 text-sm">
                 Las contraseñas no coinciden.
             </div>
+            <button type="button" class="absolute top-7 right-3 text-gray-400 hover:text-white cursor-pointer"
+                (click)="togglePasswordVisibility()">
+                <span class="material-icons">
+                    {{ isPasswordVisible ? 'visibility' : 'visibility_off' }}
+                </span>
+            </button>
         </div>
 
         <!-- Fecha de nacimiento -->
