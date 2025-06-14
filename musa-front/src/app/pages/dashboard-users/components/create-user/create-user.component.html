@@ -88,8 +88,7 @@
             <div *ngIf="registerForm.get('birthDate')?.touched && registerForm.get('birthDate')?.invalid"
                 class="text-red-400 text-sm">
                 <div *ngIf="registerForm.get('birthDate')?.hasError('required')">La fecha es obligatoria.</div>
-                <div *ngIf="registerForm.get('birthDate')?.hasError('birthDateInvalid')">Debe ser mayor de 18 años.
-                </div>
+                <div *ngIf="registerForm.get('birthDate')?.hasError('underage')">Debe ser mayor de 18 años.</div>
             </div>
         </div>
 
