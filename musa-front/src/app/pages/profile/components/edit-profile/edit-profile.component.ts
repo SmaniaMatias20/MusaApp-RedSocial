@@ -110,9 +110,14 @@ export class EditProfileComponent implements OnInit {
       await lastValueFrom(this.userService.updateUser(this.idUser, formData));
       this.successMessage = 'Perfil actualizado correctamente';
       setTimeout(() => this.updatedUser.emit(), 2000);
-    } catch (error) {
+    } catch (error: any) {
       console.error('Error al actualizar el perfil:', error);
-      this.errorMessage = 'Ocurrió un error al guardar los cambios. Intente nuevamente.';
+
+      if (error.error && error.error.message) {
+        this.errorMessage = error.error.message;
+      } else {
+        this.errorMessage = 'Error al actualizar el perfil';
+      }
     }
   }
 
