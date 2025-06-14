@@ -19,6 +19,8 @@ export class UserService {
   }
 
   updateUser(id: string, formData: FormData): Observable<User> {
+    console.log(formData);
+
     return this.http.put<User>(`${this.apiUrl}/update/${id}`, formData);
   }
 

@@ -4,6 +4,7 @@ import { Model } from 'mongoose';
 import { User, UserDocument } from './schemas/user.schema';
 import { CreateUserDto } from './dto/create-user.dto';
 import { CloudinaryService } from '../cloudinary/cloudinary.service';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
@@ -67,6 +68,12 @@ export class UsersService {
         if (file) {
             const imageUploadResult = await this.cloudinaryService.uploadImageFromBuffer(file);
             user.profileImage = imageUploadResult.secure_url;
+        }
+
+        // Si se está actualizando la contraseña, hashearla
+        if (user.password) {
+            const saltRounds = 10;
+            user.password = await bcrypt.hash(user.password, saltRounds);
         }
 
         const updatedUser = await this.userModel.findByIdAndUpdate(id, user, { new: true }).exec();

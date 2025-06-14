@@ -1,4 +1,4 @@
-<div class="max-w-xl mx-auto bg-black p-6 rounded-xl shadow text-white">
+<form [formGroup]="form" (ngSubmit)="saveChanges()" class="max-w-xl mx-auto bg-black p-6 rounded-xl shadow text-white">
 
     <div class="flex justify-center mb-4 relative">
         <img *ngIf="imagePreview" [src]="imagePreview"
@@ -15,26 +15,87 @@
     </label>
 
     <div class="space-y-4">
-        <input [(ngModel)]="user.firstName" placeholder="Nombre"
-            class="w-full bg-gray-900 border border-gray-700 p-2 rounded text-white placeholder-gray-400" />
-        <input [(ngModel)]="user.lastName" placeholder="Apellido"
-            class="w-full bg-gray-900 border border-gray-700 p-2 rounded text-white placeholder-gray-400" />
-        <input [(ngModel)]="user.email" placeholder="Email" type="email"
-            class="w-full bg-gray-900 border border-gray-700 p-2 rounded text-white placeholder-gray-400" />
-        <input [(ngModel)]="user.username" placeholder="Usuario"
-            class="w-full bg-gray-900 border border-gray-700 p-2 rounded text-white placeholder-gray-400" />
-        <input placeholder="Contraseña" type="password"
-            class="w-full bg-gray-900 border border-gray-700 p-2 rounded text-white placeholder-gray-400" />
-        <input [(ngModel)]="user.birthDate" placeholder="Fecha de nacimiento" type="date"
-            class="w-full bg-gray-900 border border-gray-700 p-2 rounded text-white placeholder-gray-400" />
-        <textarea [(ngModel)]="user.description" placeholder="Descripción"
-            class="w-full bg-gray-900 border border-gray-700 p-2 rounded text-white placeholder-gray-400 resize-none"></textarea>
+        <!-- Nombre -->
+        <div>
+            <input formControlName="firstName" placeholder="Nombre"
+                class="w-full bg-gray-900 border border-gray-700 p-2 rounded text-white placeholder-gray-400" />
+            <div class="text-red-400 text-sm mt-1"
+                *ngIf="form.get('firstName')?.invalid && (form.get('firstName')?.touched || form.get('firstName')?.dirty)">
+                <span *ngIf="form.get('firstName')?.errors?.['minlength']">Debe tener al menos 3 caracteres</span>
+                <span *ngIf="form.get('firstName')?.errors?.['maxlength']">Máximo 15 caracteres</span>
+            </div>
+        </div>
+
+        <!-- Apellido -->
+        <div>
+            <input formControlName="lastName" placeholder="Apellido"
+                class="w-full bg-gray-900 border border-gray-700 p-2 rounded text-white placeholder-gray-400" />
+            <div class="text-red-400 text-sm mt-1"
+                *ngIf="form.get('lastName')?.invalid && (form.get('lastName')?.touched || form.get('lastName')?.dirty)">
+                <span *ngIf="form.get('lastName')?.errors?.['minlength']">Debe tener al menos 3 caracteres</span>
+                <span *ngIf="form.get('lastName')?.errors?.['maxlength']">Máximo 15 caracteres</span>
+            </div>
+        </div>
+
+        <!-- Email -->
+        <div>
+            <input formControlName="email" type="email" placeholder="Email"
+                class="w-full bg-gray-900 border border-gray-700 p-2 rounded text-white placeholder-gray-400" />
+            <div class="text-red-400 text-sm mt-1"
+                *ngIf="form.get('email')?.invalid && (form.get('email')?.touched || form.get('email')?.dirty)">
+                <span *ngIf="form.get('email')?.errors?.['email']">Formato de correo inválido</span>
+            </div>
+        </div>
+
+        <!-- Username -->
+        <div>
+            <input formControlName="username" placeholder="Usuario"
+                class="w-full bg-gray-900 border border-gray-700 p-2 rounded text-white placeholder-gray-400" />
+            <div class="text-red-400 text-sm mt-1"
+                *ngIf="form.get('username')?.invalid && (form.get('username')?.touched || form.get('username')?.dirty)">
+                <span *ngIf="form.get('username')?.errors?.['minlength']">Debe tener al menos 3 caracteres</span>
+                <span *ngIf="form.get('username')?.errors?.['maxlength']">Máximo 15 caracteres</span>
+            </div>
+        </div>
+
+        <!-- Contraseña -->
+        <div>
+            <input formControlName="password" type="password" placeholder="Contraseña"
+                class="w-full bg-gray-900 border border-gray-700 p-2 rounded text-white placeholder-gray-400" />
+            <div class="text-red-400 text-sm mt-1"
+                *ngIf="form.get('password')?.invalid && (form.get('password')?.touched || form.get('password')?.dirty)">
+                <span *ngIf="form.get('password')?.errors?.['minlength']">Mínimo 8 caracteres</span>
+                <span *ngIf="form.get('password')?.errors?.['maxlength']">Máximo 15 caracteres</span>
+                <span *ngIf="form.get('password')?.errors?.['pattern']">Debe tener al menos una mayúscula y un
+                    número</span>
+            </div>
+        </div>
+
+        <!-- Fecha de nacimiento -->
+        <div>
+            <input formControlName="birthDate" type="date" placeholder="Fecha de nacimiento"
+                class="w-full bg-gray-900 border border-gray-700 p-2 rounded text-white placeholder-gray-400" />
+            <div class="text-red-400 text-sm mt-1"
+                *ngIf="form.get('birthDate')?.invalid && (form.get('birthDate')?.touched || form.get('birthDate')?.dirty)">
+                <span *ngIf="form.get('birthDate')?.errors?.['underage']">Debes ser mayor de 18 años</span>
+            </div>
+        </div>
+
+        <!-- Descripción -->
+        <div>
+            <textarea formControlName="description" placeholder="Descripción"
+                class="w-full bg-gray-900 border border-gray-700 p-2 rounded text-white placeholder-gray-400 resize-none"></textarea>
+            <div class="text-red-400 text-sm mt-1"
+                *ngIf="form.get('description')?.errors?.['maxlength'] && (form.get('description')?.touched || form.get('description')?.dirty)">
+                <span>Máximo 250 caracteres</span>
+            </div>
+        </div>
     </div>
 
-    <p class="text-red-400 text-sm text-center mt-2" [hidden]="!errorMessage">{{ errorMessage }}</p>
-    <p class="text-green-400 text-sm text-center mt-2" [hidden]="!successMessage">{{ successMessage }}</p>
+    <p class="text-red-400 text-sm text-center mt-2" *ngIf="errorMessage">{{ errorMessage }}</p>
+    <p class="text-green-400 text-sm text-center mt-2" *ngIf="successMessage">{{ successMessage }}</p>
 
-    <button (click)="saveChanges()" class="mt-6 bg-blue-600 text-white px-5 py-2 rounded hover:bg-blue-700 transition">
+    <button type="submit" class="mt-6 bg-blue-600 text-white px-5 py-2 rounded hover:bg-blue-700 transition">
         Guardar cambios
     </button>
-</div>
+</form>
