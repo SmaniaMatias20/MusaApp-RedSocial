@@ -38,8 +38,10 @@ export class CreateUserComponent implements OnInit {
       birthDate: ['', [Validators.required, birthDateValidator]],
       description: ['', [Validators.maxLength(250)]],
       profileImage: [this.defaultImage],
-      isAdmin: 'false',
-      createdAt: new Date().toISOString()
+      isAdmin: ['', [Validators.required, Validators.pattern(/^(true|false)$/)]],
+      createdAt: new Date().toISOString(),
+      show: true
+
     }, { validators: passwordMatchValidator });
   }
 
@@ -60,6 +62,7 @@ export class CreateUserComponent implements OnInit {
     });
 
     try {
+      console.log('formData', formData);
       // await lastValueFrom(this.userService.createUser(formData));
       this.successMessage = 'Usuario creado correctamente.';
       this.registerForm.reset();

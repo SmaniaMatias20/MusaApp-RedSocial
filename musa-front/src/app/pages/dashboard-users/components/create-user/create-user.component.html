@@ -88,9 +88,26 @@
             <div *ngIf="registerForm.get('birthDate')?.touched && registerForm.get('birthDate')?.invalid"
                 class="text-red-400 text-sm">
                 <div *ngIf="registerForm.get('birthDate')?.hasError('required')">La fecha es obligatoria.</div>
-                <div *ngIf="registerForm.get('birthDate')?.hasError('birthDateInvalid')">Fecha no válida.</div>
+                <div *ngIf="registerForm.get('birthDate')?.hasError('birthDateInvalid')">Debe ser mayor de 18 años.
+                </div>
             </div>
         </div>
+
+        <!-- isAdmin -->
+        <div>
+            <label class="block text-sm text-gray-300">¿Es administrador? *</label>
+            <select formControlName="isAdmin" class="w-full p-2 bg-gray-800 border border-gray-600 rounded text-white">
+                <option value="" disabled selected>Seleccionar...</option>
+                <option value="true">Sí</option>
+                <option value="false">No</option>
+            </select>
+            <div *ngIf="registerForm.get('isAdmin')?.touched && registerForm.get('isAdmin')?.invalid"
+                class="text-red-400 text-sm">
+                <div *ngIf="registerForm.get('isAdmin')?.hasError('required')">Este campo es obligatorio.</div>
+                <div *ngIf="registerForm.get('isAdmin')?.hasError('pattern')">Valor no válido.</div>
+            </div>
+        </div>
+
 
         <!-- Descripción -->
         <div>
