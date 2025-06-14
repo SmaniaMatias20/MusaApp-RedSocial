@@ -22,6 +22,7 @@ export class EditProfileComponent implements OnInit {
   successMessage: string = '';
   errorMessage: string = '';
   idUser = localStorage.getItem('id') || '';
+  isPasswordVisible: boolean = false;
 
   constructor(
     private fb: FormBuilder,
@@ -137,9 +138,12 @@ export class EditProfileComponent implements OnInit {
     Object.values(formGroup.controls).forEach(control => control.markAsTouched());
   }
 
-  // Para acceder fácilmente desde la plantilla
   get f() {
     return this.form.controls;
+  }
+
+  togglePasswordVisibility(): void {
+    this.isPasswordVisible = !this.isPasswordVisible;
   }
 }
 

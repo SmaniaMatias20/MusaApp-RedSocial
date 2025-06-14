@@ -59,8 +59,8 @@
         </div>
 
         <!-- Contraseña -->
-        <div>
-            <input formControlName="password" type="password" placeholder="Contraseña"
+        <div class="relative">
+            <input formControlName="password" [type]="isPasswordVisible ? 'text' : 'password'" placeholder="Contraseña"
                 class="w-full bg-gray-900 border border-gray-700 p-2 rounded text-white placeholder-gray-400" />
             <div class="text-red-400 text-sm mt-1"
                 *ngIf="form.get('password')?.invalid && (form.get('password')?.touched || form.get('password')?.dirty)">
@@ -69,6 +69,12 @@
                 <span *ngIf="form.get('password')?.errors?.['pattern']">Debe tener al menos una mayúscula y un
                     número</span>
             </div>
+            <button type="button" class="absolute top-2 right-3 text-gray-400 hover:text-white cursor-pointer"
+                (click)="togglePasswordVisibility()">
+                <span class="material-icons">
+                    {{ isPasswordVisible ? 'visibility_off' : 'visibility' }}
+                </span>
+            </button>
         </div>
 
         <!-- Fecha de nacimiento -->
