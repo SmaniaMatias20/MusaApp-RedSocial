@@ -11,13 +11,30 @@ export class UsersService {
     constructor(@InjectModel(User.name) private userModel: Model<UserDocument>, private cloudinaryService: CloudinaryService) { }
 
     async create(createUserDto: CreateUserDto): Promise<User> {
-        // Hashear la contraseña antes de guardar
         const saltRounds = 10;
         const hashedPassword = await bcrypt.hash(createUserDto.password, saltRounds);
+        createUserDto.email = createUserDto.email.toLocaleLowerCase();
+        createUserDto.username = createUserDto.username.toLocaleLowerCase();
+
+        const existingEmail = await this.userModel.findOne({
+            email: createUserDto.email,
+        });
+
+        if (existingEmail) {
+            throw new BadRequestException('El email ya está en uso por otro usuario');
+        }
+
+        const existingUsername = await this.userModel.findOne({
+            username: createUserDto.username,
+        });
+
+        if (existingUsername) {
+            throw new BadRequestException('El nombre de usuario ya está en uso por otro usuario');
+        }
 
         const newUser = new this.userModel({
             ...createUserDto,
-            password: hashedPassword, // Reemplaza la contraseña original
+            password: hashedPassword,
         });
 
         return newUser.save();
