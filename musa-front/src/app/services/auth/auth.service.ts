@@ -46,6 +46,7 @@ export class AuthService {
 
   private saveUserToLocalStorage(user: User): void {
     localStorage.setItem('id', user.id);
+    localStorage.setItem('email', user.email);
     localStorage.setItem('username', user.username);
     localStorage.setItem('firstName', user.firstName);
     localStorage.setItem('lastName', user.lastName);
@@ -78,4 +79,24 @@ export class AuthService {
       show: localStorage.getItem('show') === 'true',
     } as User;
   }
+
+  private updateSession(user: User) {
+    this.currentUser.set(user);
+  }
+
+  updateUser(formData: FormData) {
+    console.log('formData', formData);
+    const user = this.getUserFromLocalStorage();
+    if (!user) return;
+
+    for (const [key, value] of formData.entries()) {
+      if (value && typeof value === 'string' && value !== user[key as keyof User]) {
+        (user as any)[key] = value;
+      }
+    }
+
+    this.saveUserToLocalStorage(user);
+    this.updateSession(user);
+  }
+
 }
