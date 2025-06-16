@@ -122,6 +122,21 @@ export class PostsService {
         return post;
     }
 
+    async editComment(postId: string, commentId: string, createCommentDto: CreateCommentDto) {
+        const post = await this.postModel.findById(postId);
+        if (!post) {
+            throw new NotFoundException('Post no encontrado');
+        }
+        const comment = post.comments.find(comment => comment._id === commentId);
+        if (!comment) {
+            throw new NotFoundException('Comment no encontrado');
+        }
+        comment.content = createCommentDto.content;
+        comment.edited = true;
+        await post.save();
+        return post;
+    }
+
     async showPost(postId: string, show: boolean) {
         const post = await this.postModel.findById(postId);
         if (!post) {

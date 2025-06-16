@@ -93,6 +93,15 @@ export class PostsController {
         return this.postsService.addComment(postId, createCommentDto);
     }
 
+    @Put('comments/:postId/:commentId')
+    async editComment(
+        @Param('postId') postId: string,
+        @Param('commentId') commentId: string,
+        @Body() createCommentDto: CreateCommentDto,
+    ) {
+        return this.postsService.editComment(postId, commentId, createCommentDto);
+    }
+
     @Put('show/:postId')
     async showPost(
         @Param('postId') postId: string,

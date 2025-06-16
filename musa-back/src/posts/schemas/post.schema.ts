@@ -45,6 +45,7 @@ export class Post extends Document {
         default: [],
     })
     comments: {
+        _id: string;
         idUser: string;
         username: string;
         firstName: string;

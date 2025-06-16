@@ -26,7 +26,6 @@ export class PostService {
     });
   }
 
-
   getPosts(isAdmin: string): Observable<Post[]> {
     return this.http.get<Post[]>(`${this.apiUrl}/all`, {
       params: { isAdmin }
@@ -51,6 +50,12 @@ export class PostService {
       firstName: user?.firstName,
       lastName: user?.lastName,
       profileImage: user?.profileImage
+    });
+  }
+
+  editComment(postId: string, content: string, commentId: string): Observable<Post> {
+    return this.http.put<Post>(`${this.apiUrl}/comments/${postId}/${commentId}`, {
+      content: content,
     });
   }
 

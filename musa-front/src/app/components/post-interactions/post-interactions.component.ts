@@ -20,7 +20,7 @@ export class PostInteractionsComponent {
   }[] = [];
 
   @Input() comments: {
-    _id: string;            // id también string para uniformidad
+    _id: string;
     username: string;
     content: string;
     firstName: string;
@@ -53,7 +53,6 @@ export class PostInteractionsComponent {
 
   startEdit(comment: any) {
     this.editingCommentId = comment._id;
-    console.log(this.editingCommentId);
     this.editedText = comment.content;
   }
 
