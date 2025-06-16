@@ -57,16 +57,16 @@ export class ProfileComponent {
     this.selectedPost = null;
   }
 
-  onPostLiked(): void {
-    this.loadPosts();
+  async onPostLiked(): Promise<void> {
+    await this.loadPosts();
   }
 
-  onPostCommented(): void {
-    this.loadPosts();
+  async onPostCommented(): Promise<void> {
+    await this.loadPosts();
   }
 
-  onShowPost(): void {
-    this.loadPosts();
+  async onShowPost(): Promise<void> {
+    await this.loadPosts();
   }
 
   private async loadPosts(): Promise<void> {

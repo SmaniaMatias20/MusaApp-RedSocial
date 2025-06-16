@@ -30,10 +30,8 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.postService.editComment(this.selectedPost._id, comment.newContent, comment.id)
       );
       await this.loadPosts();
-      // opcional: this.toastService.show('Comentario editado correctamente');
     } catch (error) {
       console.error('Error al editar comentario:', error);
-      // opcional: this.toastService.show('Error al editar comentario');
     }
   }
 
@@ -43,7 +41,6 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   closePostInteractions(): void {
     this.selectedPost = null;
-    // this.loadPosts();
   }
 
   ngOnInit(): void {
@@ -59,20 +56,20 @@ export class HomeComponent implements OnInit, OnDestroy {
     }
   }
 
-  onPostCreated(): void {
-    this.loadPosts();
+  async onPostCreated(): Promise<void> {
+    await this.loadPosts();
   }
 
-  onPostLiked(): void {
-    this.loadPosts();
+  async onPostLiked(): Promise<void> {
+    await this.loadPosts();
   }
 
-  onPostCommented(): void {
-    this.loadPosts();
+  async onPostCommented(): Promise<void> {
+    await this.loadPosts();
   }
 
-  onShowPost(): void {
-    this.loadPosts();
+  async onShowPost(): Promise<void> {
+    await this.loadPosts();
   }
 
   private async loadPosts(): Promise<void> {
