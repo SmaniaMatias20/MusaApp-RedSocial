@@ -13,6 +13,7 @@ import { NgIf } from '@angular/common';
   styleUrl: './dashboard-users.component.css'
 })
 export class DashboardUsersComponent {
+  loading = false;
   isCreateUserModalOpen = false;
   users: User[] = [];
 
@@ -21,10 +22,12 @@ export class DashboardUsersComponent {
   }
 
   private loadUsers(): void {
+    this.loading = true;
     this.userService.getAllUsers().subscribe((data) => {
       this.users = data;
     });
 
+    this.loading = false;
   }
 
   handleToggleVisibility(user: any) {

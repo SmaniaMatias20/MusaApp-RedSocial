@@ -1,5 +1,4 @@
-<!-- 🟦 Tabla (visible en sm y mayores) -->
-<div class="dark-table p-4 rounded w-full hidden sm:block">
+<div *ngIf="!loading" class="dark-table p-4 rounded w-full hidden sm:block">
     <h2 class="text-xl font-bold mb-4 text-white">Listado de Usuarios</h2>
 
     <table class="min-w-full bg-gray-800 rounded-xl shadow text-white table-fixed">
@@ -42,8 +41,7 @@
 
 </div>
 
-<!-- 🟩 Cards (visible solo en xs - antes de sm) -->
-<div class="dark-table p-4 rounded w-screen block sm:hidden">
+<div *ngIf="!loading" class="dark-table p-4 rounded w-screen block sm:hidden">
     <h2 class="text-xl font-bold mb-4 text-white">Listado de Usuarios</h2>
 
     <div *ngFor="let user of users" class="bg-gray-800 text-white border border-gray-600 rounded p-4 mb-4 shadow">
@@ -57,7 +55,7 @@
                 {{ user.show ? 'Activo' : 'Inactivo' }}
             </span>
         </p>
-        <!-- Botón con ícono de ojo -->
+
         <button (click)="onToggle(user)" class="text-white p-2 rounded-full transition cursor-pointer">
             <span class="material-icons">
                 {{ user.show ? 'visibility' : 'visibility_off' }}
@@ -66,3 +64,5 @@
 
     </div>
 </div>
+
+<app-spinner *ngIf="loading"></app-spinner>
