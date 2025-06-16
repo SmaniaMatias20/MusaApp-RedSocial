@@ -1,0 +1,4 @@
+<div class="fixed bottom-4 right-4 bg-green-600 text-white px-4 py-2 rounded shadow-lg transition-opacity duration-300"
+    [ngClass]="{ 'opacity-0': !show, 'opacity-100': show }" [style.pointerEvents]="show ? 'auto' : 'none'">
+    {{ message }}
+</div>

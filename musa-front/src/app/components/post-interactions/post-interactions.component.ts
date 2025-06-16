@@ -47,10 +47,6 @@ export class PostInteractionsComponent {
     });
   }
 
-  close() {
-    this.onClose.emit();
-  }
-
   startEdit(comment: any) {
     this.editingCommentId = comment._id;
     this.editedText = comment.content;
@@ -66,7 +62,11 @@ export class PostInteractionsComponent {
     if (trimmed.length > 0) {
       this.commentEdited.emit({ id: commentId, newContent: trimmed });
       this.cancelEdit();
-      this.onClose.emit();
+      this.close();
     }
+  }
+
+  close() {
+    this.onClose.emit();
   }
 }

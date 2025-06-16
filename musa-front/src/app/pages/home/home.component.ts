@@ -24,9 +24,17 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(private postService: PostService) { }
 
-  onCommentEdited(comment: any) {
-    this.postService.editComment(this.selectedPost._id, comment.newContent, comment.id).subscribe();
-    this.loadPosts();
+  async onCommentEdited(comment: any) {
+    try {
+      await firstValueFrom(
+        this.postService.editComment(this.selectedPost._id, comment.newContent, comment.id)
+      );
+      await this.loadPosts();
+      // opcional: this.toastService.show('Comentario editado correctamente');
+    } catch (error) {
+      console.error('Error al editar comentario:', error);
+      // opcional: this.toastService.show('Error al editar comentario');
+    }
   }
 
   openPostInteractions(post: any): void {
@@ -35,7 +43,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   closePostInteractions(): void {
     this.selectedPost = null;
-    this.loadPosts();
+    // this.loadPosts();
   }
 
   ngOnInit(): void {
