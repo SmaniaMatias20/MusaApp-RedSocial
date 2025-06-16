@@ -27,6 +27,7 @@ export class PostInteractionsComponent {
     lastName: string;
     profileImage: string;
     date: string;
+    formattedDate: string;
     edited: boolean;
     show: boolean;
     idUser: string;
@@ -43,8 +44,9 @@ export class PostInteractionsComponent {
 
   ngOnInit(): void {
     this.comments.forEach(comment => {
-      comment.date = formatTimeAgo(comment.date);
+      comment['formattedDate'] = formatTimeAgo(comment.date); // sin tocar comment.date
     });
+
   }
 
   startEdit(comment: any) {
