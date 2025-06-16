@@ -40,8 +40,9 @@ export class DashboardUsersComponent {
     this.isCreateUserModalOpen = true;
   }
 
-  closeCreateUserModal() {
+  async closeCreateUserModal() {
     this.isCreateUserModalOpen = false;
+    await this.loadUsers();
   }
 
 

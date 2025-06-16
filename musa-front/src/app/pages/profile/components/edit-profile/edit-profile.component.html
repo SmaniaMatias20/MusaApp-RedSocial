@@ -39,7 +39,7 @@
 
         <!-- Email -->
         <div>
-            <input formControlName="email" type="email" placeholder="Email"
+            <input formControlName="email" type="email" placeholder="Email" autocomplete="off"
                 class="w-full bg-gray-900 border border-gray-700 p-2 rounded text-white placeholder-gray-400" />
             <div class="text-red-400 text-sm mt-1"
                 *ngIf="form.get('email')?.invalid && (form.get('email')?.touched || form.get('email')?.dirty)">
@@ -61,6 +61,7 @@
         <!-- Contraseña -->
         <div class="relative">
             <input formControlName="password" [type]="isPasswordVisible ? 'text' : 'password'" placeholder="Contraseña"
+                autocomplete="off"
                 class="w-full bg-gray-900 border border-gray-700 p-2 rounded text-white placeholder-gray-400" />
             <div class="text-red-400 text-sm mt-1"
                 *ngIf="form.get('password')?.invalid && (form.get('password')?.touched || form.get('password')?.dirty)">
@@ -97,6 +98,8 @@
             </div>
         </div>
     </div>
+
+    <app-spinner class="mt-2" *ngIf="loading"></app-spinner>
 
     <p class="text-red-400 text-sm text-center mt-2" *ngIf="errorMessage">{{ errorMessage }}</p>
     <p class="text-green-400 text-sm text-center mt-2" *ngIf="successMessage">{{ successMessage }}</p>

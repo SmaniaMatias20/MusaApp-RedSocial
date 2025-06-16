@@ -5,16 +5,18 @@ import { UserService } from '../../../../services/user/user.service';
 import { AuthService } from '../../../../services/auth/auth.service';
 import { lastValueFrom } from 'rxjs';
 import { User } from '../../../../models/user.model';
+import { SpinnerComponent } from '../../../../components/spinner/spinner.component';
 
 @Component({
   selector: 'app-edit-profile',
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, NgIf],
+  imports: [ReactiveFormsModule, FormsModule, NgIf, SpinnerComponent],
   templateUrl: './edit-profile.component.html',
   styleUrls: ['./edit-profile.component.css']
 })
 export class EditProfileComponent implements OnInit {
   @Output() updatedUser = new EventEmitter<void>();
+  loading: boolean = false;
   form: FormGroup;
   user: User = {} as User;
   imagePreview: string | null = null;
@@ -108,7 +110,9 @@ export class EditProfileComponent implements OnInit {
     }
 
     try {
+      this.loading = true;
       await lastValueFrom(this.userService.updateUser(this.idUser, formData));
+      this.loading = false;
       this.successMessage = 'Perfil actualizado correctamente';
       this.authService.updateUserSession(formData);
       setTimeout(() => this.updatedUser.emit(), 2000);

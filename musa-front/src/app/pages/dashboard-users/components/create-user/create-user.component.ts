@@ -5,16 +5,18 @@ import { UserService } from '../../../../services/user/user.service';
 import { lastValueFrom } from 'rxjs';
 import { EventEmitter, Output } from '@angular/core';
 import { NgIf } from '@angular/common';
+import { SpinnerComponent } from '../../../../components/spinner/spinner.component';
 
 @Component({
   selector: 'app-create-user',
   templateUrl: './create-user.component.html',
   styleUrls: ['./create-user.component.css'],
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, NgIf]
+  imports: [ReactiveFormsModule, FormsModule, NgIf, SpinnerComponent]
 })
 export class CreateUserComponent implements OnInit {
   @Output() userCreated = new EventEmitter<void>();
+  loading: boolean = false;
   isPasswordVisible: boolean = false;
   registerForm!: FormGroup;
   defaultImage = 'https://res.cloudinary.com/dqqaf002m/image/upload/v1749215793/user_dykckk.jpg';
@@ -52,14 +54,13 @@ export class CreateUserComponent implements OnInit {
       this.registerForm.markAllAsTouched();
       return;
     }
-
     const values = this.registerForm.value;
-
-    // Removemos el campo que no se debe enviar
     const { confirmPassword, ...userData } = values;
 
     try {
+      this.loading = true;
       await lastValueFrom(this.userService.createUser(userData));
+      this.loading = false;
       this.successMessage = 'Usuario creado correctamente.';
       this.registerForm.reset();
       this.errorMessage = '';

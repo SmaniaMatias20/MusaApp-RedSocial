@@ -35,7 +35,6 @@ export class PostCreatorComponent {
 
     const file = input.files[0];
     if (!file.type.startsWith('image/')) {
-      alert('Por favor selecciona un archivo de imagen válido.');
       return;
     }
 
@@ -85,7 +84,4 @@ export class PostCreatorComponent {
     this.imagePreview = null;
     this.imageFile = null;
   }
-
-
-
 }

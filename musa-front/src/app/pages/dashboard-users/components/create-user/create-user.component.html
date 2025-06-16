@@ -133,6 +133,8 @@
             </div>
         </div>
 
+        <app-spinner *ngIf="loading"></app-spinner>
+
         <!-- Mensajes -->
         <div class="text-center mt-4">
             <p class="text-green-400 text-sm" *ngIf="successMessage">{{ successMessage }}</p>
