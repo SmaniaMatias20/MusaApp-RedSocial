@@ -46,7 +46,6 @@ export class PostInteractionsComponent {
     this.comments.forEach(comment => {
       comment['formattedDate'] = formatTimeAgo(comment.date); // sin tocar comment.date
     });
-
   }
 
   startEdit(comment: any) {
