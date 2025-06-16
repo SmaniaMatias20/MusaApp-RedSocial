@@ -9,7 +9,7 @@ export class Post extends Document {
     @Prop() lastName: string;
     @Prop() profileImage: string;
     @Prop({ required: true }) username: string;
-    @Prop({ required: true }) content: string;
+    @Prop() content: string;
     @Prop() image?: string;
 
     @Prop({

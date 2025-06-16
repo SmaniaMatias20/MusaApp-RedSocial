@@ -33,10 +33,10 @@ export class PostsController {
     ) {
         try {
             let image: string | undefined;
-
+            console.log('createPostDto', createPostDto);
             // Validación simple de campos obligatorios
-            if (!createPostDto.username || !createPostDto.content) {
-                throw new BadRequestException('El nombre de usuario y el contenido son obligatorios');
+            if (!createPostDto.idUser) {
+                throw new BadRequestException('El id del usuario es obligatorio');
             }
 
             // Subida a Cloudinary (si hay archivo)

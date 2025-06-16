@@ -22,8 +22,8 @@ export class PostsService {
         image?: string;
     }) {
         try {
-            if (!data.username || !data.content) {
-                throw new BadRequestException('El nombre de usuario y el contenido son obligatorios');
+            if (!data.idUser) {
+                throw new BadRequestException('El id del usuario es obligatorio');
             }
 
             const newPost = new this.postModel({

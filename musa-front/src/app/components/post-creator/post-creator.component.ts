@@ -48,9 +48,9 @@ export class PostCreatorComponent {
   }
 
   async post(): Promise<void> {
-    if (!this.tweetText.trim()) {
-      return;
-    }
+    // if (!this.tweetText.trim()) {
+    //   return;
+    // }
 
     const formData = new FormData();
     formData.append('content', this.tweetText);
@@ -69,7 +69,6 @@ export class PostCreatorComponent {
       this.tweetText = '';
       this.imageFile = null;
       this.imagePreview = null;
-
       this.postCreated.emit();
     } catch (error) {
       console.error('Error creando post:', error);
