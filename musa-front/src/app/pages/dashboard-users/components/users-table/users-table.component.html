@@ -1,4 +1,4 @@
-<div *ngIf="!loading" class="dark-table p-4 rounded w-full hidden sm:block">
+<div class="dark-table p-4 rounded w-full hidden sm:block">
     <h2 class="text-xl font-bold mb-4 text-white">Listado de Usuarios</h2>
 
     <table class="min-w-full bg-gray-800 rounded-xl shadow text-white table-fixed">
@@ -41,7 +41,7 @@
 
 </div>
 
-<div *ngIf="!loading" class="dark-table p-4 rounded w-screen block sm:hidden">
+<div class="dark-table p-4 rounded w-screen block sm:hidden">
     <h2 class="text-xl font-bold mb-4 text-white">Listado de Usuarios</h2>
 
     <div *ngFor="let user of users" class="bg-gray-800 text-white border border-gray-600 rounded p-4 mb-4 shadow">
@@ -64,5 +64,3 @@
 
     </div>
 </div>
-
-<app-spinner *ngIf="loading"></app-spinner>

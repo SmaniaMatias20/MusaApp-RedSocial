@@ -5,10 +5,11 @@ import { UserService } from '../../services/user/user.service';
 import { User } from '../../models/user.model';
 import { RouterLink } from '@angular/router';
 import { NgIf } from '@angular/common';
+import { SpinnerComponent } from '../../components/spinner/spinner.component';
 
 @Component({
   selector: 'app-dashboard-users',
-  imports: [UsersTableComponent, RouterLink, NgIf, CreateUserComponent],
+  imports: [UsersTableComponent, RouterLink, NgIf, CreateUserComponent, SpinnerComponent],
   templateUrl: './dashboard-users.component.html',
   styleUrl: './dashboard-users.component.css'
 })
