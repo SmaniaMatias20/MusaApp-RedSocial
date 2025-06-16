@@ -1,5 +1,5 @@
 export class CreateCommentDto {
-    _id: string;
+    _id: any;
     idUser: string;
     username: string;
     firstName: string;

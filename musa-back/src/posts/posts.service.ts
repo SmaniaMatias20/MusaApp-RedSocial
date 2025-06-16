@@ -4,6 +4,7 @@ import { Post } from './schemas/post.schema';
 import { CreateLikeDto } from './dto/create-like.dto';
 import { CreateCommentDto } from './dto/create-comment.dto';
 import { Model } from 'mongoose';
+import { Types } from 'mongoose';
 
 @Injectable()
 export class PostsService {
@@ -127,7 +128,9 @@ export class PostsService {
         if (!post) {
             throw new NotFoundException('Post no encontrado');
         }
-        const comment = post.comments.find(comment => comment._id === commentId);
+        const comment = post.comments.find(comment =>
+            comment._id.equals(new Types.ObjectId(commentId))
+        );
         if (!comment) {
             throw new NotFoundException('Comment no encontrado');
         }

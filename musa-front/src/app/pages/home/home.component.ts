@@ -24,6 +24,11 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   constructor(private postService: PostService) { }
 
+  onCommentEdited(comment: any) {
+    this.postService.editComment(this.selectedPost._id, comment.newContent, comment.id).subscribe();
+    this.loadPosts();
+  }
+
   openPostInteractions(post: any): void {
     this.selectedPost = post;
   }
