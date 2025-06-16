@@ -3,6 +3,7 @@ import { NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-toast',
+  standalone: true,
   imports: [NgClass],
   templateUrl: './toast.component.html',
   styleUrls: ['./toast.component.css']

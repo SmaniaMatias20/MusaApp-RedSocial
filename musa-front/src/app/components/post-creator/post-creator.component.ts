@@ -1,18 +1,20 @@
-import { Component, EventEmitter, Output, Signal } from '@angular/core';
+import { Component, EventEmitter, Output, Signal, ViewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { NgIf, NgClass } from '@angular/common';
 import { PostService } from '../../services/post/post.service';
 import { AuthService } from '../../services/auth/auth.service';
 import { User } from '../../models/user.model';
+import { ToastComponent } from '../toast/toast.component';
 
 @Component({
   selector: 'app-post-creator',
-  imports: [FormsModule, NgIf, NgClass],
+  imports: [FormsModule, NgIf, NgClass, ToastComponent],
   standalone: true,
   templateUrl: './post-creator.component.html',
   styleUrls: ['./post-creator.component.css']
 })
 export class PostCreatorComponent {
+  @ViewChild(ToastComponent) toastComponent!: ToastComponent;
   @Output() postCreated = new EventEmitter<void>();
   tweetText: string = '';
   imageFile: File | null = null;
@@ -48,10 +50,6 @@ export class PostCreatorComponent {
   }
 
   async post(): Promise<void> {
-    // if (!this.tweetText.trim()) {
-    //   return;
-    // }
-
     const formData = new FormData();
     formData.append('content', this.tweetText);
     formData.append('username', this.username);
@@ -70,8 +68,10 @@ export class PostCreatorComponent {
       this.imageFile = null;
       this.imagePreview = null;
       this.postCreated.emit();
+      this.toastComponent.showToast('¡Publicación realizada con éxito!');
     } catch (error) {
       console.error('Error creando post:', error);
+      this.toastComponent.showToast('Error al crear la publicación', 3000);
     }
   }
 
