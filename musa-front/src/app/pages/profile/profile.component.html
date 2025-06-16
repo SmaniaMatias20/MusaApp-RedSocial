@@ -11,7 +11,7 @@
         </div>
 
         <app-post-interactions *ngIf="selectedPost" [likes]="selectedPost.likes" [comments]="selectedPost.comments"
-            (onClose)="closePostInteractions()">
+            (onClose)="closePostInteractions()" (commentEdited)="onCommentEdited($event)">
         </app-post-interactions>
 
 
@@ -20,5 +20,7 @@
         </div>
 
         <app-spinner *ngIf="loading"></app-spinner>
+
+        <app-toast class="fixed bottom-4 right-4 z-50"></app-toast>
     </main>
 </div>
