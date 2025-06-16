@@ -1,19 +1,21 @@
-import { Component, Input, Output, Signal, EventEmitter } from '@angular/core';
+import { Component, Input, Output, Signal, EventEmitter, ViewChild } from '@angular/core';
 import { NgIf, NgClass } from '@angular/common';
 import { PostService } from '../../services/post/post.service';
 import { AuthService } from '../../services/auth/auth.service';
 import { User } from '../../models/user.model';
 import { firstValueFrom } from 'rxjs';
 import { CommentCreatorComponent } from '../comment-creator/comment-creator.component';
+import { ToastComponent } from '../toast/toast.component';
 
 @Component({
   selector: 'app-post',
   standalone: true,
-  imports: [NgIf, NgClass, CommentCreatorComponent],
+  imports: [NgIf, NgClass, CommentCreatorComponent, ToastComponent],
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.css']
 })
 export class PostComponent {
+  @ViewChild(ToastComponent) toastComponent!: ToastComponent;
   @Output() postLiked = new EventEmitter<void>();
   @Output() postCommented = new EventEmitter<void>();
   @Output() interactionsRequested = new EventEmitter<void>();
@@ -63,7 +65,7 @@ export class PostComponent {
 
     const user = this.userSignal();
     if (!user) {
-      console.warn('No hay usuario logueado');
+      this.toastComponent.showToast('No hay usuario logueado', 3000);
       return;
     }
 
@@ -73,10 +75,11 @@ export class PostComponent {
       );
 
       this.post = updatedPost;
-      this.postCommented.emit();
-
+      this.toastComponent.showToast('Comentario creado correctamente');
+      setTimeout(() => this.postCommented.emit(), 2000);
     } catch (error) {
       console.error('Error al agregar comentario:', error);
+      this.toastComponent.showToast('Error al agregar comentario', 3000);
     }
   }
 
@@ -90,9 +93,11 @@ export class PostComponent {
   async togglePostVisibility(post: any): Promise<void> {
     try {
       const updatedPost = await firstValueFrom(this.postService.toggleShow(post));
-      this.showPost.emit();
+      this.toastComponent.showToast('Post cambiado a ' + (updatedPost.show ? 'visible' : 'oculto'));
+      setTimeout(() => this.showPost.emit(), 2000);
     } catch (error) {
       console.error('Error al cambiar la visibilidad del post:', error);
+      this.toastComponent.showToast('Error al cambiar la visibilidad del post', 3000);
     }
   }
 
