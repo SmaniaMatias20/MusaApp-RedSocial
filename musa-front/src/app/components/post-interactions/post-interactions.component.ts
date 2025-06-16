@@ -66,6 +66,7 @@ export class PostInteractionsComponent {
     if (trimmed.length > 0) {
       this.commentEdited.emit({ id: commentId, newContent: trimmed });
       this.cancelEdit();
+      this.onClose.emit();
     }
   }
 }

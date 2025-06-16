@@ -35,6 +35,7 @@ export class HomeComponent implements OnInit, OnDestroy {
 
   closePostInteractions(): void {
     this.selectedPost = null;
+    this.loadPosts();
   }
 
   ngOnInit(): void {
