@@ -44,7 +44,7 @@ export class PostInteractionsComponent {
 
   ngOnInit(): void {
     this.comments.forEach(comment => {
-      comment['formattedDate'] = formatTimeAgo(comment.date); // sin tocar comment.date
+      comment['formattedDate'] = formatTimeAgo(comment.date);
     });
   }
 

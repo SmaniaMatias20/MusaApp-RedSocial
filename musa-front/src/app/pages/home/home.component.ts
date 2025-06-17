@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild, viewChild } from '@angular/core';
 import { PostCreatorComponent } from '../../components/post-creator/post-creator.component';
 import { PostComponent } from '../../components/post/post.component';
 import { PostService } from '../../services/post/post.service';
@@ -7,14 +7,16 @@ import { PostInteractionsComponent } from '../../components/post-interactions/po
 import { SpinnerComponent } from '../../components/spinner/spinner.component';
 import { firstValueFrom } from 'rxjs';
 import { formatTimeAgo } from '../../utils/utils';
+import { ToastComponent } from '../../components/toast/toast.component';
 
 @Component({
   selector: 'app-home',
-  imports: [PostCreatorComponent, PostComponent, NgIf, NgFor, PostInteractionsComponent, SpinnerComponent],
+  imports: [PostCreatorComponent, PostComponent, NgIf, NgFor, PostInteractionsComponent, SpinnerComponent, ToastComponent],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
 export class HomeComponent implements OnInit, OnDestroy {
+  @ViewChild(ToastComponent) toastComponent!: ToastComponent;
   posts: any[] = [];
   loading = false;
   username = localStorage.getItem('username') || '';
@@ -30,8 +32,10 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.postService.editComment(this.selectedPost._id, comment.newContent, comment.id)
       );
       await this.loadPosts();
+      this.toastComponent.showToast('Comentario editado correctamente');
     } catch (error) {
       console.error('Error al editar comentario:', error);
+      this.toastComponent.showToast('Error al editar comentario', 3000);
     }
   }
 
