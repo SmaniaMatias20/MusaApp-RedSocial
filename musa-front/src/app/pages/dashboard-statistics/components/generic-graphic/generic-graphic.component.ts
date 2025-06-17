@@ -21,6 +21,7 @@ export type ChartOptions = {
   stroke: ApexStroke;
   dataLabels: ApexDataLabels;
   grid: ApexGrid;
+  tooltip: ApexTooltip;
 };
 
 

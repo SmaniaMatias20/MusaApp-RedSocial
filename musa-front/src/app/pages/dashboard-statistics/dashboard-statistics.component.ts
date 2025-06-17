@@ -12,7 +12,8 @@ import {
   ApexChart,
   ApexXAxis,
   ApexTitleSubtitle,
-  ChartType
+  ChartType,
+  ApexTooltip
 } from "ng-apexcharts";
 
 
@@ -24,6 +25,7 @@ export type ChartOptions = {
   stroke: ApexStroke;
   dataLabels: ApexDataLabels;
   grid: ApexGrid;
+  tooltip: ApexTooltip;
 };
 
 @Component({
@@ -63,7 +65,7 @@ export class DashboardStatisticsComponent {
         this.title = 'Publicaciones por usuario';
         break;
       case 2:
-        this.title = 'Cantidad de comentarios realizados';
+        this.title = 'Cantidad de comentarios';
         break;
       case 3:
         this.title = 'Comentarios por publicación';
@@ -131,7 +133,7 @@ export class DashboardStatisticsComponent {
             break;
 
           case 3:
-            labels = data.map((_, i) => `#${i + 1}`);
+            labels = data.map((item: any) => item.content || 'Sin contenido');
             break;
 
           default:
@@ -151,23 +153,21 @@ export class DashboardStatisticsComponent {
         series: [{ name: this.title, data: counts }],
         xaxis: {
           categories: labels,
-          title: { text: this.selectedTab === 3 ? 'Publicaciones' : 'Usuarios' }
+          title: {
+            text:
+              this.selectedTab === 1
+                ? 'Usuarios'
+                : this.selectedTab === 2
+                  ? 'Comentarios'
+                  : 'Publicaciones'
+          }
         },
         title: { text: this.title },
         stroke: { curve: 'smooth' },
         dataLabels: { enabled: true },
         fill: { colors: ['#f3f3f3', '#f3f3f3'] },
         grid: { row: { colors: ['#f3f3f3', 'transparent'], opacity: 0.2 } },
-        tooltip: {
-          y: {
-            formatter: (_val: number, opts: any) => {
-              if (this.selectedTab === 3) {
-                return tooltipLabels[opts.dataPointIndex] || 'Sin contenido';
-              }
-              return _val;
-            }
-          }
-        }
+
       };
 
     } catch (error) {
