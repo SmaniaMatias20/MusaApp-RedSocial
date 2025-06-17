@@ -110,8 +110,6 @@ export class DashboardStatisticsComponent {
         this.statisticsService.getStatistics(this.selectedTab, this.selected)
       );
 
-      console.log('Datos obtenidos:', data);
-
       if (!data) {
         this.setEmptyChart();
 

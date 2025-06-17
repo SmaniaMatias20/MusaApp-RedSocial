@@ -11,21 +11,14 @@ export class StatisticsService {
 
     async getStatistics(graphic: number, range: string): Promise<any> {
         const dateFilter = this.getDateFilter(range);
-
-        console.log(dateFilter);
-        console.log(graphic);
         switch (graphic) {
             case 1:
-                // 📊 Cantidad de publicaciones por usuario en rango
                 return this.postModel.aggregate([
                     { $match: { date: { $gte: dateFilter } } },
                     {
                         $group: {
                             _id: '$idUser',
                             username: { $first: '$username' },
-                            firstName: { $first: '$firstName' },
-                            lastName: { $first: '$lastName' },
-                            profileImage: { $first: '$profileImage' },
                             count: { $sum: 1 }
                         }
                     },
@@ -33,7 +26,6 @@ export class StatisticsService {
                 ]);
 
             case 2:
-                // 💬 Cantidad de comentarios realizados en rango
                 return this.postModel.aggregate([
                     { $unwind: '$comments' },
                     { $match: { 'comments.date': { $gte: dateFilter } } },
@@ -46,7 +38,6 @@ export class StatisticsService {
                 ]).then(res => res[0] || { totalComments: 0 });
 
             case 3:
-                // 💬 Cantidad de comentarios por publicación en rango
                 return this.postModel.aggregate([
                     { $unwind: '$comments' },
                     { $match: { 'comments.date': { $gte: dateFilter } } },
