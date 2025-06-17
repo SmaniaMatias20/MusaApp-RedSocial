@@ -1,13 +1,13 @@
-<div class="max-w-xl mx-auto bg-black p-6 rounded-xl shadow text-white border border-gray-700">
-    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="space-y-4">
+<div class="max-w-xl mx-auto bg-black p-4 rounded-xl shadow text-white border border-gray-700">
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" class="space-y-2 text-sm">
 
         <!-- Nombre -->
         <div>
-            <label class="block text-sm text-gray-300">Nombre *</label>
+            <label class="block text-gray-300">Nombre *</label>
             <input type="text" formControlName="firstName" placeholder="Nombre"
-                class="w-full p-2 bg-gray-800 border border-gray-600 rounded text-white" />
+                class="w-full p-1.5 bg-gray-800 border border-gray-600 rounded text-white" />
             <div *ngIf="registerForm.get('firstName')?.touched && registerForm.get('firstName')?.invalid"
-                class="text-red-400 text-sm">
+                class="text-red-400 text-xs">
                 <div *ngIf="registerForm.get('firstName')?.hasError('required')">El nombre es obligatorio.</div>
                 <div *ngIf="registerForm.get('firstName')?.hasError('minlength')">Debe tener al menos 3 caracteres.
                 </div>
@@ -17,11 +17,11 @@
 
         <!-- Apellido -->
         <div>
-            <label class="block text-sm text-gray-300">Apellido *</label>
+            <label class="block text-gray-300">Apellido *</label>
             <input type="text" formControlName="lastName" placeholder="Apellido"
-                class="w-full p-2 bg-gray-800 border border-gray-600 rounded text-white" />
+                class="w-full p-1.5 bg-gray-800 border border-gray-600 rounded text-white" />
             <div *ngIf="registerForm.get('lastName')?.touched && registerForm.get('lastName')?.invalid"
-                class="text-red-400 text-sm">
+                class="text-red-400 text-xs">
                 <div *ngIf="registerForm.get('lastName')?.hasError('required')">El apellido es obligatorio.</div>
                 <div *ngIf="registerForm.get('lastName')?.hasError('minlength')">Debe tener al menos 3 caracteres.</div>
                 <div *ngIf="registerForm.get('lastName')?.hasError('maxlength')">Debe tener máximo 15 caracteres.</div>
@@ -30,11 +30,11 @@
 
         <!-- Email -->
         <div>
-            <label class="block text-sm text-gray-300">Email *</label>
+            <label class="block text-gray-300">Email *</label>
             <input type="email" formControlName="email" placeholder="Correo@ejemplo.com"
-                class="w-full p-2 bg-gray-800 border border-gray-600 rounded text-white" />
+                class="w-full p-1.5 bg-gray-800 border border-gray-600 rounded text-white" />
             <div *ngIf="registerForm.get('email')?.touched && registerForm.get('email')?.invalid"
-                class="text-red-400 text-sm">
+                class="text-red-400 text-xs">
                 <div *ngIf="registerForm.get('email')?.hasError('required')">El correo es obligatorio.</div>
                 <div *ngIf="registerForm.get('email')?.hasError('email')">Correo inválido.</div>
             </div>
@@ -42,11 +42,11 @@
 
         <!-- Usuario -->
         <div>
-            <label class="block text-sm text-gray-300">Usuario *</label>
+            <label class="block text-gray-300">Usuario *</label>
             <input type="text" formControlName="username" placeholder="Usuario"
-                class="w-full p-2 bg-gray-800 border border-gray-600 rounded text-white" />
+                class="w-full p-1.5 bg-gray-800 border border-gray-600 rounded text-white" />
             <div *ngIf="registerForm.get('username')?.touched && registerForm.get('username')?.invalid"
-                class="text-red-400 text-sm">
+                class="text-red-400 text-xs">
                 <div *ngIf="registerForm.get('username')?.hasError('required')">El usuario es obligatorio.</div>
                 <div *ngIf="registerForm.get('username')?.hasError('minlength')">Debe tener al menos 3 caracteres.</div>
                 <div *ngIf="registerForm.get('username')?.hasError('maxlength')">Debe tener máximo 15 caracteres.</div>
@@ -55,11 +55,11 @@
 
         <!-- Contraseña -->
         <div class="relative">
-            <label class="block text-sm text-gray-300">Contraseña *</label>
+            <label class="block text-gray-300">Contraseña *</label>
             <input formControlName="password" placeholder="Contraseña" [type]="isPasswordVisible ? 'text' : 'password'"
-                class="w-full p-2 bg-gray-800 border border-gray-600 rounded text-white" />
+                class="w-full p-1.5 bg-gray-800 border border-gray-600 rounded text-white" />
             <div *ngIf="registerForm.get('password')?.touched && registerForm.get('password')?.invalid"
-                class="text-red-400 text-sm">
+                class="text-red-400 text-xs">
                 <div *ngIf="registerForm.get('password')?.hasError('required')">La contraseña es obligatoria.</div>
                 <div *ngIf="registerForm.get('password')?.hasError('minlength')">Debe tener al menos 8 caracteres.</div>
                 <div *ngIf="registerForm.get('password')?.hasError('maxlength')">Debe tener máximo 15 caracteres.</div>
@@ -67,68 +67,64 @@
                     Debe contener al menos una mayúscula y un número.
                 </div>
             </div>
-            <button type="button" class="absolute top-7 right-3 text-gray-400 hover:text-white cursor-pointer"
+            <button type="button" class="absolute top-6 right-3 text-gray-400 hover:text-white"
                 (click)="togglePasswordVisibility()">
-                <span class="material-icons">
-                    {{ isPasswordVisible ? 'visibility' : 'visibility_off' }}
-                </span>
+                <span class="material-icons">{{ isPasswordVisible ? 'visibility' : 'visibility_off' }}</span>
             </button>
         </div>
 
-        <!-- Confirmar Contraseña -->
+        <!-- Confirmar contraseña -->
         <div class="relative">
-            <label class="block text-sm text-gray-300">Confirmar contraseña *</label>
+            <label class="block text-gray-300">Confirmar contraseña *</label>
             <input formControlName="confirmPassword" placeholder="Confirmar contraseña"
                 [type]="isPasswordVisible ? 'text' : 'password'"
-                class="w-full p-2 bg-gray-800 border border-gray-600 rounded text-white" />
+                class="w-full p-1.5 bg-gray-800 border border-gray-600 rounded text-white" />
             <div *ngIf="registerForm.get('confirmPassword')?.touched && registerForm.hasError('passwordMismatch')"
-                class="text-red-400 text-sm">
+                class="text-red-400 text-xs">
                 Las contraseñas no coinciden.
             </div>
-            <button type="button" class="absolute top-7 right-3 text-gray-400 hover:text-white cursor-pointer"
+            <button type="button" class="absolute top-6 right-3 text-gray-400 hover:text-white"
                 (click)="togglePasswordVisibility()">
-                <span class="material-icons">
-                    {{ isPasswordVisible ? 'visibility' : 'visibility_off' }}
-                </span>
+                <span class="material-icons">{{ isPasswordVisible ? 'visibility' : 'visibility_off' }}</span>
             </button>
         </div>
 
         <!-- Fecha de nacimiento -->
         <div>
-            <label class="block text-sm text-gray-300">Fecha de nacimiento *</label>
+            <label class="block text-gray-300">Fecha de nacimiento *</label>
             <input type="date" formControlName="birthDate"
-                class="w-full p-2 bg-gray-800 border border-gray-600 rounded text-white" />
+                class="w-full p-1.5 bg-gray-800 border border-gray-600 rounded text-white" />
             <div *ngIf="registerForm.get('birthDate')?.touched && registerForm.get('birthDate')?.invalid"
-                class="text-red-400 text-sm">
+                class="text-red-400 text-xs">
                 <div *ngIf="registerForm.get('birthDate')?.hasError('required')">La fecha es obligatoria.</div>
                 <div *ngIf="registerForm.get('birthDate')?.hasError('underage')">Debe ser mayor de 18 años.</div>
             </div>
         </div>
 
-        <!-- isAdmin -->
+        <!-- ¿Es admin? -->
         <div>
-            <label class="block text-sm text-gray-300">¿Es administrador? *</label>
-            <select formControlName="isAdmin" class="w-full p-2 bg-gray-800 border border-gray-600 rounded text-white">
+            <label class="block text-gray-300">¿Es administrador? *</label>
+            <select formControlName="isAdmin"
+                class="w-full p-1.5 bg-gray-800 border border-gray-600 rounded text-white">
                 <option value="" disabled selected>Seleccionar...</option>
                 <option value="true">Sí</option>
                 <option value="false">No</option>
             </select>
             <div *ngIf="registerForm.get('isAdmin')?.touched && registerForm.get('isAdmin')?.invalid"
-                class="text-red-400 text-sm">
+                class="text-red-400 text-xs">
                 <div *ngIf="registerForm.get('isAdmin')?.hasError('required')">Este campo es obligatorio.</div>
                 <div *ngIf="registerForm.get('isAdmin')?.hasError('pattern')">Valor no válido.</div>
             </div>
         </div>
 
-
         <!-- Descripción -->
         <div>
-            <label class="block text-sm text-gray-300">Descripción</label>
-            <textarea formControlName="description" rows="3"
-                class="w-full p-2 bg-gray-800 border border-gray-600 rounded text-white resize-none"
+            <label class="block text-gray-300">Descripción</label>
+            <textarea formControlName="description" rows="2"
+                class="w-full p-1.5 bg-gray-800 border border-gray-600 rounded text-white resize-none"
                 placeholder="Sobre ti..."></textarea>
             <div *ngIf="registerForm.get('description')?.touched && registerForm.get('description')?.hasError('maxlength')"
-                class="text-red-400 text-sm">
+                class="text-red-400 text-xs">
                 Máximo 250 caracteres.
             </div>
         </div>
@@ -136,10 +132,10 @@
         <app-spinner *ngIf="loading"></app-spinner>
 
         <!-- Mensajes -->
-        <div class="text-center mt-4">
-            <p class="text-green-400 text-sm" *ngIf="successMessage">{{ successMessage }}</p>
-            <p class="text-red-400 text-sm" *ngIf="errorMessage">{{ errorMessage }}</p>
-            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded mt-2">
+        <div class="text-center mt-2">
+            <p class="text-green-400 text-xs" *ngIf="successMessage">{{ successMessage }}</p>
+            <p class="text-red-400 text-xs" *ngIf="errorMessage">{{ errorMessage }}</p>
+            <button type="submit" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1.5 rounded mt-1">
                 Crear Usuario
             </button>
         </div>

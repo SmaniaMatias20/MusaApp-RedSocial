@@ -33,8 +33,7 @@ export class PostsController {
     ) {
         try {
             let image: string | undefined;
-            console.log('createPostDto', createPostDto);
-            // Validación simple de campos obligatorios
+
             if (!createPostDto.idUser) {
                 throw new BadRequestException('El id del usuario es obligatorio');
             }
