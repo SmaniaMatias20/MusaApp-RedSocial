@@ -52,7 +52,8 @@ export class StatisticsService {
                     { $match: { 'comments.date': { $gte: dateFilter } } },
                     {
                         $group: {
-                            _id: '$_id', // ID del post
+                            _id: '$_id',
+                            content: { $first: '$content' },
                             count: { $sum: 1 }
                         }
                     },

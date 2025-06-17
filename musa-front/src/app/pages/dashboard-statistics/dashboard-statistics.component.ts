@@ -40,9 +40,9 @@ export type ChartOptions = {
   providers: [StatisticsService]
 })
 export class DashboardStatisticsComponent {
+  title = 'Publicaciones por usuario';
   selectedTab: number = 1;
   selected: string = 'day';
-  data2: any;
   chartOptions: any = null;
 
 
@@ -53,7 +53,25 @@ export class DashboardStatisticsComponent {
 
   changeTab(tab: number) {
     this.selectedTab = tab;
+    this.selectTitle(tab);
     this.getData();
+  }
+
+  selectTitle(tab: number) {
+    switch (tab) {
+      case 1:
+        this.title = 'Publicaciones por usuario';
+        break;
+      case 2:
+        this.title = 'Cantidad de comentarios realizados';
+        break;
+      case 3:
+        this.title = 'Comentarios por publicación';
+        break;
+      default:
+        this.title = 'Publicaciones por usuario';
+        break;
+    }
   }
 
   OnChangeRange(range: string) {
@@ -61,38 +79,101 @@ export class DashboardStatisticsComponent {
     this.getData();
   }
 
+  private setEmptyChart() {
+    this.chartOptions = this.buildChartOptions([], []);
+  }
+
+  private buildChartOptions(categories: string[], data: number[]) {
+    return {
+      chart: { type: 'bar' as ChartType },
+      series: [{ name: this.title, data }],
+      xaxis: {
+        categories,
+        title: { text: this.selectedTab === 3 ? 'Publicaciones' : 'Usuarios' }
+      },
+      title: { text: this.title },
+      stroke: { curve: 'smooth' },
+      dataLabels: { enabled: true },
+      fill: { colors: ['#f3f3f3', '#f3f3f3'] },
+      grid: { row: { colors: ['#f3f3f3', 'transparent'], opacity: 0.2 } }
+    };
+  }
+
   async getData(): Promise<void> {
+    let labels: string[] = [];
+    let counts: number[] = [];
+
     try {
       const data = await firstValueFrom(
         this.statisticsService.getStatistics(this.selectedTab, this.selected)
       );
-      this.data2 = data;
+
       console.log('Datos obtenidos:', data);
 
-      // Extraer los valores para el gráfico
-      const counts = data.map((item: any) => item.count);
-      const usernames = data.map((item: any) => item.username);
+      if (!data) {
+        this.setEmptyChart();
 
-      // Actualizar opciones del gráfico
+        return;
+      }
+
+      if (this.selectedTab === 2) {
+        const stats = Array.isArray(data) ? data[0] : data;
+
+        counts = [stats.totalComments || 0];
+        labels = ['Total Comentarios'];
+
+      } else if (Array.isArray(data) && data.length > 0) {
+        counts = data.map((item: any) => item.count);
+
+        switch (this.selectedTab) {
+          case 1:
+            labels = data.map((item: any) => item.username || item.firstName || 'Sin usuario');
+            break;
+
+          case 3:
+            labels = data.map((_, i) => `#${i + 1}`);
+            break;
+
+          default:
+            labels = data.map((item: any) => item.username || item.firstName || 'Sin usuario');
+            break;
+        }
+      } else {
+        this.chartOptions = null;
+        return;
+      }
+
+      const tooltipLabels = this.selectedTab === 3 ? data.map((item: any) => item.content) : [];
+
+
       this.chartOptions = {
         chart: { type: 'bar' as ChartType },
-        series: [{ name: 'Publicaciones por usuario', data: counts }],
-        xaxis: { categories: usernames },
-        title: { text: 'Publicaciones por usuario' },
+        series: [{ name: this.title, data: counts }],
+        xaxis: {
+          categories: labels,
+          title: { text: this.selectedTab === 3 ? 'Publicaciones' : 'Usuarios' }
+        },
+        title: { text: this.title },
         stroke: { curve: 'smooth' },
         dataLabels: { enabled: true },
-        grid: { row: { colors: ['#f3f3f3', 'transparent'], opacity: 0.5 } }
+        fill: { colors: ['#f3f3f3', '#f3f3f3'] },
+        grid: { row: { colors: ['#f3f3f3', 'transparent'], opacity: 0.2 } },
+        tooltip: {
+          y: {
+            formatter: (_val: number, opts: any) => {
+              if (this.selectedTab === 3) {
+                return tooltipLabels[opts.dataPointIndex] || 'Sin contenido';
+              }
+              return _val;
+            }
+          }
+        }
       };
-
-      console.log('Gráfico actualizado con:', this.chartOptions);
 
     } catch (error) {
       console.error('Error al obtener los datos:', error);
     }
   }
-
-
-
   constructor(private statisticsService: StatisticsService) { }
 
 
