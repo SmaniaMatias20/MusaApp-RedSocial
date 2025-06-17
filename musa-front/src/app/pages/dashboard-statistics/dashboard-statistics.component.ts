@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { NgIf, NgClass } from '@angular/common';
 import { GenericGraphicComponent } from './components/generic-graphic/generic-graphic.component';
-import { ViewChild } from '@angular/core';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { CommonModule } from '@angular/common';
+import { ChartFilterComponent } from './components/chart-filter/chart-filter.component';
+import { StatisticsService } from '../../services/statistics/statistics.service';
+import { firstValueFrom } from 'rxjs';
 
 import {
   ApexAxisChartSeries,
@@ -32,12 +33,15 @@ export type ChartOptions = {
     CommonModule,
     NgApexchartsModule,
     GenericGraphicComponent,
-    RouterLink
-
-  ]
+    RouterLink,
+    ChartFilterComponent,
+  ],
+  providers: [StatisticsService]
 })
 export class DashboardStatisticsComponent {
   selectedTab: number = 1;
+  selected: string = 'day';
+  data2: any;
   chartOptions = {
     chart: { type: 'line' },
     series: [{ name: 'Ventas', data: [10, 20, 30] }],
@@ -47,6 +51,33 @@ export class DashboardStatisticsComponent {
     dataLabels: { enabled: false },
     grid: { row: { colors: ['#f3f3f3', 'transparent'], opacity: 0.5 } }
   };
+
+
+  ngOnInit(): void {
+    //Hacer el fetch de la informacion teniendo en cuenta el grafico seleccionado y el rango
+  }
+
+
+  changeTab(tab: number) {
+    this.selectedTab = tab;
+    // Cargar la informacion nuevamente teniendo en cuenta el grafico seleccionado y el rango
+  }
+
+  async getData(): Promise<void> {
+    try {
+      const data = await firstValueFrom(
+        this.statisticsService.getStatistics(this.selectedTab, this.selected)
+      );
+      this.data2 = data;
+    } catch (error) {
+      console.error('Error al obtener los datos:', error);
+    }
+  }
+
+
+  constructor(private statisticsService: StatisticsService) { }
+
+
 }
 
 

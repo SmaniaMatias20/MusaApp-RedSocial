@@ -5,6 +5,7 @@ import { AuthModule } from './auth/auth.module';
 import { UsersModule } from './users/users.module';
 import { PostsModule } from './posts/posts.module';
 import { CloudinaryModule } from './cloudinary/cloudinary.module';
+import { StatisticsModule } from './statistics/statistics.module';
 
 
 @Module({
@@ -16,6 +17,7 @@ import { CloudinaryModule } from './cloudinary/cloudinary.module';
     AuthModule,
     UsersModule,
     PostsModule,
+    StatisticsModule,
     CloudinaryModule,
   ],
 })

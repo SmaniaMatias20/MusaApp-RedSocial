@@ -18,25 +18,26 @@
 
         <!-- Tabs -->
         <div class="flex space-x-4 mb-6 border-b border-gray-600">
-            <button (click)="selectedTab = 1"
+            <button (click)="changeTab(1)"
                 [ngClass]="selectedTab === 1 ? 'border-b-2 border-blue-400 text-blue-400' : 'text-gray-400'"
-                class="px-4 py-2 transition">
+                class="px-4 py-2 transition cursor-pointer">
                 Gráfico 1
             </button>
-            <button (click)="selectedTab = 2"
+            <button (click)="changeTab(2)"
                 [ngClass]="selectedTab === 2 ? 'border-b-2 border-blue-400 text-blue-400' : 'text-gray-400'"
-                class="px-4 py-2 transition">
+                class="px-4 py-2 transition cursor-pointer">
                 Gráfico 2
             </button>
-            <button (click)="selectedTab = 3"
+            <button (click)="changeTab(3)"
                 [ngClass]="selectedTab === 3 ? 'border-b-2 border-blue-400 text-blue-400' : 'text-gray-400'"
-                class="px-4 py-2 transition">
+                class="px-4 py-2 transition cursor-pointer">
                 Gráfico 3
             </button>
         </div>
 
         <!-- Gráficos -->
         <div class="w-full">
+            <app-chart-filter (rangeChange)="selected = $event"></app-chart-filter>
             <app-generic-graphic *ngIf="selectedTab === 1"></app-generic-graphic>
             <app-generic-graphic *ngIf="selectedTab === 2"></app-generic-graphic>
             <app-generic-graphic *ngIf="selectedTab === 3"></app-generic-graphic>
