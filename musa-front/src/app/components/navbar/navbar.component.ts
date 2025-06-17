@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, computed } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth/auth.service';
 import { NgIf } from '@angular/common';
@@ -12,11 +12,8 @@ import { NgIf } from '@angular/common';
 })
 export class NavbarComponent {
   menuOpen = false;
-  username = localStorage.getItem('username') || '';
-  firstName = localStorage.getItem('firstName') || '';
-  lastName = localStorage.getItem('lastName') || '';
   isAdmin = localStorage.getItem('isAdmin') === 'true';
-  profileImage = localStorage.getItem('profileImage') || '';
+  user = computed(() => this.authService.currentUser());
 
   constructor(private authService: AuthService) {
   }

@@ -88,14 +88,42 @@ export class AuthService {
     const user = this.getUserFromLocalStorage();
     if (!user) return;
 
+    const updateAndSave = (updatedUser: any) => {
+      this.saveUserToLocalStorage(updatedUser);
+      this.updateSession(updatedUser);
+    };
+
+    const promises: Promise<void>[] = [];
+
     for (const [key, value] of formData.entries()) {
-      if (value && typeof value === 'string' && value !== user[key as keyof User]) {
+      if (typeof value === 'string' && value !== user[key as keyof User]) {
         (user as any)[key] = value;
+      }
+
+      if (key === 'profileImage' && value instanceof File) {
+        const file = value;
+        const reader = new FileReader();
+
+        const promise = new Promise<void>((resolve) => {
+          reader.onload = () => {
+            if (typeof reader.result === 'string') {
+              user.profileImage = reader.result;
+            }
+            resolve();
+          };
+          reader.readAsDataURL(file);
+        });
+
+        promises.push(promise);
       }
     }
 
-    this.saveUserToLocalStorage(user);
-    this.updateSession(user);
+    if (promises.length) {
+      Promise.all(promises).then(() => updateAndSave(user));
+    } else {
+      updateAndSave(user);
+    }
   }
+
 
 }
