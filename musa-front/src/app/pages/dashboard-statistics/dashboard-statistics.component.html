@@ -37,10 +37,15 @@
 
         <!-- Gráficos -->
         <div class="w-full">
-            <app-chart-filter (rangeChange)="selected = $event"></app-chart-filter>
-            <app-generic-graphic *ngIf="selectedTab === 1"></app-generic-graphic>
-            <app-generic-graphic *ngIf="selectedTab === 2"></app-generic-graphic>
-            <app-generic-graphic *ngIf="selectedTab === 3"></app-generic-graphic>
+            <app-chart-filter (rangeChange)="OnChangeRange($event)"></app-chart-filter>
+            <app-generic-graphic *ngIf="selectedTab === 1" [chartOptions]="chartOptions">
+            </app-generic-graphic>
+
+            <app-generic-graphic *ngIf="selectedTab === 2" [chartOptions]="chartOptions">
+            </app-generic-graphic>
+
+            <app-generic-graphic *ngIf="selectedTab === 3" [chartOptions]="chartOptions">
+            </app-generic-graphic>
         </div>
 
     </div>

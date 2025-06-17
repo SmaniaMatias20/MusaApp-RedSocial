@@ -11,7 +11,8 @@ import {
   ApexAxisChartSeries,
   ApexChart,
   ApexXAxis,
-  ApexTitleSubtitle
+  ApexTitleSubtitle,
+  ChartType
 } from "ng-apexcharts";
 
 
@@ -42,25 +43,22 @@ export class DashboardStatisticsComponent {
   selectedTab: number = 1;
   selected: string = 'day';
   data2: any;
-  chartOptions = {
-    chart: { type: 'line' },
-    series: [{ name: 'Ventas', data: [10, 20, 30] }],
-    xaxis: { categories: ['Ene', 'Feb', 'Mar'] },
-    title: { text: 'Gráfico de prueba' },
-    stroke: { curve: 'smooth' },
-    dataLabels: { enabled: false },
-    grid: { row: { colors: ['#f3f3f3', 'transparent'], opacity: 0.5 } }
-  };
+  chartOptions: any = null;
 
 
   ngOnInit(): void {
-    //Hacer el fetch de la informacion teniendo en cuenta el grafico seleccionado y el rango
+    this.getData();
   }
 
 
   changeTab(tab: number) {
     this.selectedTab = tab;
-    // Cargar la informacion nuevamente teniendo en cuenta el grafico seleccionado y el rango
+    this.getData();
+  }
+
+  OnChangeRange(range: string) {
+    this.selected = range;
+    this.getData();
   }
 
   async getData(): Promise<void> {
@@ -69,10 +67,30 @@ export class DashboardStatisticsComponent {
         this.statisticsService.getStatistics(this.selectedTab, this.selected)
       );
       this.data2 = data;
+      console.log('Datos obtenidos:', data);
+
+      // Extraer los valores para el gráfico
+      const counts = data.map((item: any) => item.count);
+      const usernames = data.map((item: any) => item.username);
+
+      // Actualizar opciones del gráfico
+      this.chartOptions = {
+        chart: { type: 'bar' as ChartType },
+        series: [{ name: 'Publicaciones por usuario', data: counts }],
+        xaxis: { categories: usernames },
+        title: { text: 'Publicaciones por usuario' },
+        stroke: { curve: 'smooth' },
+        dataLabels: { enabled: true },
+        grid: { row: { colors: ['#f3f3f3', 'transparent'], opacity: 0.5 } }
+      };
+
+      console.log('Gráfico actualizado con:', this.chartOptions);
+
     } catch (error) {
       console.error('Error al obtener los datos:', error);
     }
   }
+
 
 
   constructor(private statisticsService: StatisticsService) { }

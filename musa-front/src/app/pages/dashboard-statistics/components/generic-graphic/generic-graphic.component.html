@@ -1,7 +1,8 @@
-<div class="flex items-center justify-center w-full h-full">
-    <apx-chart class="w-1/2" [series]="chartOptions.series" [chart]="chartOptions.chart" [xaxis]="chartOptions.xaxis"
-        [title]="chartOptions.title" [stroke]="chartOptions.stroke" [dataLabels]="chartOptions.dataLabels"
-        [grid]="chartOptions.grid">
-    </apx-chart>
-
+<div class="flex items-center justify-center w-full h-full" *ngIf="chartOptions">
+    <div class="w-full sm:w-4/5 md:w-3/4 lg:w-2/3 xl:w-1/2">
+        <apx-chart [series]="chartOptions.series" [chart]="chartOptions.chart" [xaxis]="chartOptions.xaxis"
+            [title]="chartOptions.title" [stroke]="chartOptions.stroke" [dataLabels]="chartOptions.dataLabels"
+            [grid]="chartOptions.grid">
+        </apx-chart>
+    </div>
 </div>

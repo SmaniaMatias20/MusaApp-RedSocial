@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import ApexCharts from 'apexcharts'
+import { NgIf } from '@angular/common';
+import { Input } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import {
@@ -32,43 +33,10 @@ export type ChartOptions = {
     FormsModule,
     ReactiveFormsModule,
     NgApexchartsModule,
+    NgIf
 
   ]
 })
 export class GenericGraphicComponent {
-
-  public chartOptions: ChartOptions;
-
-  constructor() {
-    this.chartOptions = {
-      series: [
-        {
-          name: 'Ventas',
-          data: [10, 20, 30, 40]
-        }
-      ],
-      chart: {
-        type: 'line'
-      },
-      xaxis: {
-        categories: ['Ene', 'Feb', 'Mar']
-      },
-      title: {
-        text: 'Gráfico de prueba'
-      },
-      stroke: {
-        curve: 'smooth'
-      },
-      dataLabels: {
-        enabled: false
-      },
-      grid: {
-        row: {
-          colors: ['#f3f3f3', 'transparent'],
-          opacity: 0.1
-        }
-      }
-    };
-  }
-
+  @Input() chartOptions!: ChartOptions;
 }

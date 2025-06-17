@@ -12,14 +12,20 @@ export class StatisticsService {
     async getStatistics(graphic: number, range: string): Promise<any> {
         const dateFilter = this.getDateFilter(range);
 
+        console.log(dateFilter);
+        console.log(graphic);
         switch (graphic) {
             case 1:
                 // 📊 Cantidad de publicaciones por usuario en rango
                 return this.postModel.aggregate([
-                    { $match: { createdAt: { $gte: dateFilter } } },
+                    { $match: { date: { $gte: dateFilter } } },
                     {
                         $group: {
-                            _id: '$author',
+                            _id: '$idUser',
+                            username: { $first: '$username' },
+                            firstName: { $first: '$firstName' },
+                            lastName: { $first: '$lastName' },
+                            profileImage: { $first: '$profileImage' },
                             count: { $sum: 1 }
                         }
                     },
