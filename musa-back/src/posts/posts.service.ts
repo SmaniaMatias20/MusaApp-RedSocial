@@ -53,7 +53,7 @@ export class PostsService {
             const posts = await this.postModel
                 .find(filter)
                 .sort({ date: -1 })
-                .limit(20)
+                .limit(10)
                 .exec();
             return posts;
         } catch (error) {
@@ -69,7 +69,6 @@ export class PostsService {
             const posts = await this.postModel
                 .find(filter)
                 .sort({ date: -1 })
-                .limit(20)
                 .exec();
 
             return posts;

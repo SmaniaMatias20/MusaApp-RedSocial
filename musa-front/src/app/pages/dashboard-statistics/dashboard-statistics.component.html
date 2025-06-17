@@ -36,8 +36,9 @@
         </div>
 
         <!-- Gráficos -->
-        <div class="w-full">
+        <div class="w-full p-6 mt-4">
             <app-chart-filter (rangeChange)="OnChangeRange($event)"></app-chart-filter>
+
             <app-generic-graphic *ngIf="selectedTab === 1" [chartOptions]="chartOptions">
             </app-generic-graphic>
 
