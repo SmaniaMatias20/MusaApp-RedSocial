@@ -20,7 +20,7 @@
             <button (click)="openCreateUserModal()"
                 class="flex items-center gap-2 text-white hover:text-blue-400 transition">
                 <span class="material-icons text-3xl">add</span>
-                <span class="ml-2 text-lg">Crear Usuario</span>
+                <span class="ml-2 text-lg cursor-pointer">Crear Usuario</span>
             </button>
         </div>
 
@@ -37,7 +37,8 @@
         <div class="bg-black p-6 rounded-xl w-full max-w-xl shadow-lg relative max-h-screen">
 
             <!-- Botón para cerrar -->
-            <button (click)="closeCreateUserModal()" class="absolute top-2 right-2 text-white hover:text-red-400">
+            <button (click)="closeCreateUserModal()"
+                class="absolute top-2 right-2 text-white hover:text-red-400 cursor-pointer">
                 <span class="material-icons">close</span>
             </button>
 
