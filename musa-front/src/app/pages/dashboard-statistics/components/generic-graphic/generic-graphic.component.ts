@@ -27,7 +27,7 @@ export type ChartOptions = {
 
 @Component({
   selector: 'app-generic-graphic',
-  standalone: true, // 👈 Esto es lo que falta
+  standalone: true,
   templateUrl: './generic-graphic.component.html',
   styleUrls: ['./generic-graphic.component.css'],
   imports: [
@@ -40,4 +40,8 @@ export type ChartOptions = {
 })
 export class GenericGraphicComponent {
   @Input() chartOptions!: ChartOptions;
+
+  ngOnInit(): void {
+    console.log(this.chartOptions);
+  }
 }

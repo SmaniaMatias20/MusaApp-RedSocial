@@ -6,6 +6,8 @@ import { CommonModule } from '@angular/common';
 import { ChartFilterComponent } from './components/chart-filter/chart-filter.component';
 import { StatisticsService } from '../../services/statistics/statistics.service';
 import { firstValueFrom } from 'rxjs';
+import { SpinnerComponent } from '../../components/spinner/spinner.component';
+import { NgIf } from '@angular/common';
 
 import {
   ApexAxisChartSeries,
@@ -38,6 +40,8 @@ export type ChartOptions = {
     GenericGraphicComponent,
     RouterLink,
     ChartFilterComponent,
+    SpinnerComponent,
+    NgIf
   ],
   providers: [StatisticsService]
 })
@@ -46,6 +50,7 @@ export class DashboardStatisticsComponent {
   selectedTab: number = 1;
   selected: string = 'day';
   chartOptions: any = null;
+  loading: boolean = false;
 
 
   ngOnInit(): void {
@@ -86,19 +91,7 @@ export class DashboardStatisticsComponent {
   }
 
   private buildChartOptions(categories: string[], data: number[]) {
-    return {
-      chart: { type: 'bar' as ChartType },
-      series: [{ name: this.title, data }],
-      xaxis: {
-        categories,
-        title: { text: this.selectedTab === 3 ? 'Publicaciones' : 'Usuarios' }
-      },
-      title: { text: this.title },
-      stroke: { curve: 'smooth' },
-      dataLabels: { enabled: true },
-      fill: { colors: ['#f3f3f3', '#f3f3f3'] },
-      grid: { row: { colors: ['#f3f3f3', 'transparent'], opacity: 0.2 } }
-    };
+    return null;
   }
 
   async getData(): Promise<void> {
@@ -106,13 +99,14 @@ export class DashboardStatisticsComponent {
     let counts: number[] = [];
 
     try {
+      this.loading = true;
       const data = await firstValueFrom(
         this.statisticsService.getStatistics(this.selectedTab, this.selected)
       );
+      this.loading = false;
 
-      if (!data) {
+      if (!data || data.length === 0) {
         this.setEmptyChart();
-
         return;
       }
 
@@ -138,35 +132,73 @@ export class DashboardStatisticsComponent {
             labels = data.map((item: any) => item.username || item.firstName || 'Sin usuario');
             break;
         }
-      } else {
-        this.chartOptions = null;
-        return;
       }
 
-      const tooltipLabels = this.selectedTab === 3 ? data.map((item: any) => item.content) : [];
-
-
       this.chartOptions = {
-        chart: { type: 'bar' as ChartType },
+        chart: {
+          type: 'bar' as ChartType,
+          background: 'transparent' // Asegura fondo transparente si lo necesitás
+        },
         series: [{ name: this.title, data: counts }],
         xaxis: {
           categories: labels,
+          labels: {
+            style: {
+              colors: '#fff',
+              fontSize: '12px'
+            }
+          },
           title: {
             text:
               this.selectedTab === 1
                 ? 'Usuarios'
                 : this.selectedTab === 2
                   ? 'Comentarios'
-                  : 'Publicaciones'
+                  : 'Publicaciones',
+            style: {
+              color: '#fff',
+              fontSize: '14px'
+            }
           }
         },
-        title: { text: this.title },
+        yaxis: {
+          labels: {
+            style: {
+              colors: '#fff',
+              fontSize: '12px'
+            }
+          },
+          title: {
+            style: {
+              color: '#fff',
+              fontSize: '14px'
+            }
+          }
+        },
+        title: {
+          text: this.title,
+          style: {
+            color: '#fff',
+            fontSize: '16px'
+          }
+        },
         stroke: { curve: 'smooth' },
-        dataLabels: { enabled: true },
+        dataLabels: {
+          enabled: true,
+          style: {
+            colors: ['#fff']
+          }
+        },
         fill: { colors: ['#f3f3f3', '#f3f3f3'] },
-        grid: { row: { colors: ['#f3f3f3', 'transparent'], opacity: 0.2 } },
-
+        grid: {
+          row: {
+            colors: ['#444', 'transparent'], // más oscuros para contraste
+            opacity: 0.2
+          },
+          borderColor: '#666'
+        }
       };
+
 
     } catch (error) {
       console.error('Error al obtener los datos:', error);

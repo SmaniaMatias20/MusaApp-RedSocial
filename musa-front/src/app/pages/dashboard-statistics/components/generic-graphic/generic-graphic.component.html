@@ -6,3 +6,11 @@
         </apx-chart>
     </div>
 </div>
+
+<div *ngIf="!chartOptions" class="flex flex-col items-center justify-center w-full h-full text-center p-6">
+    <span class="material-icons text-white text-6xl mb-4">
+        bar_chart
+    </span>
+    <h2 class="text-white text-xl font-semibold">No hay datos disponibles</h2>
+    <p class="text-gray-400 mt-2">Intenta ajustar los filtros o vuelve a intentarlo más tarde.</p>
+</div>

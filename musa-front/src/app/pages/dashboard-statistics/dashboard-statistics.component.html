@@ -21,17 +21,17 @@
             <button (click)="changeTab(1)"
                 [ngClass]="selectedTab === 1 ? 'border-b-2 border-blue-400 text-blue-400' : 'text-gray-400'"
                 class="px-4 py-2 transition cursor-pointer">
-                Gráfico 1
+                Publicaciones por usuario
             </button>
             <button (click)="changeTab(2)"
                 [ngClass]="selectedTab === 2 ? 'border-b-2 border-blue-400 text-blue-400' : 'text-gray-400'"
                 class="px-4 py-2 transition cursor-pointer">
-                Gráfico 2
+                Cantidad de comentarios
             </button>
             <button (click)="changeTab(3)"
                 [ngClass]="selectedTab === 3 ? 'border-b-2 border-blue-400 text-blue-400' : 'text-gray-400'"
                 class="px-4 py-2 transition cursor-pointer">
-                Gráfico 3
+                Comentarios por publicación
             </button>
         </div>
 
@@ -39,15 +39,18 @@
         <div class="w-full p-6 mt-4">
             <app-chart-filter (rangeChange)="OnChangeRange($event)"></app-chart-filter>
 
-            <app-generic-graphic *ngIf="selectedTab === 1" [chartOptions]="chartOptions">
+            <app-generic-graphic *ngIf="selectedTab === 1 && !loading" [chartOptions]="chartOptions">
             </app-generic-graphic>
 
-            <app-generic-graphic *ngIf="selectedTab === 2" [chartOptions]="chartOptions">
+            <app-generic-graphic *ngIf="selectedTab === 2 && !loading" [chartOptions]="chartOptions">
             </app-generic-graphic>
 
-            <app-generic-graphic *ngIf="selectedTab === 3" [chartOptions]="chartOptions">
+            <app-generic-graphic *ngIf="selectedTab === 3 && !loading" [chartOptions]="chartOptions">
             </app-generic-graphic>
+
         </div>
+
+        <app-spinner *ngIf="loading"></app-spinner>
 
     </div>
 </div>
