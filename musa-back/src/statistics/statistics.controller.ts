@@ -10,7 +10,6 @@ export class StatisticsController {
         @Param('graphic') graphic: number,
         @Param('range') range: string
     ) {
-        console.log(graphic, range);
         return await this.statisticsService.getStatistics(Number(graphic), range);
     }
 }

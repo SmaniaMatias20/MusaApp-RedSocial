@@ -41,7 +41,4 @@ export type ChartOptions = {
 export class GenericGraphicComponent {
   @Input() chartOptions!: ChartOptions;
 
-  ngOnInit(): void {
-    console.log(this.chartOptions);
-  }
 }

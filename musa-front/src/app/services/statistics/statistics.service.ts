@@ -13,7 +13,6 @@ export class StatisticsService {
   constructor(private http: HttpClient) { }
 
   getStatistics(graphic: number, range: string): Observable<any> {
-    console.log(graphic, range);
     return this.http.get<any>(`${this.apiUrl}/${graphic}/${range}`);
   }
 
