@@ -1,4 +1,3 @@
-// src/cloudinary/cloudinary.service.ts
 import { Injectable } from '@nestjs/common';
 import { v2 as cloudinary, ConfigOptions } from 'cloudinary';
 import { Readable } from 'stream';
@@ -28,7 +27,6 @@ export class CloudinaryService {
                 },
             );
 
-            // Convertir el buffer a un stream y pasarlo al upload_stream de Cloudinary
             const readable = new Readable();
             readable.push(file.buffer);
             readable.push(null);

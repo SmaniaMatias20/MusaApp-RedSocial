@@ -72,7 +72,6 @@ export class UsersService {
     }
 
     async update(id: string, user: any, file?: Express.Multer.File): Promise<User> {
-        // Validar email duplicado (excepto el actual)
         const existingEmail = await this.userModel.findOne({
             email: user.email,
             _id: { $ne: id }
@@ -80,8 +79,6 @@ export class UsersService {
         if (existingEmail) {
             throw new BadRequestException('El correo electrónico ya está en uso por otro usuario');
         }
-
-        // Validar username duplicado (excepto el actual)
         const existingUsername = await this.userModel.findOne({
             username: user.username,
             _id: { $ne: id }
@@ -90,13 +87,11 @@ export class UsersService {
             throw new BadRequestException('El nombre de usuario ya está en uso por otro usuario');
         }
 
-        // Si hay archivo, subirlo a Cloudinary y asignar URL a user.profileImage
         if (file) {
             const imageUploadResult = await this.cloudinaryService.uploadImageFromBuffer(file);
             user.profileImage = imageUploadResult.secure_url;
         }
 
-        // Si se está actualizando la contraseña, hashearla
         if (user.password) {
             const saltRounds = 10;
             user.password = await bcrypt.hash(user.password, saltRounds);

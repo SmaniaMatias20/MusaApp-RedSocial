@@ -137,7 +137,7 @@ export class DashboardStatisticsComponent {
       this.chartOptions = {
         chart: {
           type: 'bar' as ChartType,
-          background: 'transparent' // Asegura fondo transparente si lo necesitás
+          background: 'transparent'
         },
         series: [{ name: this.title, data: counts }],
         xaxis: {
@@ -192,7 +192,7 @@ export class DashboardStatisticsComponent {
         fill: { colors: ['#f3f3f3', '#f3f3f3'] },
         grid: {
           row: {
-            colors: ['#444', 'transparent'], // más oscuros para contraste
+            colors: ['#444', 'transparent'],
             opacity: 0.2
           },
           borderColor: '#666'

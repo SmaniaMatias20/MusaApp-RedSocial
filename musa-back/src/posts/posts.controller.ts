@@ -38,7 +38,6 @@ export class PostsController {
                 throw new BadRequestException('El id del usuario es obligatorio');
             }
 
-            // Subida a Cloudinary (si hay archivo)
             if (file) {
                 try {
                     const imageUploadResult = await this.cloudinaryService.uploadImageFromBuffer(file);
@@ -48,7 +47,7 @@ export class PostsController {
                     throw new InternalServerErrorException('Error al subir la imagen');
                 }
             }
-            // Crear post en la base de datos
+
             const newPost = await this.postsService.createPost({
                 ...createPostDto,
                 image,
