@@ -14,7 +14,7 @@ import { CloudinaryModule } from '../cloudinary/cloudinary.module';
     CloudinaryModule,
     JwtModule.register({
       secret: process.env.JWT_SECRET || "musa-jwt",
-      signOptions: { expiresIn: '5m' },
+      signOptions: { expiresIn: '30m' },
     }),
   ],
   controllers: [AuthController],
